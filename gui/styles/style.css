@@ -1,0 +1,64 @@
+.center-content {
+    text-align: center;
+    left: 0;
+    
+}
+
+#icon{
+    width: 201px;
+    height: 182px;
+
+}
+
+.web-container{
+    background-color: #F6DA47;
+}
+
+.content{
+    background-color: #EDEDED;
+    min-height: 50px;
+    border-radius: 30px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    justify-content: center;
+}
+
+h1 {
+    font-family: '';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 43px;
+    text-align: center;
+    color: #000000;
+}
+
+h2 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 38px;
+    text-align: center;
+
+    color: #747272;
+}
+
+input [type = number]{
+    border-radius: 20px;
+}
+
+.row [class = 'col-6']{
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+#myCanvas{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;    
+
+}
+
