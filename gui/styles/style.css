@@ -4,29 +4,77 @@
     
 }
 
+.web-container{
+    background-color: #F6DA47;
+}
+
+
+/*Icon Design */
 #icon{
     width: 201px;
     height: 182px;
 
 }
 
-.web-container{
-    background-color: #F6DA47;
+.play-icon{
+    width: 25px;
+    height: 25px;
+}
+.stop-icon{
+    width: 25px;
+    height: 25px;
 }
 
-.content{
-    background-color: #EDEDED;
-    min-height: 50px;
+.undo-icon{
+    width: 25px;
+    height: 25px;
+}
+
+.redo-icon{
+    width: 25px;
+    height: 25px;
+}
+
+/*-------------*/
+
+
+/* Canvas Section */
+#myCanvas{
+    height: 100%;
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 30px;
+    background-color: white;
     border-radius: 30px;
-    width: auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 30px;
-    justify-content: center;
+
 }
 
+.canvas-container {
+    background-color: #EEEE;
+    border-radius: 30px;
+    height: max-content;
+    padding-bottom: 30px;
+}
+
+.canvas-menu{
+    display:inline;
+}
+
+.canvas-menu ul{
+    padding-top: 1em;
+    padding-left: 1em;
+}
+
+.canvas-menu li {
+    display: inline;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+/* ------------------ */
+
+/* Webpage Text */
 h1 {
-    font-family: '';
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
@@ -44,21 +92,19 @@ h2 {
 
     color: #747272;
 }
+/*-----------------*/
 
-input [type = number]{
-    border-radius: 20px;
-}
 
-.row [class = 'col-6']{
-    padding-bottom: 20px;
-    padding-top: 20px;
-}
 
-#myCanvas{
-    height: 100%;
+.content{
+    background-color: #EDEDED;
     width: 100%;
-    background-color: white;
-    border-radius: 30px;    
-
+    height: 100%;
+    border-radius: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    justify-content: center;
 }
+
 

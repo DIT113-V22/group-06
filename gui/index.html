@@ -16,6 +16,7 @@
 
     <body class = "web-container">
         <div class="container">
+            
             <div class="row">
                 
                 <div class="col-4">
@@ -25,7 +26,20 @@
                             <img id="icon" src="./assets/icon.png">
                         </a>
                     </div>
+                
+                </div>
 
+                <div class = "col-8">
+                    <div class = "selection-menu">
+                         Selection Menu
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class = "row">
+                <div class = "col-4">
                     <div class = "center-content">
                        
                         <div class = "content">
@@ -40,20 +54,20 @@
                         
                             <div class = "row">  
 
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     
                                     <div>
                                         <label for="username">Move Forward:</label>
-                                        <input id="username" type="number" name="username">
+                                        
                                     </div>
 
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-md-6">
 
                                     <div>
                                         <label for="username">Move Backwards:</label>
-                                        <input id="username" type="number" name="username">
+                                        
                                     </div>
 
                                 </div>
@@ -62,22 +76,24 @@
 
                             <div class = "row">  
 
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     
                                     <div>
                                         <label for="username">Move Left:</label>
-                                        <input id="username" type="number" name="username">
+                                        
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-md-6">
 
                                     <div>
                                         <label for="username">Move Right:</label>
-                                        <input id="username" type="number" name="username">
+                                        
                                     </div>
 
                                 </div>
+
+                                
 
                             </div>
 
@@ -85,21 +101,36 @@
 
                     </div>
 
-                </div>
+                    
 
+
+                </div>
 
                 <div class="col-8">
 
-                    <canvas id="myCanvas" ></canvas>
+                    <div class = "row">
     
-                </div>
-                
-                
+                        <div class = "canvas-container">
+                            
+                            <div class = "canvas-menu">
+                                <ul>
+                                    <li><img src=assets/play.png class = "play-icon">PLAY</li>
+                                    <li><img src=assets/stop.png class = "stop-icon">STOP</li>
+                                    <li><img src=assets/undo.png class = "stop-icon">UNDO</li>
+                                    <li><img src=assets/redo.jpeg class = "redo-icon">REDO</li>
+                                  </ul>
 
+                            </div>
+                            
+                            <canvas id="myCanvas" ></canvas>
+                        </div>
+    
+                    </div>
+        
+                </div>
 
             </div>
         
-             
         </div>
 
         <!-- JavaScript Bundle with Popper -->
