@@ -21,7 +21,7 @@ void setup()
   // Setup port to receive input
   Serial.begin(9600);
   //Setup car to move 50% of its speed
-  car.setSpeed(fspeed);
+  car.setSpeed(0);
 
 
 }
@@ -32,7 +32,7 @@ void loop()
  handleInput();
 #ifdef __SMCE__
   // Avoid over-using the CPU if we are running in the emulator
-  delay(1000);
+  delay(1);
 #endif
 }
 
