@@ -1,13 +1,43 @@
+/*------------------------*/
+/* Classes for attributes */
+/*------------------------*/
+
 .center-content {
     text-align: center;
     left: 0;
     
 }
 
+.height100{
+    height: 100%;
+}
+
+/*------------------------*/
+/* Classes for components */
+/*------------------------*/
+
 .web-container{
     background-color: #F6DA47;
 }
 
+.menu{
+    align-self: flex-end; 
+    width: 100%; 
+    margin-bottom: 35px; 
+    background-color: #EEE; 
+    padding: 10px 10px 10px 10px; 
+    border-radius: 30px;
+}
+
+.selection-menu{
+    background-color: #EDEDED;
+    width: 100%;
+    border-radius: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    justify-content: center;
+}
 
 /*Icon Design */
 #icon{
@@ -16,12 +46,8 @@
 
 }
 
-/*-------------*/
-
-
 /* Canvas Section */
 #myCanvas{
-    height: 100%;
     width: 100%;
     padding-left: 50px;
     padding-right: 30px;
@@ -51,14 +77,13 @@
     padding-right: 1em;
     padding-left: 1em;
 }
-
 /* ------------------ */
 
 /* Webpage Text */
 h1 {
     font-style: normal;
     font-weight: 400;
-    font-size: 32px;
+    font-size: 25px;
     line-height: 43px;
     text-align: center;
     color: #000000;
@@ -67,26 +92,18 @@ h1 {
 h2 {
     font-style: normal;
     font-weight: 400;
-    font-size: 28px;
+    font-size: 18px;
     line-height: 38px;
     text-align: center;
-
     color: #747272;
 }
 /*-----------------*/
 
+/*------------------------*/
+/* Media Queries*/
+/*------------------------*/
 
 
-.content{
-    background-color: #EDEDED;
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 30px;
-    justify-content: center;
-}
 
 @keyframes bounce {
 	0%, 100%, 20%, 50%, 80% {
