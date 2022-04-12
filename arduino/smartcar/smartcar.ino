@@ -9,12 +9,17 @@ SimpleCar car(control);
 
 const int triggerPin           = 6; // D6
 const int echoPin              = 7; // D7
+
+const int triggerPin2          = 8
+const int echoPin2             = 9
+
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
 const int bspeed = -50;
 const int rdegrees = 75;
 const int ldegrees = -75;
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
+SR04 back{arduinoRuntime, triggerPin2, echoPin2, maxDistance};
 
 void setup()
 {
@@ -37,10 +42,12 @@ void loop()
 }
 
 void detectObstacle() {
- const auto distance = front.getDistance();
+  const auto frontDistance = front.getDistance();
+  const auto backDistance = back.getDistance();
+
   // When distance is `0` it means there's no obstacle detected
   //When car is within an obstacle range of 0-1.5 meters, it stops
-  if (distance > 0 && distance < 150) {
+  if ((frontDistance > 0 && frontDistance < 150) || (backDistance > 0 && backDistance < 150)) {
     car.setSpeed(0); //Speed is set to zero to stop the car
 
   }
