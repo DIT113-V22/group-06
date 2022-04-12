@@ -39,11 +39,43 @@
     justify-content: center;
 }
 
+.btn{
+    letter-spacing: 1.8px;
+    margin: -10px;
+}
+
+.col-8{
+    font-family: 'Varela Round', sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.8px;
+    color: #000000;
+}
+
+.selection-menu-title{
+    font-family: 'Varela Round', sans-serif;
+    font-size: 23px;
+    letter-spacing: -0.8px;
+    padding: 13px 0px 0px;
+}
+
+.selection-menu-type{
+    font-family: 'Varela Round', sans-serif;
+    font-size: 25px;
+    letter-spacing: -0.8px;
+    padding: 0px 0px 10px;
+}
+
+.selection-menu{
+    margin-left: -10px;
+}
+
+
 /*Icon Design */
 #icon{
-    width: 201px;
-    height: 182px;
-
+    width: 210px;
+    height: 130px;
+    margin-left: -20px;
+    margin: 12px 0px 15px -20px;
 }
 
 /* Canvas Section */
