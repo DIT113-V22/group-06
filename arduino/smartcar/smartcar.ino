@@ -10,8 +10,8 @@ SimpleCar car(control);
 const int triggerPin           = 6; // D6
 const int echoPin              = 7; // D7
 
-const int triggerPin2          = 8
-const int echoPin2             = 9
+const int triggerPin2          = 8; //D8
+const int echoPin2             = 9; //D9
 
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
