@@ -9,9 +9,8 @@ SimpleCar car(control);
 
 const int triggerPin           = 6; // D6
 const int echoPin              = 7; // D7
+const int BACK_PIN          = 3; //
 
-const int triggerPin2          = 8; //D8
-const int echoPin2             = 9; //D9
 
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
@@ -19,7 +18,7 @@ const int bspeed = -50;
 const int rdegrees = 75;
 const int ldegrees = -75;
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
-SR04 back{arduinoRuntime, triggerPin2, echoPin2, maxDistance};
+GP2Y0A21 back(arduinoRuntime, BACK_PIN);
 
 void setup()
 {
