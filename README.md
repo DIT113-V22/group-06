@@ -1,5 +1,5 @@
-# Group 6 - MONKEyCAR
-
+# Group 06 
+## MONKEyCAR
 ### What you are going to make?
 
 Our goal is to make a web-based application similar to Scratch that teaches children how to code. However, unlike Scratch, MONKEyCAR (the name of our application) will work with the real smart-car, which will perform the actions that the child “programmed” in our app, such as "Move 10 steps forward".  
