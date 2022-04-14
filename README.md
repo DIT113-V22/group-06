@@ -6,7 +6,7 @@ Our goal is to make a web-based application similar to Scratch that teaches chil
 
 ### Why will you make it?
 
-Ultimately, our hopes in making this program was to be able to teach, and inspire kids to code in a more fun and interactive way! 
+Ultimately, our hopes in making this program was to be able to teach, and inspire kids to code in a more fun and interactive way!
 
 ### What problem does it solve?
 
@@ -33,8 +33,8 @@ However, this is what we _finally_ envisioned MONKEyCAR to look like:
 
 
 ### What kind of technology are we going to use?
-We will be primarily using **HTML, CSS and Javascript** in order to develop our website, and then use **C++** for the translated car movements.
+We will be primarily using **HTML, CSS and JavaScript** in order to develop our website, and then use **C++** for the translated car movements.
 
 
 Please provide a link to your group's repository.
-https://github.com/DIT113-V22/group-06.git
+<https://github.com/DIT113-V22/group-06.git>
