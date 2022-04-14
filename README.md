@@ -28,7 +28,7 @@ We had a lot of different options on how to implement this idea, such as:
 \
 However, this is what we _finally_ envisioned MONKEyCAR to look like:  
 \
-![MonkeyCar Protototype](/MonkeyCar.png "MonkeyCar Protototype")
+![MonkeyCar Protototype](/gui/assets/MonkeyCar-prototype.png "MonkeyCar Protototype")
 
 
 
