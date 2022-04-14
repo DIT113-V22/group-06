@@ -1,4 +1,4 @@
-# Group 06 
+# Group 06
 ## MONKEyCAR
 ### What you are going to make?
 
