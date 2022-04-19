@@ -1,7 +1,7 @@
 function init() {
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
-
+    
     context.lineWidth = 2;
 }
 var pos;
@@ -21,7 +21,7 @@ function drop(ev) {
     ev.preventDefault();
     var offset = ev.dataTransfer.getData("text/plain").split(',');
     var data=ev.dataTransfer.getData("Text");
-
+    
     var img = canvas = document.getElementById("move-forward");
     var dx = pos[0] - img.offsetLeft;
     var dy = pos[1] - img.offsetTop;
