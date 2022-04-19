@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 let CANVAS=null;
 let CONTEXT=null;
 let SELECTION_MENU=null;
@@ -48,18 +49,20 @@ function onMouseUp(evt){
     //If it is connected to a start block it needs to be added to the array list
     //Make sure to check whether it is inside the canvas.
 
+=======
+function init() {
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+    
+    context.lineWidth = 2;
+>>>>>>> Stashed changes
+}
+var pos;
+function allowDrop(ev) {
+    ev.preventDefault();
 }
 
-//Function that checks whether we are pressing an example block
-function exampleBlockPressed(evt){
-    //TODO iterate over all example blocks and check whether the location of the mouse matches one of a block
-}
-
-//function that checks whether a block in the canvas is pressed
-function blockPressed(evt){
-    //TODO iterate over all blocks and see whether the current location matches the location of a block
-}
-
+<<<<<<< Updated upstream
 function initiateExampleBlocks(){
     //TODO add the values for all blocks, initialise them and update the example block array
 }
@@ -75,22 +78,23 @@ class EXAMPLE_BLOCK{
         this.height=height
     }
     //here we need a draw function to draw the box
+=======
+function get_pos(ev){
+    pos = [ev.pageX, ev.pageY];
 }
 
-//The blocks are the ones which are created when a mouse click is detected on the example blocks and
-//which can be dragged into the canvas.
-class BLOCK{
-    constructor(typeOfMovement, angle, xPosition, yPosition, width, height){
-        this.xPosition=xPosition;
-        this.yPosition=yPosition;
-        this.typeOfMovement=typeOfMovement;
-        this.angle=angle;
-        this.width=width;
-        this.height=height
-    }
-    //here we need a draw function to draw the box
+function drag(ev) {
+    ev.dataTransfer.setData("Text",ev.target.id);
+>>>>>>> Stashed changes
+}
 
-    //we also need a function to delete the box. Or is it deleted with the others?
-
-    //add a snap and isClose function
+function drop(ev) {
+    ev.preventDefault();
+    var offset = ev.dataTransfer.getData("text/plain").split(',');
+    var data=ev.dataTransfer.getData("Text");
+    
+    var img = canvas = document.getElementById("move-forward");
+    var dx = pos[0] - img.offsetLeft;
+    var dy = pos[1] - img.offsetTop;
+    document.getElementById("myCanvas").getContext("2d").drawImage(document.getElementById(data), ev.pageX - dx, ev.pageY - dy);
 }
