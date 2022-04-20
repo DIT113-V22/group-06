@@ -61,82 +61,45 @@
                                 MOVEMENT
                             </h2>
 
-                            <div id="code-blocks">
+                            <div id="code-blocks" onload="init();">
 
                                 <div class = "row">  
-
-                                    <div class="col-6">
-                                        
-                                        <div
-                                            id="move-forward"
-                                            draggable="true" 
+                                            <form id="move-forward" draggable="true" 
                                             onmousedown="get_pos(event)" 
-                                            ondragstart="drag(event)"   
-                                            onload="init();"
-                                        >
-                                            <form>  
-                                                <label>Move Forward: </label><br>  
-                                                <input type="number" name="number-input"><br>  
+                                            ondragstart="drag(event)"   >  
+                                                <label>Move: </label>  
+                                                <input type="number" name="number-input" placeholder="steps"> 
+                                                <label>steps forward</label> 
                                             </form>  
-                                        </div>
+                                    
 
-                                    </div>
-
-                                    <div class="col-6">
-
-                                        <div
-                                            id="move-backwards"
-                                            draggable="true" 
+                                            <form id="move-backwards" draggable="true" 
                                             onmousedown="get_pos(event)" 
-                                            ondragstart="drag(event)"   
-                                            onload="init();"
-                                        >
-                                            <form>  
-                                                <label>Move Backwards: </label><br>  
-                                                <input type="number" name="number-input"><br>  
+                                            ondragstart="drag(event)">  
+                                                <label>Move: </label>
+                                                <input type="number" name="number-input" placeholder="steps"> 
+                                                <label>steps backwards</label> 
                                             </form>  
-                                        </div>
-
-                                    </div>
 
                                 </div>
 
                                 <div class = "row">  
-
-                                    <div class="col-6">
-                                        
-                                        <div
-                                            id="move-backwards"
-                                            draggable="true" 
+                                            <form id="move-left" draggable="true" 
                                             onmousedown="get_pos(event)" 
-                                            ondragstart="drag(event)"   
-                                            onload="init();"
-                                        >
-                                            <form>  
-                                                <label>Move Left: </label><br>  
-                                                <input type="number" name="number-input"><br>  
+                                            ondragstart="drag(event)" >  
+                                                <label>Move: </label> 
+                                                <input type="number" name="number-input" placeholder="degrees">
+                                                <label>steps left</label>  
                                             </form>  
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-
-                                        <div
-                                            id="move-backwards"
-                                            draggable="true" 
+                                    
+                                            <form id="move-right" draggable="true" 
                                             onmousedown="get_pos(event)" 
-                                            ondragstart="drag(event)"
-                                            onload="init();"   
-                                        >
-                                            <form>  
-                                                <label>Move Right: </label><br>  
-                                                <input type="number" name="number-input"><br>  
-                                            </form>
-
-                                        </div>
-
-                                    </div>
-
+                                            ondragstart="drag(event)">  
+                                                <label>Move: </label>  
+                                                <input type="number" name="number-input" placeholder="degrees">
+                                                <label>steps right</label> 
+                                        </form>
+                                    
                                 </div>
 
                             </div>

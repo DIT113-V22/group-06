@@ -3,13 +3,12 @@
 /*------------------------*/
 
 .center-content {
-    text-align: center;
-    left: 0;
-    
+  text-align: center;
+  left: 0;
 }
 
 .height100{
-    height: 100%;
+  height: 100%;
 }
 
 /*------------------------*/
@@ -17,85 +16,106 @@
 /*------------------------*/
 
 .web-container{
-    background-color: #F6DA47;
+  background-color: #F6DA47;
 }
 
 .menu{
-    align-self: flex-end; 
-    width: 100%; 
-    margin-bottom: 35px; 
-    background-color: #EEE; 
-    padding: 10px 10px 10px 10px; 
-    border-radius: 30px;
+  align-self: flex-end; 
+  width: 100%; 
+  margin-bottom: 35px; 
+  background-color: #EEE; 
+  padding: 10px 10px 10px 10px; 
+  border-radius: 30px;
 }
 
 .selection-menu{
-    background-color: #EDEDED;
-    width: 100%;
-    border-radius: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 30px;
-    justify-content: center;
+  background-color: #EDEDED;
+  width: 100%;
+  border-radius: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 30px;
+  justify-content: center;
+}
+
+#move-forward{
+  background-color: #14BCF3;
+  width: 80%;
+}
+
+#move-backwards{
+  background-color: #FF9800;
+  width: 80%;
+}
+
+#move-left{
+  background-color: #F30FA2;
+  width: 80%;
+}
+
+#move-right{
+  background-color: #01B040;
+  width: 80%;
 }
 
 /*Icon Design */
 #icon{
-    width: 201px;
-    height: 182px;
-
+  width: 201px;
+  height: 182px;
 }
 
 /* Canvas Section */
 #myCanvas{
-    width: 100%;
-    padding-left: 50px;
-    padding-right: 30px;
-    background-color: white;
-    border-radius: 30px;
+  width: 100%;
+  padding-left: 50px;
+  padding-right: 30px;
+  background-color: white;
+  border-radius: 30px;
 
 }
 
 .canvas-container {
-    background-color: #EEEE;
-    border-radius: 30px;
-    height: max-content;
-    padding-bottom: 30px;
+  background-color: #EEEE;
+  border-radius: 30px;
+  height: max-content;
+  padding-bottom: 30px;
 }
 
 .canvas-menu{
-    display:inline;
+  display:inline;
 }
 
 .canvas-menu ul{
-    padding-top: 1em;
-    padding-left: 1em;
+  padding-top: 1em; 
+  padding-left: 1em;
 }
 
 .canvas-menu li {
-    display: inline;
-    padding-right: 1em;
-    padding-left: 1em;
+  display: inline;
+  padding-right: 1em; 
+  padding-left: 1em;
 }
 /* ------------------ */
 
 /* Webpage Text */
 h1 {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 43px;
-    text-align: center;
-    color: #000000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 43px;
+  text-align: center;
+  color: #000000;
+  padding-top: 10px;
 }
 
 h2 {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 38px;
-    text-align: center;
-    color: #747272;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 38px;
+  text-align: center;
+  color: #747272;
+  padding: 0px 0px 10px 0px;
 }
 /*-----------------*/
 
@@ -140,5 +160,25 @@ button:hover {
   animation-name: bounce;
   -moz-animation-name: bounce;
 }
+
+form {
+  border-radius: 10px;
+  margin: 0 auto 20px auto;
+  padding: 5px 0 10px 0;
+  background-color: #FFC15E;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input {
+  border-radius: 15px;
+  width: 5em;
+  text-align: center;
+}
+
+label {
+  font-size: 18px;
+}
+
+
 
 
