@@ -5,6 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="./styles/style.css" />
+        
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Patrick+Hand" />
+        
+
         <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 
         
@@ -60,46 +64,37 @@
                                 MOVEMENT
                             </h2>
 
-                        
-                            <div class = "row">  
+                            <div id="code-blocks" onload="init();">
 
-                                <div class="col-6">
+                                <div class = "row">  
+                                            <form id="move-forward" draggable="true">  
+                                                <label>Move: </label>  
+                                                <input type="number" name="number-input" placeholder="steps"> 
+                                                <label>steps forward</label> 
+                                            </form>  
                                     
-                                    <div>
-                                        <label for="username">Move Forward:</label>
-                                        
-                                    </div>
+
+                                            <form id="move-backwards" draggable="true">  
+                                                <label>Move: </label>
+                                                <input type="number" name="number-input" placeholder="steps"> 
+                                                <label>steps backwards</label> 
+                                            </form>  
 
                                 </div>
 
-                                <div class="col-6">
-
-                                    <div>
-                                        <label for="username">Move Backwards:</label>
-                                        
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class = "row">  
-
-                                <div class="col-6">
+                                <div class = "row">  
+                                            <form id="move-left" draggable="true">  
+                                                <label>Move: </label> 
+                                                <input type="number" name="number-input" placeholder="degrees">
+                                                <label>steps left</label>  
+                                            </form>  
                                     
-                                    <div>
-                                        <label for="username">Move Left:</label>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="col-6">
-
-                                    <div>
-                                        <label for="username">Move Right:</label>
-                                        
-                                    </div>
-
+                                            <form id="move-right" draggable="true">  
+                                                <label>Move: </label>  
+                                                <input type="number" name="number-input" placeholder="degrees">
+                                                <label>steps right</label> 
+                                        </form>
+                                    
                                 </div>
 
                             </div>
@@ -137,7 +132,10 @@
 
                             </div>
                             
+
+               
                             <canvas id="my-canvas" ></canvas>
+
 
                         </div>
     
@@ -152,6 +150,8 @@
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/8ce9060589.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/8ce9060589.js" crossorigin="anonymous"></script>
+        <script src="./javascript/script.js"></script>
     </body>
 
 </html>

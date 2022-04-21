@@ -43,6 +43,26 @@
   margin-left: -10px;
 }
 
+#move-forward {
+  background-color: #14bcf3;
+  width: 80%;
+}
+
+#move-backwards {
+  background-color: #ff9800;
+  width: 80%;
+}
+
+#move-left {
+  background-color: #f30fa2;
+  width: 80%;
+}
+
+#move-right {
+  background-color: #01b040;
+  width: 80%;
+}
+
 .btn {
   letter-spacing: 1.8px;
   margin: -10px;
@@ -166,4 +186,22 @@ button {
 button:hover {
   cursor: pointer;
   animation-name: bounce;
+}
+
+form {
+  border-radius: 10px;
+  margin: 0 auto 20px;
+  padding: 5px 0 10px;
+  background-color: #ffc15e;
+  font-family: "Segoe UI", sans-serif;
+}
+
+input {
+  border-radius: 15px;
+  width: 5em;
+  text-align: center;
+}
+
+label {
+  font-size: 18px;
 }
