@@ -150,7 +150,9 @@ h2 {
 /* ----------------- */
 
 /* ------------------------* /
+
 /* Media Queries */
+
 /* ------------------------ */
 
 @keyframes bounce {
@@ -188,7 +190,7 @@ form {
   margin: 0 auto 20px;
   padding: 5px 0 10px;
   background-color: #ffc15e;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'sans-serif';
 }
 
 input {
