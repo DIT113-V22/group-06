@@ -69,21 +69,21 @@
 }
 
 .col-8 {
-  font-family: "Varela Round", "sans-serif";
+  font-family: 'Varela Round', 'sans-serif';
   font-size: 20px;
   letter-spacing: -0.8px;
   color: #000;
 }
 
 .selection-menu-title {
-  font-family: "Varela Round", "sans-serif";
+  font-family: 'Varela Round', 'sans-serif';
   font-size: 23px;
   letter-spacing: -0.8px;
   padding: 13px 0 0;
 }
 
 .selection-menu-type {
-  font-family: "Varela Round", "sans-serif";
+  font-family: 'Varela Round', 'sans-serif';
   font-size: 25px;
   letter-spacing: -0.8px;
   padding: 0 0 10px;
@@ -193,7 +193,7 @@ form {
   margin: 0 auto 20px;
   padding: 5px 0 10px;
   background-color: #ffc15e;
-  font-family: "Segoe UI";
+  font-family: 'Segoe UI';
 }
 
 input {
