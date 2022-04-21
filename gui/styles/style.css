@@ -1,41 +1,51 @@
-/*------------------------*/
+/* ------------------------ */
+
 /* Classes for attributes */
-/*------------------------*/
+
+/* ------------------------ */
 
 .center-content {
   text-align: center;
   left: 0;
 }
 
-.height100{
+
+.height100 {
+
   height: 100%;
 }
 
-/*------------------------*/
-/* Classes for components */
-/*------------------------*/
+/* ------------------------ */
 
-.web-container{
-  background-color: #F6DA47;
+/* Classes for components */
+
+
+/* ------------------------ */
+
+.web-container {
+  background-color: #f6da47;
 }
 
-.menu{
-  align-self: flex-end; 
-  width: 100%; 
-  margin-bottom: 35px; 
-  background-color: #EEE; 
-  padding: 10px 10px 10px 10px; 
+.menu {
+  align-self: flex-end;
+  width: 100%;
+  margin-bottom: 35px;
+  background-color: #eee;
+  padding: 10px;
   border-radius: 30px;
 }
 
-.selection-menu{
-  background-color: #EDEDED;
+.selection-menu {
+  background-color: #ededed;
   width: 100%;
   border-radius: 30px;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 30px;
   justify-content: center;
+  margin-left: -10px;
+  
+
 }
 
 #move-forward{
@@ -58,43 +68,74 @@
   width: 80%;
 }
 
-/*Icon Design */
-#icon{
-  width: 201px;
-  height: 182px;
+.btn {
+  letter-spacing: 1.8px;
+  margin: -10px;
+}
+
+.col-8 {
+  font-family: "Varela Round", sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.8px;
+  color: #000;
+}
+
+.selection-menu-title {
+  font-family: "Varela Round", sans-serif;
+  font-size: 23px;
+  letter-spacing: -0.8px;
+  padding: 13px 0 0;
+}
+
+.selection-menu-type {
+  font-family: "Varela Round", sans-serif;
+  font-size: 25px;
+  letter-spacing: -0.8px;
+  padding: 0 0 10px;
+}
+
+/* Icon Design */
+
+#icon {
+  width: 210px;
+  height: 130px;
+  margin: 12px 0 15px -20px;
 }
 
 /* Canvas Section */
-#myCanvas{
+
+
+#my-canvas {
   width: 100%;
   padding-left: 50px;
   padding-right: 30px;
   background-color: white;
   border-radius: 30px;
-
 }
 
 .canvas-container {
-  background-color: #EEEE;
+  background-color: #eeee;
   border-radius: 30px;
   height: max-content;
   padding-bottom: 30px;
 }
 
-.canvas-menu{
-  display:inline;
+
+.canvas-menu {
+  display: inline;
 }
 
-.canvas-menu ul{
-  padding-top: 1em; 
+.canvas-menu ul {
+  padding-top: 1em;
   padding-left: 1em;
 }
 
 .canvas-menu li {
   display: inline;
-  padding-right: 1em; 
+  padding-right: 1em;
   padding-left: 1em;
 }
+
 /* ------------------ */
 
 /* Webpage Text */
@@ -104,8 +145,7 @@ h1 {
   font-size: 25px;
   line-height: 43px;
   text-align: center;
-  color: #000000;
-  padding-top: 10px;
+  color: #000;
 }
 
 h2 {
@@ -115,51 +155,46 @@ h2 {
   line-height: 38px;
   text-align: center;
   color: #747272;
-  padding: 0px 0px 10px 0px;
 }
-/*-----------------*/
 
-/*------------------------*/
-/* Media Queries*/
-/*------------------------*/
+/* ----------------- */
 
+/* ------------------------* /
 
+/* Media Queries */
+
+/* ------------------------ */
 
 @keyframes bounce {
-	0%, 100%, 20%, 50%, 80% {
-		-webkit-transform: translateY(0);
-		-ms-transform:     translateY(0);
-		transform:         translateY(0)
-	}
-	40% {
-		-webkit-transform: translateY(-15px);
-		-ms-transform:     translateY(-15px);
-		transform:         translateY(-15px)
-	}
-	60% {
-		-webkit-transform: translateY(-7px);
-		-ms-transform:     translateY(-7px);
-		transform:         translateY(-7px)
-	}
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-15px);
+  }
+
+  60% {
+    transform: translateY(-7px);
+  }
 }
 
-button {  
-  -webkit-animation-duration: 1s;
+button {
   animation-duration: 1.3s;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
 }
-
 
 button:hover {
   cursor: pointer;
   animation-name: bounce;
-  -moz-animation-name: bounce;
 }
+
 
 form {
   border-radius: 10px;
@@ -178,7 +213,4 @@ input {
 label {
   font-size: 18px;
 }
-
-
-
 
