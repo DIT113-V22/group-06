@@ -9,19 +9,13 @@
   left: 0;
 }
 
-
 .height100 {
-
   height: 100%;
 }
 
 /* ------------------------ */
-
 /* Classes for components */
-
-
 /* ------------------------ */
-
 .web-container {
   background-color: #f6da47;
 }
@@ -44,27 +38,25 @@
   padding-bottom: 30px;
   justify-content: center;
   margin-left: -10px;
-  
-
 }
 
-#move-forward{
-  background-color: #14BCF3;
+#move-forward {
+  background-color: #14bcf3;
   width: 80%;
 }
 
-#move-backwards{
-  background-color: #FF9800;
+#move-backwards {
+  background-color: #ff9800;
   width: 80%;
 }
 
-#move-left{
-  background-color: #F30FA2;
+#move-left {
+  background-color: #f30fa2;
   width: 80%;
 }
 
-#move-right{
-  background-color: #01B040;
+#move-right {
+  background-color: #01b040;
   width: 80%;
 }
 
@@ -104,7 +96,6 @@
 
 /* Canvas Section */
 
-
 #my-canvas {
   width: 100%;
   padding-left: 50px;
@@ -119,7 +110,6 @@
   height: max-content;
   padding-bottom: 30px;
 }
-
 
 .canvas-menu {
   display: inline;
@@ -160,9 +150,7 @@ h2 {
 /* ----------------- */
 
 /* ------------------------* /
-
 /* Media Queries */
-
 /* ------------------------ */
 
 @keyframes bounce {
@@ -195,13 +183,12 @@ button:hover {
   animation-name: bounce;
 }
 
-
 form {
   border-radius: 10px;
-  margin: 0 auto 20px auto;
-  padding: 5px 0 10px 0;
-  background-color: #FFC15E;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0 auto 20px;
+  padding: 5px 0 10px;
+  background-color: #ffc15e;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 input {
@@ -213,4 +200,3 @@ input {
 label {
   font-size: 18px;
 }
-
