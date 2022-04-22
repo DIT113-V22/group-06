@@ -40,11 +40,25 @@
                 </div>
 
                 <div class = "col-8" style = "display: flex;">
+                    <div class = "container-buttons">
+                        <div class = "canvas-menu">
+                            <ul>
+                                <li><button class="btn"><span style="color: green;">
+                                    <i class="fas fa-play fa-l"> Play</i>
+                                </span></button></li>
+                                <li><button class="btn"><span style="color: red;">
+                                    <i class="fas fa-stop fa-l"> Stop</i>
+                                </span></button></li>
+                                <li><button class="btn"><span style="color: black;">
+                                    <i class="fas fa-rotate-left fa-l"> Undo</i>
+                                </span></button></li>
+                                <li><button class="btn"><span style="color: black;">
+                                    <i class="fas fa-rotate-right fa-l"> Redo</i>
+                                </span></button></li>
+                            </ul>
 
-                    <div class = "menu center-content">
-                         MENU
+                        </div>
                     </div>
-
                 </div>
 
             </div>
@@ -67,14 +81,16 @@
                             <div id="code-blocks" onload="init();">
 
                                 <div class = "row">  
-                                            <form id="move-forward" draggable="true">  
+                                            <form id="move-forward" draggable="true"
+                                            ondragstart="drag(event)">  
                                                 <label>Move: </label>  
                                                 <input type="number" name="number-input" placeholder="steps"> 
                                                 <label>steps forward</label> 
                                             </form>  
                                     
 
-                                            <form id="move-backwards" draggable="true">  
+                                            <form id="move-backwards" draggable="true"
+                                            ondragstart="drag(event)">  
                                                 <label>Move: </label>
                                                 <input type="number" name="number-input" placeholder="steps"> 
                                                 <label>steps backwards</label> 
@@ -83,13 +99,15 @@
                                 </div>
 
                                 <div class = "row">  
-                                            <form id="move-left" draggable="true">  
+                                            <form id="move-left" draggable="true"
+                                            ondragstart="drag(event)">  
                                                 <label>Move: </label> 
                                                 <input type="number" name="number-input" placeholder="degrees">
                                                 <label>steps left</label>  
                                             </form>  
                                     
-                                            <form id="move-right" draggable="true">  
+                                            <form id="move-right" draggable="true"
+                                            ondragstart="drag(event)">  
                                                 <label>Move: </label>  
                                                 <input type="number" name="number-input" placeholder="degrees">
                                                 <label>steps right</label> 
@@ -109,35 +127,7 @@
 
                     <div class = "row">
     
-                        <div class = "canvas-container">
-                            
-                            <!--Poner al 100% en cuanto supere el size-->
-                            
-                            <div class = "canvas-menu">
-
-                                <ul>
-                                    <li><button class="btn"><span style="color: green;">
-                                        <i class="fas fa-play fa-l"> Play</i>
-                                      </span></button></li>
-                                      <li><button class="btn"><span style="color: red;">
-                                        <i class="fas fa-stop fa-l"> Stop</i>
-                                      </span></button></li>
-                                      <li><button class="btn"><span style="color: black;">
-                                        <i class="fas fa-rotate-left fa-l"> Undo</i>
-                                      </span></button></li>
-                                      <li><button class="btn"><span style="color: black;">
-                                        <i class="fas fa-rotate-right fa-l"> Redo</i>
-                                      </span></button></li>
-                                  </ul>
-
-                            </div>
-                            
-
-               
-                            <canvas id="my-canvas" ></canvas>
-
-
-                        </div>
+                        <div class = "canvas-container" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     
                     </div>
         

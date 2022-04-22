@@ -112,10 +112,20 @@
   border-radius: 30px;
   height: max-content;
   padding-bottom: 30px;
+  min-height: 400px;
 }
 
 .canvas-menu {
   display: inline;
+}
+
+.container-buttons {
+  width: 100%;
+  background-color: #eeee;
+  border-radius: 20px;
+  height: max-content;
+  padding-bottom: 10px;
+  margin-top: 45px;
 }
 
 .canvas-menu ul {
