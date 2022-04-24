@@ -108,6 +108,7 @@
 }
 
 .canvas-container {
+  padding-top: 10px;
   background-color: #eeee;
   border-radius: 30px;
   height: max-content;
