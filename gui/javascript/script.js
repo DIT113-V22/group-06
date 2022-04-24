@@ -11,13 +11,18 @@ function removeNode(node) {
 }
       
 function drop(ev) {
+    
+    
+    
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     var isLeft = 'move-forward' == data || "move-backwards" == data || "move-left" == data || "move-right" == data;
     var nodeCopy = document.getElementById(data).cloneNode(true);
-    //nodeCopy.id = "form" + ev.target.id;
+    //nodeCopy.id = data + ev.target.id;
+    nodeCopy.style.cssText += 'width: 100%'
+
+
     // clean target space if needed
-    
     if (isLeft) {
         
         if (ev.target.nodeName == 'FORM') {
@@ -25,7 +30,6 @@ function drop(ev) {
         removeNode(ev.target);
         }
         else 
-        
         ev.target.appendChild(nodeCopy);
     }
     else {
