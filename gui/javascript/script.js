@@ -1,6 +1,3 @@
-const canvas = document.getElementById("canvas-container")
-
-
 //with this function we allow elements to be dropped in a certain place.
 function allowDrop(ev) {
     ev.preventDefault();
@@ -24,6 +21,8 @@ function drop(ev) {
     //we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
     var isLeft = 'move-forward' == data || "move-backwards" == data || "move-left" == data || "move-right" == data;
     var nodeCopy = document.getElementById(data).cloneNode(true);
+    //we set the class to dragging so that we can distinguish it from the others
+    nodeCopy.classList.add("dragging");
 
     //we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
     if(ev.target.id == "canvas"){
@@ -34,14 +33,39 @@ function drop(ev) {
 
         }
         else {
-            //right now we can only add to the end of the document. We remove the element and add it again at the end
+            //We check which element would come after the position we are dropping the element, remove the element and append it on the right position
+            const elementAfter = getElementAfter(ev.clientY)
             removeNode(document.getElementById(data));
-            ev.target.appendChild(nodeCopy);
+            if(elementAfter == null){
+                ev.target.appendChild(nodeCopy);
+            } else {
+                ev.target.insertBefore(nodeCopy, elementAfter);
+            }
+            
             
         }
     }
+    //we remove the class dragging from the element because we dropped it.
+    nodeCopy.classList.remove("dragging");
     ev.stopPropagation();
     return false;
+ }
 
-    
+
+ //get the element before which the dragged element issupposed to be inserted.
+ function getElementAfter(y){
+    //get all blocks in the canvas that are not being dragged.
+    const remainingBlocks = [...document.getElementById('canvas').querySelectorAll('.block:not(.dragging)')]
+    console.log(remainingBlocks)
+    //check which element is closest after(-> offset below 0) the current position and return it
+    return elementAfter =  remainingBlocks.reduce((closest, child) => {
+        const box = child.getBoundingClientRect()
+        const offset = y - box.top - box.height/2
+        console.log(offset)
+        if(offset < 0 && offset > closest.offset) {
+            return {offset : offset, element : child}
+        } else {
+            return closest
+        }
+    }, {offset: Number.NEGATIVE_INFINITY}).element
  }
