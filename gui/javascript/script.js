@@ -26,15 +26,18 @@ function drop(ev) {
 
     //we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
     if(ev.target.id == "canvas"){
+        const elementAfter = getElementAfter(ev.clientY)
         if (isLeft) {
             //we need different id´s for the elements in the menu and the ones in the canvas
             nodeCopy.id = data + "-copy";
-            ev.target.appendChild(nodeCopy);
-
+            if(elementAfter == null){
+                ev.target.appendChild(nodeCopy);
+            } else {
+                ev.target.insertBefore(nodeCopy, elementAfter);
+            }
         }
         else {
             //We check which element would come after the position we are dropping the element, remove the element and append it on the right position
-            const elementAfter = getElementAfter(ev.clientY)
             removeNode(document.getElementById(data));
             if(elementAfter == null){
                 ev.target.appendChild(nodeCopy);
