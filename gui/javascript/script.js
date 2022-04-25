@@ -1,35 +1,35 @@
-//with this function we allow elements to be dropped in a certain place.
+// with this function we allow elements to be dropped in a certain place.
 function allowDrop (ev) {
   ev.preventDefault()
 }
 
-//this function allows us to drag elements from one place to another
+// this function allows us to drag elements from one place to another
 function drag (ev) {
   ev.dataTransfer.setData('text', ev.target.id)
 }
 
-//with this method we remove a node (one block)
+// with this method we remove a node (one block)
 function removeNode (node) {
   node.parentNode.removeChild(node)
 }
   
-//This function is to drop an element in the canvas
+// This function is to drop an element in the canvas
 function drop (ev) {
   ev.preventDefault()
-  //we get the data we set in the drag() method
-  var data = ev.dataTransfer.getData("text")
-  //we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
-  var isLeft = 'move-forward' == data || "move-backwards" == data || "move-left" == data || "move-right" == data
-  var nodeCopy = document.getElementById(data).cloneNode(true)
-  //we set the class to dragging so that we can distinguish it from the others
-  nodeCopy.classList.add("dragging")
+  // we get the data we set in the drag() method
+  const data = ev.dataTransfer.getData('text')
+  // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
+  const isLeft = ('move-forward' == data || 'move-backwards' == data || 'move-left' == data || 'move-right' == data)
+  const nodeCopy = document.getElementById(data).cloneNode(true)
+  // we set the class to dragging so that we can distinguish it from the others
+  nodeCopy.classList.add('dragging')
 
-  //we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
-  if(ev.target.id == "canvas"){
+  // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
+  if(ev.target.id == 'canvas'){
     const elementAfter = getElementAfter(ev.clientY)
     if (isLeft) {
-      //we need different id´s for the elements in the menu and the ones in the canvas
-      nodeCopy.id = data + "-copy"
+      // we need different id´s for the elements in the menu and the ones in the canvas
+      nodeCopy.id = data + '-copy'
       if(elementAfter == null){
         ev.target.appendChild(nodeCopy)
       } else {
@@ -37,7 +37,7 @@ function drop (ev) {
       }
     }
   else {
-    //We check which element would come after the position we are dropping the element, remove the element and append it on the right position
+    // We check which element would come after the position we are dropping the element, remove the element and append it on the right position
     removeNode(document.getElementById(data))
     if(elementAfter == null){
       ev.target.appendChild(nodeCopy)
@@ -46,19 +46,19 @@ function drop (ev) {
     }     
   }
 }
-//we remove the class dragging from the element because we dropped it.
-nodeCopy.classList.remove("dragging")
+// we remove the class dragging from the element because we dropped it.
+nodeCopy.classList.remove('dragging')
 ev.stopPropagation()
 return false
  }
 
 
-//get the element before which the dragged element issupposed to be inserted.
+// get the element before which the dragged element issupposed to be inserted.
 function getElementAfter(y){
-  //get all blocks in the canvas that are not being dragged.
+  // get all blocks in the canvas that are not being dragged.
   const remainingBlocks = [...document.getElementById('canvas').querySelectorAll('.block:not(.dragging)')]
   console.log(remainingBlocks)
-  //check which element is closest after(-> offset below 0) the current position and return it
+  // check which element is closest after(-> offset below 0) the current position and return it
   return elementAfter =  remainingBlocks.reduce((closest, child) => {
     const box = child.getBoundingClientRect()
     const offset = y - box.top - box.height/2
