@@ -18,13 +18,12 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     var isLeft = 'move-forward' == data || "move-backwards" == data || "move-left" == data || "move-right" == data;
     var nodeCopy = document.getElementById(data).cloneNode(true);
-    //nodeCopy.id = data + ev.target.id;
-    nodeCopy.style.cssText += 'width: 100%'
+    nodeCopy.style.cssText += 'width: 100%';
 
 
     // clean target space if needed
     if (isLeft) {
-        
+        nodeCopy.id = data + "-copy";
         if (ev.target.nodeName == 'FORM') {
         ev.target.parentNode.appendChild(nodeCopy);
         removeNode(ev.target);
