@@ -65,22 +65,22 @@
 
 #move-forward-copy {
   background-color: #14bcf3;
-  width: 80%;
+  width: 100%;
 }
 
 #move-backwards-copy {
   background-color: #ff9800;
-  width: 80%;
+  width: 100%;
 }
 
 #move-left-copy {
   background-color: #f30fa2;
-  width: 80%;
+  width: 100%;
 }
 
 #move-right-copy {
   background-color: #01b040;
-  width: 80%;
+  width: 100%;
 }
 
 .btn {
