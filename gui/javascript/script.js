@@ -16,6 +16,7 @@ function removeNode (node) {
 // This function is to drop an element in the canvas
 function drop (ev) {
   ev.preventDefault()
+  const canvas = document.getElementById('canvas');
   // we get the data we set in the drag() method
   const data = ev.dataTransfer.getData('text')
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
@@ -25,26 +26,25 @@ function drop (ev) {
   nodeCopy.classList.add('dragging')
 
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
-  if (ev.target.id === 'canvas') {
-    const elementAfter = getElementAfter(ev.clientY)
-    if (isLeft) {
-      // we need different id´s for the elements in the menu and the ones in the canvas
-      nodeCopy.id = data + '-copy'
-      if (elementAfter === null) {
-        ev.target.appendChild(nodeCopy)
-      } else {
-        ev.target.insertBefore(nodeCopy, elementAfter)
-      }
+  const elementAfter = getElementAfter(ev.clientY)
+  if (isLeft) {
+    // we need different id´s for the elements in the menu and the ones in the canvas
+    nodeCopy.id = data + '-copy'
+    if (elementAfter === null) {
+      canvas.appendChild(nodeCopy)
     } else {
-      // We check which element would come after the position we are dropping the element, remove the element and append it on the right position
-      removeNode(document.getElementById(data))
-      if (elementAfter === null) {
-        ev.target.appendChild(nodeCopy)
-      } else {
-        ev.target.insertBefore(nodeCopy, elementAfter)
-      }
+      canvas.insertBefore(nodeCopy, elementAfter)
+    }
+  } else {
+    // We check which element would come after the position we are dropping the element, remove the element and append it on the right position
+    removeNode(document.getElementById(data))
+    if (elementAfter === null) {
+      canvas.appendChild(nodeCopy)
+    } else {
+      canvas.insertBefore(nodeCopy, elementAfter)
     }
   }
+
   // we remove the class dragging from the element because we dropped it.
   nodeCopy.classList.remove('dragging')
   ev.stopPropagation()
@@ -60,7 +60,9 @@ function getElementAfter (y) {
   return remainingBlocks.reduce((closest, child) => {
     const box = child.getBoundingClientRect()
     const offset = y - box.top - box.height / 2
+    console.log(box)
     console.log(offset)
+    console.log(y)
     if (offset < 0 && offset > closest.offset) {
       return { offset: offset, element: child }
     } else {
