@@ -1,5 +1,6 @@
 # yamllint disable-line rule:no-unused-vars
 
+---
 #################################
 #################################
 ## Super Linter GitHub Actions ##
@@ -39,7 +40,9 @@ jobs:
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
-
+          extensions: 
+            'js'
+          annotations: false
       ################################
       # Run Linter against code base #
       ################################
