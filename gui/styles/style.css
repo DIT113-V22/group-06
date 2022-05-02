@@ -63,6 +63,26 @@
   width: 80%;
 }
 
+#move-forward-copy {
+  background-color: #14bcf3;
+  width: 100%;
+}
+
+#move-backwards-copy {
+  background-color: #ff9800;
+  width: 100%;
+}
+
+#move-left-copy {
+  background-color: #f30fa2;
+  width: 100%;
+}
+
+#move-right-copy {
+  background-color: #01b040;
+  width: 100%;
+}
+
 .btn {
   letter-spacing: 1.8px;
   margin: -10px;
@@ -108,14 +128,25 @@
 }
 
 .canvas-container {
+  padding-top: 10px;
   background-color: #eeee;
   border-radius: 30px;
   height: max-content;
   padding-bottom: 30px;
+  min-height: 400px;
 }
 
 .canvas-menu {
   display: inline;
+}
+
+.container-buttons {
+  width: 100%;
+  background-color: #eeee;
+  border-radius: 20px;
+  height: max-content;
+  padding-bottom: 10px;
+  margin-top: 45px;
 }
 
 .canvas-menu ul {
