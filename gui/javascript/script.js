@@ -1,10 +1,10 @@
 // with this function we allow elements to be dropped in a certain place.
-function allowDrop (ev) {
+window.allowDrop = function allowDrop (ev) {
   ev.preventDefault()
 }
 
 // this function allows us to drag elements from one place to another
-function drag (ev) {
+window.drag = function drag (ev) {
   ev.dataTransfer.setData('text', ev.target.id)
 }
 
@@ -14,13 +14,13 @@ function removeNode (node) {
 }
 
 // This function is to drop an element in the canvas
-function drop (ev) {
+window.drop = function drop (ev) {
   ev.preventDefault()
-  const canvas = document.getElementById('canvas');
+  const canvas = document.getElementById('canvas')
   // we get the data we set in the drag() method
   const data = ev.dataTransfer.getData('text')
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
-  const isLeft = ( data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right' )
+  const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right')
   const nodeCopy = document.getElementById(data).cloneNode(true)
   // we set the class to dragging so that we can distinguish it from the others
   nodeCopy.classList.add('dragging')
@@ -51,7 +51,7 @@ function drop (ev) {
   return false
 }
 
-// get the element before which the dragged element issupposed to be inserted.
+// get the element before which the dragged element is supposed to be inserted.
 function getElementAfter (y) {
   // get all blocks in the canvas that are not being dragged.
   const remainingBlocks = [...document.getElementById('canvas').querySelectorAll('.block:not(.dragging)')]
