@@ -6,13 +6,11 @@ class BlockEntity {
 
   toJson () {
     return JSON.stringify({
-        direction: this.direction,
-        steps: this.steps
+      direction: this.direction,
+      steps: this.steps
     })
   }
 }
-
-
 
 // with this function we allow elements to be dropped in a certain place.
 window.allowDrop = function allowDrop (ev) {
@@ -90,10 +88,9 @@ function getElementAfter (y) {
 /// Function to get the text of all code blocks in the canvas
 function retrieveContents () {
   const jsObjects = []
-  const commands = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
+    let subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
     const subString2 = remainingBlocks[i].lastElementChild.innerHTML
     if (subString1 === 'steps') {
       subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(6)
@@ -109,7 +106,6 @@ function retrieveContents () {
     console.log(codeBlock.toJson())
 
     jsObjects[i] = codeBlock
-
   }
   return jsObjects
 }
