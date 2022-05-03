@@ -43,6 +43,17 @@
   margin-left: -10px;
 }
 
+.block {
+  cursor: pointer;
+}
+
+#trash-icon {
+  margin: 0px 0px 0px 220px;
+  width: 40px;
+  cursor: pointer;
+  animation-name: bounce;
+}
+
 #move-forward {
   background-color: #14bcf3;
   width: 80%;
