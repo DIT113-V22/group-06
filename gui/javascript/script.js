@@ -1,15 +1,14 @@
-class blockEntity{
-
-  constructor(direction, steps){
-      this.direction = direction
-      this.steps = steps
+class BlockEntity {
+  constructor (direction, steps) {
+    this.direction = direction
+    this.steps = steps
   }
 
-  toJson(){
-      return JSON.stringify({
-          direction: this.direction,
-          steps: this.steps
-      });
+  toJson () {
+    return JSON.stringify({
+        direction: this.direction,
+        steps: this.steps
+    })
   }
 }
 
@@ -94,16 +93,15 @@ function retrieveContents () {
   const commands = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    var subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0,5)
-    var subString2 = remainingBlocks[i].lastElementChild.innerHTML
-    if(subString1 === 'steps'){
+    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
+    const subString2 = remainingBlocks[i].lastElementChild.innerHTML
+    if (subString1 === 'steps') {
       subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(6)
     } else {
       subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(1)
-    } 
-    
+    }
 
-    let codeBlock = new blockEntity(
+    const codeBlock = new BlockEntity(
       subString2,
       remainingBlocks[i].children[1].value
     )
@@ -113,7 +111,6 @@ function retrieveContents () {
     jsObjects[i] = codeBlock
 
   }
-
   return jsObjects
 }
 
