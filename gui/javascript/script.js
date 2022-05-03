@@ -1,3 +1,17 @@
+class BlockEntity {
+  constructor (direction, steps) {
+    this.direction = direction
+    this.steps = steps
+  }
+
+  toJson () {
+    return JSON.stringify({
+      direction: this.direction,
+      steps: this.steps
+    })
+  }
+}
+
 // with this function we allow elements to be dropped in a certain place.
 window.allowDrop = function allowDrop (ev) {
   ev.preventDefault()
@@ -73,12 +87,27 @@ function getElementAfter (y) {
 
 /// Function to get the text of all code blocks in the canvas
 function retrieveContents () {
-  const commands = []
+  const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    commands[i] = remainingBlocks[i].children[1].value + '' + remainingBlocks[i].lastElementChild.innerHTML
+    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
+    let subString2 = remainingBlocks[i].lastElementChild.innerHTML
+    if (subString1 === 'steps') {
+      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(6)
+    } else {
+      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(1)
+    }
+
+    const codeBlock = new BlockEntity(
+      subString2,
+      remainingBlocks[i].children[1].value
+    )
+
+    console.log(codeBlock.toJson())
+
+    jsObjects[i] = codeBlock
   }
-  return commands
+  return jsObjects
 }
 
 // For testing purposes when Play button is clicked
