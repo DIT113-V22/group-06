@@ -70,3 +70,22 @@ function getElementAfter (y) {
     }
   }, { offset: Number.NEGATIVE_INFINITY }).element
 }
+
+///Function to get the text of all code blocks in the canvas
+function retrieveContents() {
+  const commands = [];
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  for(let i= 0; i< remainingBlocks.length; i++ ) {
+    commands[i] = remainingBlocks[i].children[1].value + " " + remainingBlocks[i].lastElementChild.innerHTML;
+
+  }
+  return commands;
+}
+
+//For testing purposes when Play button is clicked
+function start() {
+  const contents = retrieveContents();
+  for(let i = 0; i< contents.length; i++) {
+    console.log(contents[i]);
+  }
+ }

@@ -43,7 +43,7 @@
                     <div class = "container-buttons">
                         <div class = "canvas-menu">
                             <ul>
-                                <li><button class="btn"><span style="color: green;">
+                                <li><button class="btn" onclick="start()"><span style="color: green;">
                                     <i class="fas fa-play fa-l"> Play</i>
                                 </span></button></li>
                                 <li><button class="btn"><span style="color: red;">
@@ -84,7 +84,7 @@
                                             <form class="block" id="move-forward" draggable="true"
                                             ondragstart="drag(event)">  
                                                 <label>Move: </label>  
-                                                <input type="number" name="number-input" placeholder="steps"> 
+                                                <input class="input" type="number" name="number-input" placeholder="steps"> 
                                                 <label>steps forward</label> 
                                             </form>  
                                     
@@ -92,7 +92,7 @@
                                             <form class="block" id="move-backwards" draggable="true"
                                             ondragstart="drag(event)">  
                                                 <label>Move: </label>
-                                                <input type="number" name="number-input" placeholder="steps"> 
+                                                <input class="input" type="number" name="number-input" placeholder="steps"> 
                                                 <label>steps backwards</label> 
                                             </form>  
 
