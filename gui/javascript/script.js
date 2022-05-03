@@ -90,8 +90,8 @@ function retrieveContents () {
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    let subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
-    const subString2 = remainingBlocks[i].lastElementChild.innerHTML
+    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
+    let subString2 = remainingBlocks[i].lastElementChild.innerHTML
     if (subString1 === 'steps') {
       subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(6)
     } else {
