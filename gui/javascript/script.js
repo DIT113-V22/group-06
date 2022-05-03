@@ -77,7 +77,6 @@ function retrieveContents () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
     commands[i] = remainingBlocks[i].children[1].value + '' + remainingBlocks[i].lastElementChild.innerHTML
-
   }
   return commands
 }
