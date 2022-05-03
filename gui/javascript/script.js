@@ -6,6 +6,7 @@ window.allowDrop = function allowDrop (ev) {
 // this function allows us to drag elements from one place to another
 window.drag = function drag (ev) {
   ev.dataTransfer.setData('text', ev.target.id)
+  ev.target.classList.add('dragging')
 }
 
 // with this method we remove a node (one block)
@@ -37,7 +38,7 @@ window.drop = function drop (ev) {
     }
   } else {
     // We check which element would come after the position we are dropping the element, remove the element and append it on the right position
-    removeNode(document.getElementById(data))
+    removeNode(document.getElementsByClassName('dragging').item(0))
     if (elementAfter === null) {
       canvas.appendChild(nodeCopy)
     } else {
@@ -46,6 +47,7 @@ window.drop = function drop (ev) {
   }
 
   // we remove the class dragging from the element because we dropped it.
+  document.getElementById(data).classList.remove('dragging')
   nodeCopy.classList.remove('dragging')
   ev.stopPropagation()
   return false
@@ -55,14 +57,10 @@ window.drop = function drop (ev) {
 function getElementAfter (y) {
   // get all blocks in the canvas that are not being dragged.
   const remainingBlocks = [...document.getElementById('canvas').querySelectorAll('.block:not(.dragging)')]
-  console.log(remainingBlocks)
   // check which element is closest after(-> offset below 0) the current position and return it
   return remainingBlocks.reduce((closest, child) => {
     const box = child.getBoundingClientRect()
     const offset = y - box.top - box.height / 2
-    console.log(box)
-    console.log(offset)
-    console.log(y)
     if (offset < 0 && offset > closest.offset) {
       return { offset: offset, element: child }
     } else {
