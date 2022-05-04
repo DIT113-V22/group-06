@@ -48,7 +48,7 @@
 }
 
 #trash-icon {
-  margin: 0px 0px 0px 220px;
+  margin: 0 0 0 220px;
   width: 40px;
   cursor: pointer;
   animation-name: bounce;
