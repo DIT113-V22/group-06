@@ -24,7 +24,6 @@ window.drop = function drop (ev) {
   const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right')
   const nodeCopy = document.getElementsByClassName('dragging').item(0).cloneNode(true)
   // we set the class to dragging so that we can distinguish it from the others
-  //nodeCopy.classList.add('dragging')
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
   const elementAfter = getElementAfter(ev.clientY)
   if (isLeft) {
