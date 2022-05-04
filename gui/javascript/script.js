@@ -35,7 +35,7 @@ window.drop = function drop (ev) {
     } else {
       canvas.insertBefore(nodeCopy, elementAfter)
     }
-  } else if (ev.target.id == 'trash-icon') {
+  } else if (ev.target.id === 'trash-icon') {
     removeNode(document.getElementsByClassName('dragging').item(0))
   } else {
     // We check which element would come after the position we are dropping the element, remove the element and append it on the right position
@@ -48,7 +48,7 @@ window.drop = function drop (ev) {
   }
 
   // we remove the class dragging from the element because we dropped it.
-  if (ev.target.id != 'trash-icon') {
+  if (ev.target.id !== 'trash-icon') {
     document.getElementById(data).classList.remove('dragging')
   }
   nodeCopy.classList.remove('dragging')
