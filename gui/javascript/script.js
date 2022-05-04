@@ -22,9 +22,9 @@ window.drop = function drop (ev) {
   const data = ev.dataTransfer.getData('text')
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
   const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right')
-  const nodeCopy = document.getElementById(data).cloneNode(true)
+  const nodeCopy = document.getElementsByClassName('dragging').item(0).cloneNode(true)
   // we set the class to dragging so that we can distinguish it from the others
-  nodeCopy.classList.add('dragging')
+  //nodeCopy.classList.add('dragging')
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
   const elementAfter = getElementAfter(ev.clientY)
   if (isLeft) {
