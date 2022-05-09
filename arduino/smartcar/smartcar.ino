@@ -1,7 +1,7 @@
 #include <Smartcar.h>
-#include <ArduinoMqttClient.h>
-#include <WiFi101.h>
-#include "arduino_secrets.h"
+#include <MQTT.h>
+#include <WiFi.h>
+#include <ArduinoJson.h>
 
 ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor{arduinoRuntime, smartcarlib::pins::v2::leftMotorPins};
