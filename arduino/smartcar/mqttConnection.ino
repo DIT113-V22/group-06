@@ -1,6 +1,6 @@
 #include <Smartcar.h>
-#include <ArduinoMqttClient.h>
-#include <WiFi101.h>
+#include <MQTT.h>
+#include <WiFi.h>
 #include <ArduinoJson.h>
 
 char ssid[] = "Kwabena's iPhone";        // your network SSID
