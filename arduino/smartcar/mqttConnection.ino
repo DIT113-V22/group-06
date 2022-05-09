@@ -1,7 +1,7 @@
 #include <Smartcar.h>
 #include <ArduinoMqttClient.h>
 #include <WiFi101.h>
-#include "arduino_secrets.h"
+#include <ArduinoJson.h>
 
 char ssid[] = "Kwabena's iPhone";        // your network SSID
 char pass[] = "twumasi123..";        // your network password
@@ -9,143 +9,136 @@ char pass[] = "twumasi123..";        // your network password
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
 
-const char broker[] = '127.0.0.1' ; //host
+const char broker[] = "127.0.0.1" ; //host
 int        port     = 1883;
 const char topic[]  = "control_button_topic";
 const char topic2[]  = "car_movement_topic";
 
 void setup() {
-	  //Initialize serial and wait for port to open:
-	  Serial.begin(9600);
-	  while (!Serial) {
+      //Initialize serial and wait for port to open:
+      Serial.begin(9600);
+      while (!Serial) {
 
-	    ; // wait for serial port to connect. Needed for native USB port only
+        ; // wait for serial port to connect. Needed for native USB port only
 
-	  }
+      }
 
-	  // attempt to connect to Wifi network:
-	  Serial.print("Attempting to connect to SSID: ");
-	  Serial.println(ssid);
-	  while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
+      // attempt to connect to Wifi network:
+      Serial.print("Attempting to connect to SSID: ");
+      Serial.println(ssid);
+      while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
 
-	    // failed, retry
+        // failed, retry
 
-	    Serial.print(".");
+        Serial.print(".");
 
-	    delay(5000);
+        delay(5000);
 
-	  }
+      }
 
-
-	  Serial.println("You're connected to the network");
-	  Serial.println();
-
-
-	  Serial.print("Attempting to connect to the MQTT broker: ");
-	  Serial.println(broker);
+      Serial.println("You're connected to the network");
+      Serial.println();
 
 
-	  if (!mqttClient.connect(broker, port)) {
-	    Serial.print("MQTT connection failed! Error code = ");
-	    Serial.println(mqttClient.connectError());
-	    while (1);
-	  }
+      Serial.print("Attempting to connect to the MQTT broker: ");
+      Serial.println(broker);
 
 
-	  Serial.println("You're connected to the MQTT broker!");
-	  Serial.println();
+      if (!mqttClient.connect(broker, port)) {
+        Serial.print("MQTT connection failed! Error code = ");
+        Serial.println(mqttClient.connectError());
+        while (1);
+      }
 
 
-	  // set the message receive callback
-
-	  mqttClient.onMessage(onMqttMessage);
-	  Serial.print("Subscribing to topic: ");
-	  Serial.println(topic);
-
-	  Serial.println();
+      Serial.println("You're connected to the MQTT broker!");
+      Serial.println();
 
 
-	  // subscribe to a topic
+      // set the message receive callback
 
-	  mqttClient.subscribe(topic);
+      mqttClient.onMessage(onMqttMessage);
+      Serial.print("Subscribing to topic: ");
+      Serial.println(topic);
 
-	  mqttClient.subscribe(topic2);
-
-	  mqttClient.subscribe(topic3);
-
-
-	  // topics can be unsubscribed using:
-
-	  // mqttClient.unsubscribe(topic);
+      Serial.println();
 
 
-	  Serial.print("Topic: ");
+      // subscribe to a topic
 
-	  Serial.println(topic);
+      mqttClient.subscribe(topic);
 
-	  Serial.print("Topic: ");
-
-	  Serial.println(topic2);
-
-	  Serial.print("Topic: ");
-
-	  Serial.println(topic3);
+      mqttClient.subscribe(topic2);
 
 
-	  Serial.println();
+      // topics can be unsubscribed using:
 
-	}
-
-    void loop() {
-
-	  // call poll() regularly to allow the library to receive MQTT messages and
-
-	  // send MQTT keep alive which avoids being disconnected by the broker
-
-	  mqttClient.poll();
-
-	}
-
-    void onMqttMessage(int messageSize) {
-	  DynamicJsonDocument doc(1024);
-
-	  // we received a message, print out the topic and contents
-	  Serial.println("Received a message with topic '");
-	  Serial.print(mqttClient.messageTopic());
-	  Serial.print("', length ");
-	  Serial.print(messageSize);
-	  Serial.println(" bytes:");
+      // mqttClient.unsubscribe(topic);
 
 
-	  // Tenemos que procesar los mensajes
+      Serial.print("Topic: ");
+
+      Serial.println(topic);
+
+      Serial.print("Topic: ");
+
+      Serial.println(topic2);
+
+      Serial.print("Topic: ");
+
+      Serial.println();
+
+    }
+void loop() {
+
+      // call poll() regularly to allow the library to receive MQTT messages and
+
+      // send MQTT keep alive which avoids being disconnected by the broker
+
+      mqttClient.poll();
+
+    }
+
+  void onMqttMessage(int messageSize) {
+      DynamicJsonDocument doc(1024);
+
+      // we received a message, print out the topic and contents
+      Serial.println("Received a message with topic '");
+      Serial.print(mqttClient.messageTopic());
+      Serial.print("', length ");
+      Serial.print(messageSize);
+      Serial.println(" bytes:");
+
+
+      // Tenemos que procesar los mensajes
 
 
 
-	  // You can use a String as your JSON input.
-	  // WARNING: the string in the input  will be duplicated in the JsonDocument.
-	  String input = mqttClient.messageTopic();
-	  deserializeJson(doc, input);
-	  JsonObject obj = doc.as<JsonObject>();
+      // You can use a String as your JSON input.
+      // WARNING: the string in the input  will be duplicated in the JsonDocument.
+      String input = mqttClient.messageTopic();
+      deserializeJson(doc, input);
+      JsonObject obj = doc.as<JsonObject>();
 
-	  // 1. Separar por coma
-	  // 2. Separar por :
-	  // 3. Buscar en el array, porque no es un objeto, el elemento dirección
-	  // 4. Buscar en el array, porque no es un objeto, el elemento steps
-	  // -----> Esto esta mal, estamos en POO, mejor usemos objetos porque nos van a permitir tener un código más limpio
+      // 1. Separar por coma
+      // 2. Separar por :
+      // 3. Buscar en el array, porque no es un objeto, el elemento dirección
+      // 4. Buscar en el array, porque no es un objeto, el elemento steps
+      // -----> Esto esta mal, estamos en POO, mejor usemos objetos porque nos van a permitir tener un código más limpio
 
-	  // You can use a String to get an element of a JsonObject
-	  // No duplication is done.
-	  String direction = obj[String("direction")];
-	  Int steps = obj[String("steps")];
+      // You can use a String to get an element of a JsonObject
+      // No duplication is done.
+      String direction = obj[String("direction")];
+      int steps = obj[String("steps")];
 
 
-	  // use the Stream interface to print the contents
+      // use the Stream interface to print the contents
 
-	  while (mqttClient.available()) {
+      while (mqttClient.available()) {
 
-	    Serial.print((char)mqttClient.read());
-	  }
-	  Serial.println();
-	  Serial.println();
+        Serial.print((char)mqttClient.read());
+      }
+      Serial.println();
+      Serial.println();
 
-	}
+    }
