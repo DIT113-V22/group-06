@@ -40,7 +40,7 @@ window.drop = function drop (ev) {
   // we set the class to dragging so that we can distinguish it from the others
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
   const elementAfter = getElementAfter(ev.clientY)
-  if (isLeft) {
+  if (isLeft && ev.target.id !== 'trash-icon') {
     // we need different id´s for the elements in the menu and the ones in the canvas
     nodeCopy.id = data + '-copy'
     if (elementAfter === null) {
@@ -49,10 +49,10 @@ window.drop = function drop (ev) {
       canvas.insertBefore(nodeCopy, elementAfter)
     }
   } else if (ev.target.id === 'trash-icon') {
-    removeNode(document.getElementsByClassName('dragging').item(0))
+    removeNode(canvas.getElementsByClassName('dragging').item(0))
   } else {
     // We check which element would come after the position we are dropping the element, remove the element and append it on the right position
-    removeNode(document.getElementsByClassName('dragging').item(0))
+    removeNode(canvas.getElementsByClassName('dragging').item(0))
     if (elementAfter === null) {
       canvas.appendChild(nodeCopy)
     } else {
