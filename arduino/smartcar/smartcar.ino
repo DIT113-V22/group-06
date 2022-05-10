@@ -26,20 +26,10 @@ SimpleCar car(control);
 
 const auto oneSecond = 1000UL;
 
-#ifdef SMCE
-
 const int triggerPin           = 6;
 const int echoPin              = 7;
 const int BACK_PIN          = 3;
 const auto mqttBrokerUrl = "127.0.0.1";
-
-#else
-
-const auto triggerPin = 33;
-const auto echoPin = 32;
-const auto mqttBrokerUrl = "192.168.0.40";
-
-#endif
 
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
@@ -47,7 +37,7 @@ const int bspeed = -50;
 
 //Change this
 const int rdegrees = 75;
-const int ldegrees = -75;z
+const int ldegrees = -75;
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
@@ -77,12 +67,11 @@ void setup() {
 
 void loop() {
   if (mqtt.connected()) {
-    mqtt.loop();
+    //mqtt.loop();
     handleInput();
     detectObstacle();
 
-
-  }
+  //}
 
 #ifdef SMCE
 
@@ -119,8 +108,6 @@ void detectObstacle() {
   if (frontDistance > 0 && frontDistance < 150){
     car.setSpeed(0); //Speed is set to zero to stop the car
     mqtt.publish("/smartcar/ultrasound/front", frontDistance);
-
-
   }
 
   else if(backDistance > 0 && backDistance < 150){
@@ -131,30 +118,61 @@ void detectObstacle() {
 
 void handleInput() {
   if(Serial.available()) {
-    char input = Serial.read();
-    switch(input) {
-      //If input is 's', we stop the car
+    char direction = Serial.read();
+    switch(direction) {
+      static auto starttime = 0;
+      static auto endtime = 0;
       case 's':
         car.setSpeed(0);
         car.setAngle(0);
         break;
+
       case 'f':
+        starttime = millis();
+        endtime = starttime;
+        while ((endtime - starttime) <= 2000) {
+          car.setSpeed(fspeed);
+          car.setAngle(0);
+          endtime = millis();
+        }
+          car.setSpeed(0);
+          car.setAngle(0);
+          break;
         
-        car.setSpeed(fspeed);
-        car.setAngle(0);
-        break;
       case 'l':
-        car.setSpeed(fspeed);
-        car.setAngle(ldegrees);
-        break;
-      case 'b':
-        car.setSpeed(bspeed);
-        car.setAngle(0);
-        break;
+        starttime = millis();
+        endtime = starttime;
+        while ((endtime - starttime) <=1000) {
+          car.setSpeed(0);
+          car.setAngle(0);
+          endtime = millis();
+        }
+          car.setSpeed(0);
+          car.setAngle(0);
+          break;
+
+      case "b":
+        starttime = millis();
+        endtime = starttime;
+        while ((endtime - starttime) <=1000) {
+          car.setSpeed(bspeed);
+          car.setAngle(0);
+          endtime = millis();
+        }
+          car.setSpeed(0);
+          car.setAngle(0);
+          break;
       case 'r':
-        car.setSpeed(fspeed);
-        car.setAngle(rdegrees);
-        break;
+        starttime = millis();
+        endtime = starttime;
+        while ((endtime - starttime) <=1000) {
+          car.setSpeed(0);
+          car.setAngle(0);
+          endtime = millis();
+        }
+          car.setSpeed(0);
+          car.setAngle(0);
+          break;
       default:
         car.setSpeed(0);
         car.setAngle(0);
@@ -162,6 +180,7 @@ void handleInput() {
     }
   }
 }
+
 
 
 //Where in the file should we run the handleinput and detect obstacle methods.
