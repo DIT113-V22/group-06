@@ -68,7 +68,8 @@ void setup() {
 void loop() {
   if (mqtt.connected()) {
     //mqtt.loop();
-    handleInput();
+    
+    //Probably need to change some stuff here
     detectObstacle();
 
   //}
@@ -80,19 +81,60 @@ void loop() {
 
 #endif
 
-// Constantemente comprobando la llegada de mensajes
+
 
   mqtt.subscribe("/smartcar/control/#", 1);
   mqtt.onMessage([](String topic, String message) {
-    if (topic == "/smartcar/control/throttle") {
-      car.setSpeed(message.toInt());
-    } else if (topic == "/smartcar/control/steering") {
-      car.setAngle(message.toInt());
-    } else {
-      Serial.println(topic + " " + message);
+    
+  if (topic ==  "/smartcar/control/throttle") {
+    starttime = millis();
+    endtime = starttime;
+    while ((endtime - starttime) <= message.toInt() * 1000) {
+      car.setSpeed(fspeed);
+      car.setAngle(0);
+      endtime = millis();
     }
-  });
+      car.setSpeed(0);
+      car.setAngle(0);
+  }
+
+  else if (topic == "/smartcar/control/reverse") {
+    starttime = millis();
+    endtime = starttime;
+    while ((endtime - starttime) <= message.toInt() * 1000) {
+      car.setSpeed(bspeed);
+      car.setAngle(0);
+      endtime = millis();
+    }
+      car.setSpeed(0);
+      car.setAngle(0);
+
+  }
   
+  else if (topic == "/smartcar/control/steer-left") {
+    car.setSpeed(fspeed);
+    car.setAngle(message.toInt());
+    
+    car.setSpeed(0);
+    car.setAngle(0);
+
+  }
+
+  else if (topic == "/smartcar/control/steer-right") {
+    car.setSpeed(fspeed);
+    car.setAngle(message.toInt());
+    
+    car.setSpeed(0);
+    car.setAngle(0);
+  }
+
+  else {
+    Serial.println(topic + " " + message);
+  }
+
+  
+});
+
 
 }
 
@@ -128,15 +170,7 @@ void handleInput() {
         break;
 
       case 'f':
-        starttime = millis();
-        endtime = starttime;
-        while ((endtime - starttime) <= 2000) {
-          car.setSpeed(fspeed);
-          car.setAngle(0);
-          endtime = millis();
-        }
-          car.setSpeed(0);
-          car.setAngle(0);
+        
           break;
         
       case 'l':
