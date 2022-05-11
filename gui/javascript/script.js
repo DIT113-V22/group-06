@@ -1,3 +1,81 @@
+var client = new Paho.MQTT.Client("127.0.0.1", 8000, "group-06-monkeycar");
+var topic1 = "car_movement_topic"
+var topic2 = "control_button_topic"
+// set callback handlers
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+
+    // connect the client
+client.connect({onSuccess:onConnect});
+
+
+    // called when the client connects
+function onConnect() {
+  // Once a connection has been made, make a subscription and send a message.
+    console.log("Connected successfully");
+    client.subscribe("car_movement_topic");
+    message = new Paho.MQTT.Message("Hello");
+    message.destinationName = "car_movement_topic";
+    client.send(message);
+}
+function publish(topic, message) {
+    if(client.isConnected) {
+        console.log("Connected successfully");
+        client.subscribe(topic);
+        message = new Paho.MQTT.Message("Subscribe to "+ topic + "with message "+ message);
+        message.destinationName = topic;
+        client.send(message);
+    }
+    
+}
+///This method is to help us send the right message to the emulator based on the code blocks
+function publishForMovement(direction, steps) {
+  var counter = 0;
+  if(direction === "forward") {
+    while(counter !== steps) {
+      message = new Paho.MQTT.Message("f");
+      message.destinationName = "smartcar/control/throttle"
+      client.send(message) 
+      counter++;
+    }
+  if(direction === "backwards") {
+    while(counter != steps) {
+      message = new Paho.MQTT.Message("b");
+      message.destinationName = "smartcar/control/throttle"
+      client.send(message);
+      counter++
+    }
+  if(direction === "left") {
+    message = new Paho.MQTT.Message(steps);
+    message.destinationName = "smartcar/control/steering"
+    client.send(message)
+  
+  }
+  if(direction === "right") {
+    message = new Paho.MQTT.Message(steps);
+    message.destinationName = "smartcar/control/steering"
+    client.send(message)
+  }  
+  }  
+  }
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+    if (responseObject.errorCode !== 0) {
+        console.log("onConnectionLost:"+responseObject.errorMessage);
+    }
+}
+
+    // called when a message arrives
+ function onMessageArrived(message) {
+    console.log("Sent messages: "+message.payloadString);
+}
+
+
+
+
+
 class BlockEntity {
   constructor (direction, steps) {
     this.direction = direction
@@ -116,4 +194,17 @@ window.start = function start () {
   for (let i = 0; i < contents.length; i++) {
     console.log(contents[i])
   }
+//This will be tested later for the MQTT
+  function playGame() {
+    if(!client.isConnected) {
+      //Try to connect 
+      console.log("Not connected....")
+    }
+    console.log("Connected....");
+    const contents = retrieveContents()
+    for(let i= 0; i < contents.length; i++) {
+      publishForMovement(contents[i].direction, contents[i].steps);
+      
+    }
+  }  
 }
