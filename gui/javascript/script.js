@@ -30,7 +30,7 @@ function publish(topic, message) {
 }
 ///This method is to help us send the right message to the emulator based on the code blocks
 function publishForMovement(direction, steps) {
-  var counter = 0;
+  var counter = 1;
   if(direction === "forward") {
     while(counter !== steps) {
       message = new Paho.MQTT.Message("f");
@@ -204,7 +204,7 @@ window.start = function start () {
     const contents = retrieveContents()
     for(let i= 0; i < contents.length; i++) {
       publishForMovement(contents[i].direction, contents[i].steps);
-      
+
     }
   }  
 }
