@@ -1,4 +1,4 @@
-var client = new Paho.MQTT.Client("127.0.0.1", 8000, "group-06-monkeycar");
+var client = new Paho.MQTT.Client("broker.mqttdashboard.com", 8000, "group-06-monkeycar");
 var topic1 = "car_movement_topic"
 var topic2 = "control_button_topic"
 // set callback handlers
@@ -14,6 +14,7 @@ function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
     console.log("Connected successfully");
     client.subscribe("car_movement_topic");
+    client.subscribe("/smartcar/control/#")
     message = new Paho.MQTT.Message("Hello");
     message.destinationName = "car_movement_topic";
     client.send(message);
@@ -30,35 +31,40 @@ function publish(topic, message) {
 }
 ///This method is to help us send the right message to the emulator based on the code blocks
 function publishForMovement(direction, steps) {
-  var counter = 1;
+  
   if(direction === "forward") {
-    while(counter !== steps) {
-      message = new Paho.MQTT.Message("f");
-      message.destinationName = "smartcar/control/throttle"
+      message = new Paho.MQTT.Message(steps);
+      message.destinationName = "/smartcar/control/throttle"
       client.send(message) 
-      counter++;
+      
     }
+
+  
+      
+  
   if(direction === "backwards") {
-    while(counter != steps) {
-      message = new Paho.MQTT.Message("b");
-      message.destinationName = "smartcar/control/throttle"
+   
+      message = new Paho.MQTT.Message(steps);
+      message.destinationName = "/smartcar/control/reverse"
       client.send(message);
-      counter++
-    }
+      
+    
+   
+  }
   if(direction === "left") {
     message = new Paho.MQTT.Message(steps);
-    message.destinationName = "smartcar/control/steering"
+    message.destinationName = "/smartcar/control/steer-left"
     client.send(message)
   
   }
   if(direction === "right") {
     message = new Paho.MQTT.Message(steps);
-    message.destinationName = "smartcar/control/steering"
+    message.destinationName = "/smartcar/control/steer-left"
     client.send(message)
   }  
   }  
-  }
-}
+  
+
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
@@ -181,8 +187,6 @@ function retrieveContents () {
       remainingBlocks[i].children[1].value
     )
 
-    console.log(codeBlock.toJson())
-
     jsObjects[i] = codeBlock
   }
   return jsObjects
@@ -194,8 +198,9 @@ window.start = function start () {
   for (let i = 0; i < contents.length; i++) {
     console.log(contents[i])
   }
+}
 //This will be tested later for the MQTT
-  function playGame() {
+window.start1 = function start1 () {
     if(!client.isConnected) {
       //Try to connect 
       console.log("Not connected....")
@@ -203,8 +208,8 @@ window.start = function start () {
     console.log("Connected....");
     const contents = retrieveContents()
     for(let i= 0; i < contents.length; i++) {
-      publishForMovement(contents[i].direction, contents[i].steps);
+      publishForMovement(contents[i].direction, contents[i].steps)
 
     }
   }  
-}
+
