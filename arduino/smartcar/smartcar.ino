@@ -11,11 +11,8 @@ MQTTClient mqtt;
 WiFiClient net;
 
 int        port     = 1883;
-const char topic[]  = "control_button_topic";
-const char topic2[]  = "car_movement_topic";
-
-const char ssid[] = "*";
-const char pass[] = "**";
+const char ssid[] = "Kwabena's iPhone";
+const char pass[] = "twumasi123..";
 
 ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
@@ -23,8 +20,6 @@ BrushedMotor rightMotor(arduinoRuntime, smartcarlib::pins::v2::rightMotorPins);
 DifferentialControl control(leftMotor, rightMotor);
 
 SimpleCar car(control);
-
-const auto oneSecond = 1000UL;
 
 const int triggerPin           = 6;
 const int echoPin              = 7;
@@ -34,10 +29,6 @@ const auto mqttBrokerUrl = "127.0.0.1";
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
 const int bspeed = -50;
-
-//Change this
-const int rdegrees = 75;
-const int ldegrees = -75;
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
@@ -66,26 +57,23 @@ void setup() {
 }
 
 void loop() {
+  
   if (mqtt.connected()) {
     //mqtt.loop();
-    
-    //Probably need to change some stuff here
     detectObstacle();
-
-  //}
-
+    //Probably need to change some stuff here
 #ifdef SMCE
-
   // Avoid over-using the CPU if we are running in the emulator
   delay(1);
 
 #endif
 
+mqtt.subscribe("/smartcar/control/#", 1);
+mqtt.onMessage([](String topic, String message) {
+  static auto starttime = 0;
+  static auto endtime = 0;
 
-
-  mqtt.subscribe("/smartcar/control/#", 1);
-  mqtt.onMessage([](String topic, String message) {
-    
+  
   if (topic ==  "/smartcar/control/throttle") {
     starttime = millis();
     endtime = starttime;
@@ -94,9 +82,9 @@ void loop() {
       car.setAngle(0);
       endtime = millis();
     }
-      car.setSpeed(0);
-      car.setAngle(0);
-  }
+    car.setSpeed(0);
+    car.setAngle(0);
+}
 
   else if (topic == "/smartcar/control/reverse") {
     starttime = millis();
@@ -105,25 +93,24 @@ void loop() {
       car.setSpeed(bspeed);
       car.setAngle(0);
       endtime = millis();
-    }
-      car.setSpeed(0);
-      car.setAngle(0);
-
   }
-  
-  else if (topic == "/smartcar/control/steer-left") {
-    car.setSpeed(fspeed);
-    car.setAngle(message.toInt());
-    
     car.setSpeed(0);
     car.setAngle(0);
 
   }
 
+  else if (topic == "/smartcar/control/steer-left") {
+    car.setSpeed(fspeed);
+    car.setAngle(message.toInt());
+  
+    car.setSpeed(0);
+    car.setAngle(0);
+  }
+
   else if (topic == "/smartcar/control/steer-right") {
     car.setSpeed(fspeed);
     car.setAngle(message.toInt());
-    
+  
     car.setSpeed(0);
     car.setAngle(0);
   }
@@ -132,14 +119,9 @@ void loop() {
     Serial.println(topic + " " + message);
   }
 
-  
 });
-
-
 }
-
-
-//--------------------BASIC CAR MOVEMENT----------------------------------//
+}
 
 void detectObstacle() {
   const auto frontDistance = front.getDistance();
@@ -157,64 +139,3 @@ void detectObstacle() {
     mqtt.publish("/smartcar/infrared/back", backDistance);
   }
 }
-
-void handleInput() {
-  if(Serial.available()) {
-    char direction = Serial.read();
-    switch(direction) {
-      static auto starttime = 0;
-      static auto endtime = 0;
-      case 's':
-        car.setSpeed(0);
-        car.setAngle(0);
-        break;
-
-      case 'f':
-        
-          break;
-        
-      case 'l':
-        starttime = millis();
-        endtime = starttime;
-        while ((endtime - starttime) <=1000) {
-          car.setSpeed(0);
-          car.setAngle(0);
-          endtime = millis();
-        }
-          car.setSpeed(0);
-          car.setAngle(0);
-          break;
-
-      case "b":
-        starttime = millis();
-        endtime = starttime;
-        while ((endtime - starttime) <=1000) {
-          car.setSpeed(bspeed);
-          car.setAngle(0);
-          endtime = millis();
-        }
-          car.setSpeed(0);
-          car.setAngle(0);
-          break;
-      case 'r':
-        starttime = millis();
-        endtime = starttime;
-        while ((endtime - starttime) <=1000) {
-          car.setSpeed(0);
-          car.setAngle(0);
-          endtime = millis();
-        }
-          car.setSpeed(0);
-          car.setAngle(0);
-          break;
-      default:
-        car.setSpeed(0);
-        car.setAngle(0);
-        break;
-    }
-  }
-}
-
-
-
-//Where in the file should we run the handleinput and detect obstacle methods.
