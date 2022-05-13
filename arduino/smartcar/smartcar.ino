@@ -10,9 +10,9 @@
 MQTTClient mqtt;
 WiFiClient net;
 
-int        port     = 1883;
-const char ssid[] = "Kwabena's iPhone";
-const char pass[] = "twumasi123.";
+int        port     = 8000;
+const char ssid[] = "";
+const char pass[] = "";
 
 ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
@@ -42,6 +42,7 @@ void setup() {
   mqtt.begin(mqttBrokerUrl, port, net);
   Serial.println("Connecting to WiFi...");
   auto wifiStatus = WiFi.status();
+  Serial.println(wifiStatus);
   while (wifiStatus != WL_CONNECTED && wifiStatus != WL_NO_SHIELD) {
     Serial.println(wifiStatus);
     Serial.print(".");
@@ -57,13 +58,18 @@ void setup() {
   Serial.println("Connected successfully.");
 
 if(mqtt.connect("arduino", "public", "public")) {
+  Serial.println("Double connected!");
   mqtt.subscribe("/smartcar/control/#", 1);
+  if (mqtt.subscribe("/smartcar/control/#", 1) == true){
+    Serial.println("Subscribed!");
+  }
   mqtt.onMessage([](String topic, String message) {
     static auto starttime = 0;
     static auto endtime = 0;
 
-  
+  Serial.println(topic + " " + message);
     if (topic ==  "/smartcar/control/throttle") {
+      Serial.println(topic);
       starttime = millis();
       endtime = starttime;
       while ((endtime - starttime) <= message.toInt() * 1000) {
@@ -76,6 +82,7 @@ if(mqtt.connect("arduino", "public", "public")) {
   }
 
     else if (topic == "/smartcar/control/reverse") {
+      Serial.println(topic);
       starttime = millis();
       endtime = starttime;
       while ((endtime - starttime) <= message.toInt() * 1000) {
@@ -89,6 +96,7 @@ if(mqtt.connect("arduino", "public", "public")) {
     }
 
     else if (topic == "/smartcar/control/steer-left") {
+      Serial.println(topic);
       car.setSpeed(fspeed);
       car.setAngle(message.toInt());
   
@@ -97,6 +105,7 @@ if(mqtt.connect("arduino", "public", "public")) {
     }
 
     else if (topic == "/smartcar/control/steer-right") {
+      Serial.println(topic);
       car.setSpeed(fspeed);
       car.setAngle(message.toInt());
   
@@ -113,20 +122,18 @@ if(mqtt.connect("arduino", "public", "public")) {
 }
 
 void loop() {
-  
+  detectObstacle();
   if (mqtt.connected()) {
     mqtt.loop();
-    
-    detectObstacle();
     //Probably need to change some stuff here
 #ifdef SMCE
   // Avoid over-using the CPU if we are running in the emulator
   delay(1);
-
 #endif
-
-
-}
+  } 
+  else {
+    mqtt.connect("arduino", "public", "public");
+  }
 }
 
 void detectObstacle() {

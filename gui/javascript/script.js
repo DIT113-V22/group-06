@@ -33,10 +33,10 @@ function publish(topic, message) {
 function publishForMovement(direction, steps) {
   
   if(direction === "forward") {
+      
       message = new Paho.MQTT.Message(steps);
       message.destinationName = "/smartcar/control/throttle"
-      client.send(message) 
-      
+      client.send(message)  
     }
 
   
