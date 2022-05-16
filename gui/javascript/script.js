@@ -13,11 +13,11 @@ client.connect({onSuccess:onConnect});
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
     console.log("Connected successfully");
-    client.subscribe("car_movement_topic");
-    client.subscribe("/smartcar/control/#")
-    message = new Paho.MQTT.Message("Hello");
-    message.destinationName = "car_movement_topic";
-    client.send(message);
+    //client.subscribe("car_movement_topic");
+    client.subscribe("smartcar/control/#")
+    //message = new Paho.MQTT.Message("Hello");
+    //message.destinationName = "car_movement_topic";
+    //client.send(message);
 }
 function publish(topic, message) {
     if(client.isConnected) {
@@ -35,7 +35,7 @@ function publishForMovement(direction, steps) {
   if(direction === "forward") {
       
       message = new Paho.MQTT.Message(steps);
-      message.destinationName = "/smartcar/control/throttle"
+      message.destinationName = "smartcar/control/throttle"
       client.send(message)  
     }
 
@@ -45,7 +45,7 @@ function publishForMovement(direction, steps) {
   if(direction === "backwards") {
    
       message = new Paho.MQTT.Message(steps);
-      message.destinationName = "/smartcar/control/reverse"
+      message.destinationName = "smartcar/control/reverse"
       client.send(message);
       
     
@@ -53,13 +53,13 @@ function publishForMovement(direction, steps) {
   }
   if(direction === "left") {
     message = new Paho.MQTT.Message(steps);
-    message.destinationName = "/smartcar/control/steer-left"
+    message.destinationName = "smartcar/control/steer-left"
     client.send(message)
   
   }
   if(direction === "right") {
     message = new Paho.MQTT.Message(steps);
-    message.destinationName = "/smartcar/control/steer-left"
+    message.destinationName = "smartcar/control/steer-left"
     client.send(message)
   }  
   }  

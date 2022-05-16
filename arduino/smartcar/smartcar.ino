@@ -11,8 +11,8 @@ MQTTClient mqtt;
 WiFiClient net;
 
 int        port     = 8000;
-const char ssid[] = "";
-const char pass[] = "";
+const char ssid[] = "***";
+const char pass[] = "****";
 
 ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
@@ -56,70 +56,63 @@ void setup() {
     delay(1000);
   }
   Serial.println("Connected successfully.");
+  mqtt.subscribe("smartcar/control/#", 1);
 
-if(mqtt.connect("arduino", "public", "public")) {
-  Serial.println("Double connected!");
-  mqtt.subscribe("/smartcar/control/#", 1);
-  if (mqtt.subscribe("/smartcar/control/#", 1) == true){
-    Serial.println("Subscribed!");
-  }
   mqtt.onMessage([](String topic, String message) {
+    Serial.print(topic + " " + message);
     static auto starttime = 0;
     static auto endtime = 0;
 
-  Serial.println(topic + " " + message);
-    if (topic ==  "/smartcar/control/throttle") {
-      Serial.println(topic);
-      starttime = millis();
-      endtime = starttime;
-      while ((endtime - starttime) <= message.toInt() * 1000) {
-        car.setSpeed(fspeed);
+    Serial.println(topic + " " + message);
+      if (topic ==  "smartcar/control/throttle") {
+        Serial.println(topic);
+        starttime = millis();
+        endtime = starttime;
+        while ((endtime - starttime) <= message.toInt() * 1000) {
+          car.setSpeed(fspeed);
+          car.setAngle(0);
+          endtime = millis();
+        }
+        car.setSpeed(0);
         car.setAngle(0);
-        endtime = millis();
       }
-      car.setSpeed(0);
-      car.setAngle(0);
-  }
 
-    else if (topic == "/smartcar/control/reverse") {
-      Serial.println(topic);
-      starttime = millis();
-      endtime = starttime;
-      while ((endtime - starttime) <= message.toInt() * 1000) {
-        car.setSpeed(bspeed);
+      else if (topic == "smartcar/control/reverse") {
+        Serial.println(topic);
+        starttime = millis();
+        endtime = starttime;
+        while ((endtime - starttime) <= message.toInt() * 1000) {
+          car.setSpeed(bspeed);
+          car.setAngle(0);
+          endtime = millis();
+        }
+        car.setSpeed(0);
         car.setAngle(0);
-        endtime = millis();
-    }
-      car.setSpeed(0);
-      car.setAngle(0);
+      }
 
-    }
+      else if (topic == "smartcar/control/steer-left") {
+        Serial.println(topic);
+        car.setSpeed(fspeed);
+        car.setAngle(message.toInt());
+    
+        car.setSpeed(0);
+        car.setAngle(0);
+      }
 
-    else if (topic == "/smartcar/control/steer-left") {
-      Serial.println(topic);
-      car.setSpeed(fspeed);
-      car.setAngle(message.toInt());
-  
-      car.setSpeed(0);
-      car.setAngle(0);
-    }
+      else if (topic == "smartcar/control/steer-right") {
+        Serial.println(topic);
+        car.setSpeed(fspeed);
+        car.setAngle(message.toInt());
+    
+        car.setSpeed(0);
+        car.setAngle(0);
+      }
 
-    else if (topic == "/smartcar/control/steer-right") {
-      Serial.println(topic);
-      car.setSpeed(fspeed);
-      car.setAngle(message.toInt());
-  
-      car.setSpeed(0);
-      car.setAngle(0);
-    }
-
-    else {
-      Serial.println(topic + " " + message);
-    }
-
-  });
-  } 
-}
+      else {
+        Serial.println(topic + " " + message);
+      }
+    });   
+  }
 
 void loop() {
   detectObstacle();
@@ -132,7 +125,9 @@ void loop() {
 #endif
   } 
   else {
+    Serial.println("Reconnecting...");
     mqtt.connect("arduino", "public", "public");
+    mqtt.subscribe("smartcar/control/#", 1);
   }
 }
 
@@ -144,11 +139,11 @@ void detectObstacle() {
   //When car is within an obstacle range of 0-1.5 meters, it stops
   if (frontDistance > 0 && frontDistance < 150){
     car.setSpeed(0); //Speed is set to zero to stop the car
-    mqtt.publish("/smartcar/ultrasound/front", String(frontDistance));
+    mqtt.publish("smartcar/ultrasound/front", String(frontDistance));
   }
 
   else if(backDistance > 0 && backDistance < 150){
     car.setSpeed(0); //Speed is set to zero to stop the car
-    mqtt.publish("/smartcar/infrared/back", String(backDistance));
+    mqtt.publish("smartcar/infrared/back", String(backDistance));
   }
 }
