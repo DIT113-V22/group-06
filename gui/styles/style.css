@@ -41,6 +41,8 @@
   padding-bottom: 30px;
   justify-content: center;
   margin-left: -10px;
+  height: 600px;
+  margin-bottom: 30px;
 }
 
 .block {
@@ -74,24 +76,72 @@
   width: 80%;
 }
 
+#turn-around {
+  background-color: #E41919;
+  width: 80%;
+}
+
+#spin {
+  background-color: #C122BB;
+  width: 80%;
+}
+
+#wait {
+  background-color: #1DE5A3;
+  width: 80%;
+}
+
+#repeat {
+  background-color: #CA6702;
+  width: 80%;
+}
+
 #move-forward-copy {
   background-color: #14bcf3;
-  width: 100%;
+  width: 80%;
+  text-align: center;
 }
 
 #move-backwards-copy {
   background-color: #ff9800;
-  width: 100%;
+  width: 80%;
+  text-align: center;
 }
 
 #move-left-copy {
   background-color: #f30fa2;
-  width: 100%;
+  width: 80%;
+  text-align: center;
 }
 
 #move-right-copy {
   background-color: #01b040;
-  width: 100%;
+  width: 80%;
+  text-align: center;
+}
+
+#turn-around-copy {
+  background-color: #E41919;
+  width: 80%;
+  text-align: center;
+}
+
+#spin-copy {
+  background-color: #C122BB;
+  width: 80%;
+  text-align: center;
+}
+
+#wait-copy {
+  background-color: #1DE5A3;
+  width: 80%;
+  text-align: center;
+}
+
+#repeat-copy {
+  background-color: #CA6702;
+  width: 80%;
+  text-align: center;
 }
 
 .btn {
@@ -120,9 +170,9 @@
   padding: 0 0 10px;
 }
 
-/* Icon Design */
+/* Logo Design */
 
-#icon {
+#logo {
   width: 210px;
   height: 130px;
   margin: 12px 0 15px -20px;
@@ -144,7 +194,7 @@
   border-radius: 30px;
   height: max-content;
   padding-bottom: 30px;
-  min-height: 400px;
+  min-height: 600px;
 }
 
 .canvas-menu {
