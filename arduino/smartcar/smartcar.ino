@@ -24,7 +24,7 @@ SimpleCar car(control);
 const int triggerPin           = 6;
 const int echoPin              = 7;
 const int BACK_PIN          = 3;
-const auto mqttBrokerUrl = "broker.mqttdashboard.com";
+const auto mqttBrokerUrl = "broker.emqx.io";
 
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
@@ -40,6 +40,7 @@ void setup() {
 
   WiFi.begin(ssid, pass);
   mqtt.begin(mqttBrokerUrl, port, net);
+
   Serial.println("Connecting to WiFi...");
   auto wifiStatus = WiFi.status();
   Serial.println(wifiStatus);
@@ -111,18 +112,19 @@ void setup() {
       else {
         Serial.println(topic + " " + message);
       }
-    });   
-  }
+    }
+  );   
+}
 
 void loop() {
   detectObstacle();
   if (mqtt.connected()) {
     mqtt.loop();
     //Probably need to change some stuff here
-#ifdef SMCE
-  // Avoid over-using the CPU if we are running in the emulator
-  delay(1);
-#endif
+    #ifdef SMCE
+      // Avoid over-using the CPU if we are running in the emulator
+      delay(1);
+    #endif
   } 
   else {
     Serial.println("Reconnecting...");

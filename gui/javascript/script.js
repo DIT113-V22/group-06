@@ -1,4 +1,4 @@
-var client = new Paho.MQTT.Client("broker.mqttdashboard.com", 8000, "group-06-monkeycar");
+var client = new Paho.MQTT.Client("broker.emqx.io", 8000, "group-06-monkeycar");
 var topic1 = "car_movement_topic"
 var topic2 = "control_button_topic"
 // set callback handlers
