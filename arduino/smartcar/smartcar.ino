@@ -10,7 +10,7 @@
 MQTTClient mqtt;
 WiFiClient net;
 
-int        port     = 8000;
+int        port     = 1883;
 const char ssid[] = "***";
 const char pass[] = "****";
 
@@ -60,7 +60,6 @@ void setup() {
   mqtt.subscribe("smartcar/control/#", 1);
 
   mqtt.onMessage([](String topic, String message) {
-    Serial.print(topic + " " + message);
     static auto starttime = 0;
     static auto endtime = 0;
 
@@ -127,7 +126,6 @@ void loop() {
     #endif
   } 
   else {
-    Serial.println("Reconnecting...");
     mqtt.connect("arduino", "public", "public");
     mqtt.subscribe("smartcar/control/#", 1);
   }
