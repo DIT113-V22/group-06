@@ -1,86 +1,65 @@
-var client = new Paho.MQTT.Client("broker.emqx.io", 8083, "group-06-monkeycar");
-var topic1 = "car_movement_topic"
-var topic2 = "control_button_topic"
+let client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 // set callback handlers
-client.onConnectionLost = onConnectionLost;
-client.onMessageArrived = onMessageArrived;
+client.onConnectionLost = onConnectionLost
+client.onMessageArrived = onMessageArrived
 
-    // connect the client
-client.connect({onSuccess:onConnect});
+// connect the client
+client.connect({onSuccess:onConnect})
 
 
-    // called when the client connects
+// called when the client connects
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
-    console.log("Connected successfully");
-    //client.subscribe("car_movement_topic");
-    client.subscribe("smartcar/control/#")
-    //message = new Paho.MQTT.Message("Hello");
-    //message.destinationName = "car_movement_topic";
-    //client.send(message);
+  console.log('Connected successfully')
+  client.subscribe('smartcar/control/#')
 }
+
 function publish(topic, message) {
-    if(client.isConnected) {
-        console.log("Connected successfully");
-        client.subscribe(topic);
-        message = new Paho.MQTT.Message("Subscribe to "+ topic + "with message "+ message);
-        message.destinationName = topic;
-        client.send(message);
-    }
-    
+  if(client.isConnected) {
+    console.log('Connected successfully')
+    client.subscribe(topic)
+    message = new Paho.MQTT.Message('Subscribe to '+ topic + 'with message'+ message)
+    message.destinationName = topic
+    client.send(message)
+  }   
 }
+
 ///This method is to help us send the right message to the emulator based on the code blocks
-function publishForMovement(direction, steps) {
-  
-  if(direction === "forward") {
-      
-      message = new Paho.MQTT.Message(steps);
-      message.destinationName = "smartcar/control/throttle"
-      client.send(message)  
-    }
-
-  
-      
-  
-  if(direction === "backwards") {
-   
-      message = new Paho.MQTT.Message(steps);
-      message.destinationName = "smartcar/control/reverse"
-      client.send(message);
-      
-    
-   
+function publishForMovement(direction, steps) {  
+  if(direction === 'forward') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/throttle'
+    client.send(message)  
   }
-  if(direction === "left") {
-    message = new Paho.MQTT.Message(steps);
-    message.destinationName = "smartcar/control/steer-left"
+ 
+  if(direction === 'backwards') { 
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/reverse'
     client.send(message)
-  
   }
-  if(direction === "right") {
-    message = new Paho.MQTT.Message(steps);
-    message.destinationName = "smartcar/control/steer-left"
+  if(direction === 'left') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/steer-left'
+    client.send(message) 
+  }
+  if(direction === 'right') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/steer-left'
     client.send(message)
   }  
-  }  
-  
-
+}  
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
-    if (responseObject.errorCode !== 0) {
-        console.log("onConnectionLost:"+responseObject.errorMessage);
-    }
+  if (responseObject.errorCode !== 0) {
+    console.log('onConnectionLost:'+responseObject.errorMessage);
+  }
 }
 
-    // called when a message arrives
- function onMessageArrived(message) {
-    console.log("Sent messages: "+message.payloadString);
+// called when a message arrives
+function onMessageArrived(message) {
+  console.log('Sent messages: '+message.payloadString);
 }
-
-
-
-
 
 class BlockEntity {
   constructor (direction, steps) {
@@ -119,7 +98,7 @@ window.drop = function drop (ev) {
   // we get the data we set in the drag() method
   const data = ev.dataTransfer.getData('text')
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
-  const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right' || data === 'turn-around' || data === 'spin' || data === 'repeat' || data === 'wait')
+  const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right')
   const nodeCopy = document.getElementsByClassName('dragging').item(0).cloneNode(true)
   // we set the class to dragging so that we can distinguish it from the others
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
@@ -201,15 +180,14 @@ window.start = function start () {
 }
 //This will be tested later for the MQTT
 window.start1 = function start1 () {
-    if(!client.isConnected) {
-      //Try to connect 
-      console.log("Not connected....")
-    }
-    console.log("Connected....");
-    const contents = retrieveContents()
-    for(let i= 0; i < contents.length; i++) {
-      publishForMovement(contents[i].direction, contents[i].steps)
+  if(!client.isConnected) {
+    //Try to connect 
+    console.log('Not connected....')
+  }
+  console.log('Connected....')
+  const contents = retrieveContents()
+  for(let i= 0; i < contents.length; i++) {
+    publishForMovement(contents[i].direction, contents[i].steps)
 
-    }
-  }  
-
+  }
+}  
