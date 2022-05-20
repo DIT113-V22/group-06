@@ -4,7 +4,7 @@ client.onConnectionLost = onConnectionLost
 client.onMessageArrived = onMessageArrived
 
 // connect the client
-client.connect({ onSuccess: onConnect })
+client.connect({ onSuccess:onConnect })
 
 // called when the client connects
 function onConnect () {
@@ -13,8 +13,8 @@ function onConnect () {
   client.subscribe('smartcar/control/#')
 }
 
-window.publish = function publish (topic, message) {
-  if (client.isConnected) {
+function publish (topic, message) {
+  if(client.isConnected) {
     console.log('Connected successfully')
     client.subscribe(topic)
     message = new Paho.MQTT.Message('Subscribe to ' + topic + 'with message' + message)
@@ -26,23 +26,23 @@ window.publish = function publish (topic, message) {
 // This method is to help us send the right message to the emulator based on the code blocks
 function publishForMovement (direction, steps) {
   if (direction === 'forward') {
-    let message = new Paho.MQTT.Message(steps)
+    message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/throttle'
     client.send(message)
   }
-
-  if (direction === 'backwards') {
+ 
+  if (direction === 'backwards') { 
     message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/reverse'
     client.send(message)
   }
   if (direction === 'left') {
-    let message = new Paho.MQTT.Message(steps)
+    message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/steer-left'
     client.send(message)
   }
   if (direction === 'right') {
-    let message = new Paho.MQTT.Message(steps)
+    message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/steer-left'
     client.send(message)
   }
@@ -51,13 +51,13 @@ function publishForMovement (direction, steps) {
 // called when the client loses its connection
 function onConnectionLost (responseObject) {
   if (responseObject.errorCode !== 0) {
-    console.log('onConnectionLost:' + responseObject.errorMessage)
+    console.log('onConnectionLost:' + responseObject.errorMessage);
   }
 }
 
 // called when a message arrives
 function onMessageArrived (message) {
-  console.log('Sent messages: '+ message.payloadString)
+  console.log('Sent messages: '+message.payloadString)
 }
 
 class BlockEntity {
