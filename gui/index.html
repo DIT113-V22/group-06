@@ -31,7 +31,7 @@
 
                         <a href = "">
 
-                            <img id="icon" alt="" src="./assets/logo.png">
+                            <img id="logo" alt="" src="./assets/logo.png">
 
                         </a>
 
@@ -77,26 +77,26 @@
                                 OPTIONS
                             </h1>
 
-                            <h2 class = "selection-menu-type">
+                            <!-- <h2 class = "selection-menu-type">
                                 MOVEMENT
-                            </h2>
+                            </h2> -->
 
                             <div id="code-blocks" onload="init();">
 
                                 <div class = "row">  
                                             <form class="block" id="move-forward" draggable="true"
                                             ondragstart="drag(event)">  
-                                                <label>Move: </label>  
-                                                <input class="input" type="number" name="number-input" placeholder="steps"> 
-                                                <label>steps forward</label> 
+                                                <label>Move </label>  
+                                                <input class="input" type="number" name="number-input" placeholder="" min="0"> 
+                                                <label>seconds forward</label> 
                                             </form>  
                                     
 
                                             <form class="block" id="move-backwards" draggable="true"
                                             ondragstart="drag(event)">  
-                                                <label>Move: </label>
-                                                <input class="input" type="number" name="number-input" placeholder="steps"> 
-                                                <label>steps backwards</label> 
+                                                <label>Move </label>
+                                                <input class="input" type="number" name="number-input" placeholder="" min="0"> 
+                                                <label>seconds backwards</label> 
                                             </form>  
 
                                 </div>
@@ -104,18 +104,48 @@
                                 <div class = "row">  
                                             <form class="block" id="move-left" draggable="true"
                                             ondragstart="drag(event)">  
-                                                <label>Move: </label> 
-                                                <input type="number" name="number-input" placeholder="degrees">
-                                                <label> left</label>  
+                                                <label>Move </label> 
+                                                <input type="number" name="number-input" placeholder="" min="0">
+                                                <label> degrees left</label>  
                                             </form>  
                                     
                                             <form class="block" id="move-right" draggable="true"
                                             ondragstart="drag(event)">  
-                                                <label>Move: </label>  
-                                                <input type="number" name="number-input" placeholder="degrees">
-                                                <label> right</label> 
+                                                <label>Move </label>  
+                                                <input type="number" name="number-input" placeholder="" min="0">
+                                                <label> degrees right</label> 
                                         </form>
                                     
+                                </div>
+
+                                <div class = "row">  
+                                    <form class="block" id="turn-around" draggable="true"
+                                    ondragstart="drag(event)">  
+                                        <label>Turn around</label>  
+                                    </form>  
+                            
+                                    <form class="block" id="spin" draggable="true"
+                                    ondragstart="drag(event)">  
+                                        <label>Spin around</label> 
+                                    </form>
+                            
+                                </div>
+
+                                <div class = "row">  
+                                    <form class="block" id="wait" draggable="true"
+                                    ondragstart="drag(event)">  
+                                        <label>Wait </label> 
+                                        <input type="number" name="number-input" placeholder="" min="0">
+                                        <label> seconds</label>  
+                                    </form>  
+                            
+                                    <form class="block" id="repeat" draggable="true"
+                                    ondragstart="drag(event)">  
+                                        <label>Repeat </label>  
+                                        <input type="number" name="number-input" placeholder="" min="1">
+                                        <label> times</label> 
+                                    </form>
+                            
                                 </div>
 
                             </div>
