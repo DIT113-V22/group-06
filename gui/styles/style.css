@@ -77,22 +77,22 @@
 }
 
 #turn-around {
-  background-color: #E41919;
+  background-color: #e41919;
   width: 80%;
 }
 
 #spin {
-  background-color: #C122BB;
+  background-color: #c122bb;
   width: 80%;
 }
 
 #wait {
-  background-color: #1DE5A3;
+  background-color: #1de5a3;
   width: 80%;
 }
 
 #repeat {
-  background-color: #CA6702;
+  background-color: #ca6702;
   width: 80%;
 }
 
@@ -121,25 +121,25 @@
 }
 
 #turn-around-copy {
-  background-color: #E41919;
+  background-color: #e41919;
   width: 80%;
   text-align: center;
 }
 
 #spin-copy {
-  background-color: #C122BB;
+  background-color: #c122bb;
   width: 80%;
   text-align: center;
 }
 
 #wait-copy {
-  background-color: #1DE5A3;
+  background-color: #1de5a3;
   width: 80%;
   text-align: center;
 }
 
 #repeat-copy {
-  background-color: #CA6702;
+  background-color: #ca6702;
   width: 80%;
   text-align: center;
 }
