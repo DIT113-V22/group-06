@@ -29,6 +29,7 @@ const auto mqttBrokerUrl = "broker.emqx.io";
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
 const int bspeed = -50;
+const int stopSpeed = 0;
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
@@ -69,28 +70,34 @@ void setup() {
         starttime = millis();
         endtime = starttime;
         while ((endtime - starttime) <= message.toInt() * 1000) {
+          if(detectObstacle()) {
+            break;
+          }
           car.setSpeed(fspeed);
           car.setAngle(0);
           endtime = millis();
         }
-        car.setSpeed(0);
-        car.setAngle(0);
+        stopCar();
+        
       }
 
-      else if (topic == "smartcar/control/reverse") {
+       if (topic == "smartcar/control/reverse") {
         Serial.println(topic);
         starttime = millis();
         endtime = starttime;
         while ((endtime - starttime) <= message.toInt() * 1000) {
+           if(detectObstacle()) {
+            break;
+          }
           car.setSpeed(bspeed);
           car.setAngle(0);
           endtime = millis();
         }
-        car.setSpeed(0);
-        car.setAngle(0);
+        stopCar();
       }
 
-      else if (topic == "smartcar/control/steer-left") {
+      if (topic == "smartcar/control/steer-left") {
+        
         Serial.println(topic);
         car.setSpeed(fspeed);
         car.setAngle(message.toInt());
@@ -99,7 +106,8 @@ void setup() {
         car.setAngle(0);
       }
 
-      else if (topic == "smartcar/control/steer-right") {
+      if (topic == "smartcar/control/steer-right") {
+         
         Serial.println(topic);
         car.setSpeed(fspeed);
         car.setAngle(message.toInt());
@@ -116,34 +124,52 @@ void setup() {
 }
 
 void loop() {
-  detectObstacle();
+  
   if (mqtt.connected()) {
     mqtt.loop();
+    const auto currentTime = millis();
+    static auto previousTransmission = 0UL;
+    if (currentTime - previousTransmission >= 1000) {
+      previousTransmission = currentTime;
+      const auto distance = String(front.getDistance());
     //Probably need to change some stuff here
-    #ifdef SMCE
+   
+  } 
+   #ifdef SMCE
       // Avoid over-using the CPU if we are running in the emulator
       delay(1);
     #endif
-  } 
+    
+  }
   else {
     mqtt.connect("arduino", "public", "public");
     mqtt.subscribe("smartcar/control/#", 1);
   }
 }
 
-void detectObstacle() {
+boolean detectObstacle() {
   const auto frontDistance = front.getDistance();
   const auto backDistance = back.getDistance();
 
   // When distance is `0` it means there's no obstacle detected
   //When car is within an obstacle range of 0-1.5 meters, it stops
   if (frontDistance > 0 && frontDistance < 150){
-    car.setSpeed(0); //Speed is set to zero to stop the car
-    mqtt.publish("smartcar/ultrasound/front", String(frontDistance));
+    //mqtt.publish("smartcar/ultrasound/front", String(frontDistance));
+    return true;
+    
   }
 
-  else if(backDistance > 0 && backDistance < 150){
-    car.setSpeed(0); //Speed is set to zero to stop the car
-    mqtt.publish("smartcar/infrared/back", String(backDistance));
+  if(backDistance > 0 && backDistance < 150){
+    // mqtt.publish("smartcar/infrared/back", String(backDistance));
+    return true;
+  
   }
+  return false;
 }
+ void stopCar() {
+   car.setAngle(0);
+   car.setSpeed(stopSpeed);
+   const char message[] = "Obstacle detected";
+   mqtt.publish("smartcar/control/stopped", message);
+ } 
+

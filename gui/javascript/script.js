@@ -59,6 +59,11 @@ function onConnectionLost (responseObject) {
 function onMessageArrived (message) {
   console.log('Sent messages: '+message.payloadString)
 }
+function onMessageReceivedFromCar(topic, message) {
+  if(topic === "smartcar/control/stopped") {
+    console.log(message);
+  }
+}
 
 class BlockEntity {
   constructor (direction, steps) {
@@ -149,20 +154,22 @@ function getElementAfter (y) {
 
 /// Function to get the text of all code blocks in the canvas
 function retrieveContents () {
+  var value = 0;
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
+    value = remainingBlocks[i].children[1].value;
+    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 7)
     let subString2 = remainingBlocks[i].lastElementChild.innerHTML
     if (subString1 === 'steps') {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(6)
+      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(9)
     } else {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(1)
+      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(9)
     }
 
     const codeBlock = new BlockEntity(
       subString2,
-      remainingBlocks[i].children[1].value
+      value
     )
 
     jsObjects[i] = codeBlock
