@@ -152,13 +152,21 @@ function retrieveContents () {
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
-    let subString2 = remainingBlocks[i].lastElementChild.innerHTML
-    if (subString1 === 'steps') {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(6)
+  
+    let subString2 = ''
+    console.log(remainingBlocks[i].id)
+    if (remainingBlocks[i].id === 'move-forward-copy' ) {
+      subString2 = 'forward'
+    } else if (remainingBlocks[i].id === 'move-backwards-copy') {
+      subString2 = 'backwards'
+    } else if (remainingBlocks[i].id === 'move-left-copy') {
+      subString2 = 'left'
+    } else if (remainingBlocks[i].id === 'move-right-copy') {
+      subString2 = 'right'
     } else {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(1)
+      subString2 = 'no-direction-specified'
     }
+    
 
     const codeBlock = new BlockEntity(
       subString2,
@@ -185,6 +193,7 @@ window.start1 = function start1 () {
   }
   console.log('Connected....')
   const contents = retrieveContents()
+  console.log(contents)
   for (let i = 0; i < contents.length; i++) {
     publishForMovement(contents[i].direction, contents[i].steps)
   }
