@@ -70,7 +70,7 @@ void setup() {
         starttime = millis();
         endtime = starttime;
         while ((endtime - starttime) <= message.toInt() * 1000) {
-          if(detectObstacle()) {
+          if(detectObstacle("throttle")) {
             break;
           }
           car.setSpeed(fspeed);
@@ -86,7 +86,7 @@ void setup() {
         starttime = millis();
         endtime = starttime;
         while ((endtime - starttime) <= message.toInt() * 1000) {
-           if(detectObstacle()) {
+           if(detectObstacle("reverse")) {
             break;
           }
           car.setSpeed(bspeed);
@@ -147,19 +147,19 @@ void loop() {
   }
 }
 
-boolean detectObstacle() {
+boolean detectObstacle(String direction) {
   const auto frontDistance = front.getDistance();
   const auto backDistance = back.getDistance();
 
   // When distance is `0` it means there's no obstacle detected
   //When car is within an obstacle range of 0-1.5 meters, it stops
-  if (frontDistance > 0 && frontDistance < 150){
+  if (direction == "throttle" && (frontDistance > 0 && frontDistance < 150)){
     //mqtt.publish("smartcar/ultrasound/front", String(frontDistance));
     return true;
     
   }
 
-  if(backDistance > 0 && backDistance < 150){
+  if(direction == "reverse" && (backDistance > 0 && backDistance < 150)){
     // mqtt.publish("smartcar/infrared/back", String(backDistance));
     return true;
   
