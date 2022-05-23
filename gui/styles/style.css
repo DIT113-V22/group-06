@@ -54,6 +54,30 @@
   animation-name: bounce;
 }
 
+.block{
+  width: 60%;
+  /* background-color:; */
+  position: relative;
+  padding: 1.5rem 0;
+  border: .5rem ;
+  border-radius: .8rem;
+  border-width: 10px;
+  border-color: black;
+ 
+}
+.block:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 2rem;
+  height: 0;
+  border-top: 1rem solid;
+  border-top-color: #eee;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+}
+
 #move-forward {
   background-color: #14bcf3;
   width: 80%;
