@@ -36,7 +36,7 @@ function publishForMovement (direction, steps) {
   }
   if (direction === 'right') {
     message = new Paho.MQTT.Message(steps)
-    message.destinationName = 'smartcar/control/steer-left'
+    message.destinationName = 'smartcar/control/steer-right'
     client.send(message)
   }
 }
