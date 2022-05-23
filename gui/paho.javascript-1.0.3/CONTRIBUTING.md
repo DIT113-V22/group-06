@@ -16,7 +16,7 @@ Please read the [Eclipse Foundation policy on accepting contributions via Git](h
 2. Go to your [account settings](https://dev.eclipse.org/site_login/myaccount.php#open_tab_accountsettings) and add your GitHub username to your account.
 3. Make sure that you _sign-off_ your Git commits in the following format:
   ``` Signed-off-by: John Smith <johnsmith@nowhere.com> ``` This is usually at the bottom of the commit message. You can automate this by adding the '-s' flag when you make the commits. e.g.   ```git commit -s -m "Adding a cool feature"```
-4. Ensure that the email address that you make your commits with is the same one you used to sign up to the Eclipse Foundation website with.
+4. Ensure that the email address that you make your commits with is the same one you used to sign up to the Eclipse Foundation site with.
 
 ## Contributing a change
 
@@ -54,12 +54,12 @@ Contact the project developers via the project's development
 [mailing list](https://dev.eclipse.org/mailman/listinfo/paho-dev).
 
 ### Search for bugs
-----------------
+--------
 
 This project uses GitHub Issues here: [github.com/eclipse/paho.mqtt.javascript/issues](https://github.com/eclipse/paho.mqtt.javascript/issues) to track ongoing development and issues.
 
 ### Create a new bug
------------------
+--------
 
 Be sure to search for existing bugs before you create another one. Remember that contributions are always welcome!
 
