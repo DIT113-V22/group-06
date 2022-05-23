@@ -1,26 +1,19 @@
+let message = "";
+let Paho = {};
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
+
 // set callback handlers
 client.onConnectionLost = onConnectionLost
 client.onMessageArrived = onMessageArrived
 
 // connect the client
-client.connect({ onSuccess:onConnect })
+client.connect({ onSuccess: onConnect })
 
 // called when the client connects
 function onConnect () {
   // Once a connection has been made, make a subscription and send a message.
   console.log('Connected successfully')
   client.subscribe('smartcar/control/#')
-}
-
-function publish (topic, message) {
-  if(client.isConnected) {
-    console.log('Connected successfully')
-    client.subscribe(topic)
-    message = new Paho.MQTT.Message('Subscribe to ' + topic + 'with message' + message)
-    message.destinationName = topic
-    client.send(message)
-  }
 }
 
 // This method is to help us send the right message to the emulator based on the code blocks
@@ -30,8 +23,8 @@ function publishForMovement (direction, steps) {
     message.destinationName = 'smartcar/control/throttle'
     client.send(message)
   }
- 
-  if (direction === 'backwards') { 
+
+  if (direction === 'backwards') {
     message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/reverse'
     client.send(message)
@@ -51,13 +44,13 @@ function publishForMovement (direction, steps) {
 // called when the client loses its connection
 function onConnectionLost (responseObject) {
   if (responseObject.errorCode !== 0) {
-    console.log('onConnectionLost:' + responseObject.errorMessage);
+    console.log('onConnectionLost:' + responseObject.errorMessage)
   }
 }
 
 // called when a message arrives
 function onMessageArrived (message) {
-  console.log('Sent messages: '+message.payloadString)
+  console.log('Sent messages: '+ message.payloadString)
 }
 
 class BlockEntity {
@@ -152,10 +145,9 @@ function retrieveContents () {
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-  
     let subString2 = ''
     console.log(remainingBlocks[i].id)
-    if (remainingBlocks[i].id === 'move-forward-copy' ) {
+    if (remainingBlocks[i].id === 'move-forward-copy') {
       subString2 = 'forward'
     } else if (remainingBlocks[i].id === 'move-backwards-copy') {
       subString2 = 'backwards'
@@ -166,7 +158,6 @@ function retrieveContents () {
     } else {
       subString2 = 'no-direction-specified'
     }
-    
 
     const codeBlock = new BlockEntity(
       subString2,
