@@ -1,5 +1,5 @@
-let message = "";
-let Paho = {};
+let message = ''
+const Paho = {}
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
 // set callback handlers
@@ -50,7 +50,7 @@ function onConnectionLost (responseObject) {
 
 // called when a message arrives
 function onMessageArrived (message) {
-  console.log('Sent messages: '+ message.payloadString)
+  console.log('Sent messages: ' + message.payloadString)
 }
 
 class BlockEntity {
