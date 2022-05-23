@@ -1,3 +1,58 @@
+let message = ''
+const Paho = {}
+const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
+
+// set callback handlers
+client.onConnectionLost = onConnectionLost
+client.onMessageArrived = onMessageArrived
+
+// connect the client
+client.connect({ onSuccess: onConnect })
+
+// called when the client connects
+function onConnect () {
+  // Once a connection has been made, make a subscription and send a message.
+  console.log('Connected successfully')
+  client.subscribe('smartcar/control/#')
+}
+
+// This method is to help us send the right message to the emulator based on the code blocks
+function publishForMovement (direction, steps) {
+  if (direction === 'forward') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/throttle'
+    client.send(message)
+  }
+
+  if (direction === 'backwards') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/reverse'
+    client.send(message)
+  }
+  if (direction === 'left') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/steer-left'
+    client.send(message)
+  }
+  if (direction === 'right') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/steer-right'
+    client.send(message)
+  }
+}
+
+// called when the client loses its connection
+function onConnectionLost (responseObject) {
+  if (responseObject.errorCode !== 0) {
+    console.log('onConnectionLost:' + responseObject.errorMessage)
+  }
+}
+
+// called when a message arrives
+function onMessageArrived (message) {
+  console.log('Sent messages: ' + message.payloadString)
+}
+
 class BlockEntity {
   constructor (direction, steps) {
     this.direction = direction
@@ -35,12 +90,12 @@ window.drop = function drop (ev) {
   // we get the data we set in the drag() method
   const data = ev.dataTransfer.getData('text')
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
-  const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right' || data === 'turn-around' || data === 'spin' || data === 'repeat' || data === 'wait')
+  const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right')
   const nodeCopy = document.getElementsByClassName('dragging').item(0).cloneNode(true)
   // we set the class to dragging so that we can distinguish it from the others
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
   const elementAfter = getElementAfter(ev.clientY)
-  if (isLeft) {
+  if (isLeft && ev.target.id !== 'trash-icon') {
     // we need different id´s for the elements in the menu and the ones in the canvas
     nodeCopy.id = data + '-copy'
     if (elementAfter === null) {
@@ -49,10 +104,10 @@ window.drop = function drop (ev) {
       canvas.insertBefore(nodeCopy, elementAfter)
     }
   } else if (ev.target.id === 'trash-icon') {
-    removeNode(document.getElementsByClassName('dragging').item(0))
+    removeNode(canvas.getElementsByClassName('dragging').item(0))
   } else {
     // We check which element would come after the position we are dropping the element, remove the element and append it on the right position
-    removeNode(document.getElementsByClassName('dragging').item(0))
+    removeNode(canvas.getElementsByClassName('dragging').item(0))
     if (elementAfter === null) {
       canvas.appendChild(nodeCopy)
     } else {
@@ -90,20 +145,24 @@ function retrieveContents () {
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 5)
-    let subString2 = remainingBlocks[i].lastElementChild.innerHTML
-    if (subString1 === 'steps') {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(6)
+    let subString2 = ''
+    console.log(remainingBlocks[i].id)
+    if (remainingBlocks[i].id === 'move-forward-copy') {
+      subString2 = 'forward'
+    } else if (remainingBlocks[i].id === 'move-backwards-copy') {
+      subString2 = 'backwards'
+    } else if (remainingBlocks[i].id === 'move-left-copy') {
+      subString2 = 'left'
+    } else if (remainingBlocks[i].id === 'move-right-copy') {
+      subString2 = 'right'
     } else {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(1)
+      subString2 = 'no-direction-specified'
     }
 
     const codeBlock = new BlockEntity(
       subString2,
       remainingBlocks[i].children[1].value
     )
-
-    console.log(codeBlock.toJson())
 
     jsObjects[i] = codeBlock
   }
@@ -115,5 +174,18 @@ window.start = function start () {
   const contents = retrieveContents()
   for (let i = 0; i < contents.length; i++) {
     console.log(contents[i])
+  }
+}
+// This will be tested later for the MQTT
+window.start1 = function start1 () {
+  if (!client.isConnected) {
+    // Try to connect
+    console.log('Not connected....')
+  }
+  console.log('Connected....')
+  const contents = retrieveContents()
+  console.log(contents)
+  for (let i = 0; i < contents.length; i++) {
+    publishForMovement(contents[i].direction, contents[i].steps)
   }
 }
