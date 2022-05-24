@@ -18,6 +18,8 @@ ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(arduinoRuntime, smartcarlib::pins::v2::rightMotorPins);
 DifferentialControl control(leftMotor, rightMotor);
+const int GYROSCOPE_OFFSET = 37;
+GY50 gyro(arduinoRuntime, GYROSCOPE_OFFSET);
 
 SimpleCar car(control);
 
@@ -32,6 +34,8 @@ const int bspeed = -50;
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
+
+int angleValue = 0;
 
 //--------------------MQTT CONNECTIONS----------------------------------//
 
@@ -90,13 +94,24 @@ void setup() {
         car.setAngle(0);
       }
 
-      else if (topic == "smartcar/control/steer-left") {
-        Serial.println(topic);
-        car.setSpeed(fspeed);
-        car.setAngle(message.toInt());
-    
-        car.setSpeed(0);
-        car.setAngle(0);
+      if (topic == "smartcar/control/steer-left") {
+        
+        double inputAngle = -message.toInt();
+
+        car.setAngle(inputAngle);
+        gyro.update();
+        angleValue = gyro.getHeading();
+        int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
+
+        while (angleValue != finalDegree){
+          car.setSpeed(fspeed);
+          Serial.println(angleValue);
+          gyro.update();
+          angleValue = gyro.getHeading();
+        }
+
+        stopCar();
+
       }
 
       else if (topic == "smartcar/control/steer-right") {
@@ -129,6 +144,9 @@ void loop() {
     mqtt.connect("arduino", "public", "public");
     mqtt.subscribe("smartcar/control/#", 1);
   }
+
+  gyro.update(); 
+
 }
 
 void detectObstacle() {
