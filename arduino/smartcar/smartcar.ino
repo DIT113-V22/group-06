@@ -4,6 +4,7 @@
 #include <OV767X.h>
 #endif
 #include <Smartcar.h>
+#include <cmath>
 
 //--------------------VARIABLES DECLARATION----------------------------------//
 
@@ -18,6 +19,8 @@ ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(arduinoRuntime, smartcarlib::pins::v2::rightMotorPins);
 DifferentialControl control(leftMotor, rightMotor);
+const int GYROSCOPE_OFFSET = 37;
+GY50 gyro(arduinoRuntime, GYROSCOPE_OFFSET);
 
 SimpleCar car(control);
 
@@ -29,9 +32,12 @@ const auto mqttBrokerUrl = "broker.emqx.io";
 const unsigned int maxDistance = 300;
 const int fspeed = 50;
 const int bspeed = -50;
+int stopSpeed = 0;
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
+
+
 
 //--------------------MQTT CONNECTIONS----------------------------------//
 
@@ -90,23 +96,54 @@ void setup() {
         car.setAngle(0);
       }
 
-      else if (topic == "smartcar/control/steer-left") {
-        Serial.println(topic);
-        car.setSpeed(fspeed);
-        car.setAngle(message.toInt());
-    
-        car.setSpeed(0);
-        car.setAngle(0);
+      if (topic == "smartcar/control/steer-left") {
+        
+        int angleValue = 0;
+        double inputAngle = -message.toInt();
+
+        car.setAngle(inputAngle);
+        gyro.update();
+        angleValue = gyro.getHeading();
+        int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
+
+        while (angleValue != finalDegree){
+          car.setSpeed(fspeed);
+          Serial.println(angleValue);
+          gyro.update();
+          angleValue = gyro.getHeading();
+        }
+
+        stopCar();
+        Serial.println(gyro.getHeading());
       }
 
-      else if (topic == "smartcar/control/steer-right") {
-        Serial.println(topic);
-        car.setSpeed(fspeed);
-        car.setAngle(message.toInt());
-    
-        car.setSpeed(0);
-        car.setAngle(0);
+      if (topic == "smartcar/control/steer-right") {
+         
+        int angleValue = 0;
+        double inputAngle = message.toInt();
+
+        car.setAngle(inputAngle);
+        gyro.update();
+        angleValue = gyro.getHeading();
+        /*int finalDegree = (gyro.getHeading() + inputAngle) < 0 ? (360 + (gyro.getHeading() + inputAngle)) : (gyro.getHeading() + -inputAngle);
+        */
+        int finalDegree = gyro.getHeading() + -inputAngle;
+        if (finalDegree < 0){
+          finalDegree = 360 + finalDegree;
+        }
+        Serial.println(finalDegree);
+        
+        while (angleValue != finalDegree){
+          car.setSpeed(fspeed);
+          
+          gyro.update();
+          angleValue = gyro.getHeading();
+        }
+
+        stopCar();
+        Serial.println(gyro.getHeading());
       }
+      
 
       else {
         Serial.println(topic + " " + message);
@@ -129,6 +166,9 @@ void loop() {
     mqtt.connect("arduino", "public", "public");
     mqtt.subscribe("smartcar/control/#", 1);
   }
+
+  gyro.update(); 
+
 }
 
 void detectObstacle() {
@@ -147,3 +187,11 @@ void detectObstacle() {
     mqtt.publish("smartcar/infrared/back", String(backDistance));
   }
 }
+
+void stopCar() {
+   car.setAngle(0);
+   car.setSpeed(stopSpeed);
+   const char message[] = "Obstacle detected";
+   mqtt.publish("smartcar/control/stopped", message);
+ } 
+
