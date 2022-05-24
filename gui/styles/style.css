@@ -1,5 +1,3 @@
-/* ------------------------ */
-
 /* Classes for attributes */
 
 /* ------------------------ */
@@ -26,7 +24,7 @@
 .menu {
   align-self: flex-end;
   width: 100%;
-  margin-bottom: 35px;
+  margin-bottom: -1px;
   background-color: #eee;
   padding: 10px;
   border-radius: 30px;
@@ -43,7 +41,7 @@
   margin-left: -10px;
 }
 
-.block {
+.block{
   cursor: pointer;
 }
 
@@ -54,91 +52,65 @@
   animation-name: bounce;
 }
 
-.block{
-  width: 60%;
-  /* background-color:; */
-  position: relative;
-  padding: 1.5rem 0;
-  border: .5rem ;
-  border-radius: .8rem;
-  border-width: 10px;
-  border-color: black;
- 
-}
-.block:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 1.5rem;
-  width: 2rem;
-  height: 0;
-  border-top: 1rem solid;
-  border-top-color: #eee;
-  border-left: 1rem solid transparent;
-  border-right: 1rem solid transparent;
-}
-
-.block:after {
-  content: "";
-  position: absolute;
-  bottom: -1rem;
-  left: 1.5rem;
-  width: 2rem;
-  height: 0;
-  border-top: 1rem solid;
-  border-top-color: var(--background-color) ;  
-  border-left: 1rem solid transparent;
-  border-right: 1rem solid transparent;
-
-}
-
-
 #move-forward{
   background-color: #14bcf3;
-  width: 80%;
+  width: 68%;
   --background-color: #14bcf3;
 }
 
 #move-backwards {
   background-color: #ff9800;
-  width: 80%;
+  width: 68%;
   
   --background-color: #ff9800;
 }
 
 #move-left {
   background-color: #f30fa2;
-  width: 80%;
+  width: 68%;
   
   --background-color: #f30fa2;
 }
 
 #move-right {
   background-color: #01b040;
-  width: 80%;
+  width: 68%;
  
   --background-color: #01b040;
 }
 
-
 #move-forward-copy {
   background-color: #14bcf3;
-  width: 100%;
+  width: 37%;
+  text-align: center;
+  --background-color: #14bcf3;
+  margin-bottom:-3px;
+  
 }
 
 #move-backwards-copy {
   background-color: #ff9800;
-  width: 100%;
+  width: 37%;
+  --background-color: #ff9800;
+  text-align: center;
+  margin-bottom:-3px;
 }
 
 #move-left-copy {
   background-color: #f30fa2;
-  width: 100%;
+  width: 37%;
+  text-align: center;
+  margin-bottom:-3px;
+
+  --background-color: #f30fa2;
 }
 
 #move-right-copy {
   background-color: #01b040;
-  width: 100%;
+  width: 37%;
+  --background-color: #01b040;
+   text-align: center;
+   margin-bottom: -3px;
 }
 
 .btn {
@@ -181,12 +153,14 @@
   width: 100%;
   padding-left: 50px;
   padding-right: 30px;
+  padding-top: 10%;
+  padding-bottom: 10%;
   background-color: white;
   border-radius: 30px;
 }
 
 .canvas-container {
-  padding-top: 10px;
+  padding-top: 35px;
   background-color: #eeee;
   border-radius: 30px;
   height: max-content;
@@ -271,6 +245,43 @@ button {
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
+.block{
+  width: 60%;
+  /* background-color:; */
+  position: relative;
+  padding: 1.5rem 0;
+  border: .5rem ;
+  border-radius: .8rem;
+  border-width: 10px;
+  border-color: black;
+ 
+}
+.block:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 2rem;
+  height: 0;
+  border-top: 1rem solid;
+  border-top-color: #eee;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+}
+
+.block:after {
+  content: "";
+  position: absolute;
+  bottom: -1rem;
+  left: 1.5rem;
+  width: 2rem;
+  height: 0;
+  border-top: 1rem solid;
+  border-top-color: var(--background-color) ;  
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+
+}
 
 button:hover {
   cursor: pointer;
@@ -280,6 +291,7 @@ button:hover {
 form {
   border-radius: 10px;
   margin: 0 auto 20px;
+  /*margin-bottom: -10px; */
   padding: 5px 0 10px;
   background-color: #ffc15e;
   font-family: "Segoe UI", sans-serif;
