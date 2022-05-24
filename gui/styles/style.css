@@ -93,25 +93,33 @@
 }
 
 
-#move-forward {
+#move-forward{
   background-color: #14bcf3;
   width: 80%;
+  --background-color: #14bcf3;
 }
 
 #move-backwards {
   background-color: #ff9800;
   width: 80%;
+  
+  --background-color: #ff9800;
 }
 
 #move-left {
   background-color: #f30fa2;
   width: 80%;
+  
+  --background-color: #f30fa2;
 }
 
 #move-right {
   background-color: #01b040;
   width: 80%;
+ 
+  --background-color: #01b040;
 }
+
 
 #move-forward-copy {
   background-color: #14bcf3;
