@@ -133,7 +133,7 @@ window.dropInRepeat = function dropInRepeat (ev) {
   // we set the class to dragging so that we can distinguish it from the others
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
   const elementAfter = getElementAfter(ev.clientY, false, repeatBlock)
-  
+
   if (isLeft && data !== 'repeat' && data !== 'repeat-copy') {
     // we need different id´s for the elements in the menu and the ones in the canvas
     nodeCopy.id = data + '-copy'
