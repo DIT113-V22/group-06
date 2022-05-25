@@ -1,26 +1,19 @@
+let message = ''
+const Paho = {}
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
+
 // set callback handlers
 client.onConnectionLost = onConnectionLost
 client.onMessageArrived = onMessageArrived
 
 // connect the client
-client.connect({ onSuccess:onConnect })
+client.connect({ onSuccess: onConnect })
 
 // called when the client connects
 function onConnect () {
   // Once a connection has been made, make a subscription and send a message.
   console.log('Connected successfully')
   client.subscribe('smartcar/control/#')
-}
-
-function publish (topic, message) {
-  if(client.isConnected) {
-    console.log('Connected successfully')
-    client.subscribe(topic)
-    message = new Paho.MQTT.Message('Subscribe to ' + topic + 'with message' + message)
-    message.destinationName = topic
-    client.send(message)
-  }
 }
 
 // This method is to help us send the right message to the emulator based on the code blocks
@@ -30,8 +23,8 @@ function publishForMovement (direction, steps) {
     message.destinationName = 'smartcar/control/throttle'
     client.send(message)
   }
- 
-  if (direction === 'backwards') { 
+
+  if (direction === 'backwards') {
     message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/reverse'
     client.send(message)
@@ -43,7 +36,7 @@ function publishForMovement (direction, steps) {
   }
   if (direction === 'right') {
     message = new Paho.MQTT.Message(steps)
-    message.destinationName = 'smartcar/control/steer-left'
+    message.destinationName = 'smartcar/control/steer-right'
     client.send(message)
   }
 }
@@ -51,17 +44,17 @@ function publishForMovement (direction, steps) {
 // called when the client loses its connection
 function onConnectionLost (responseObject) {
   if (responseObject.errorCode !== 0) {
-    console.log('onConnectionLost:' + responseObject.errorMessage);
+    console.log('onConnectionLost:' + responseObject.errorMessage)
   }
 }
 
 // called when a message arrives
 function onMessageArrived (message) {
-  console.log('Sent messages: '+message.payloadString)
+  console.log('Sent messages: ' + message.payloadString)
 }
 function onMessageReceivedFromCar(topic, message) {
   if(topic === "smartcar/control/stopped") {
-    console.log(message);
+    alert(message);
   }
 }
 
@@ -158,13 +151,18 @@ function retrieveContents () {
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
-    value = remainingBlocks[i].children[1].value;
-    const subString1 = remainingBlocks[i].lastElementChild.innerHTML.slice(0, 7)
-    let subString2 = remainingBlocks[i].lastElementChild.innerHTML
-    if (subString1 === 'steps') {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(9)
+    let subString2 = ''
+    console.log(remainingBlocks[i].id)
+    if (remainingBlocks[i].id === 'move-forward-copy') {
+      subString2 = 'forward'
+    } else if (remainingBlocks[i].id === 'move-backwards-copy') {
+      subString2 = 'backwards'
+    } else if (remainingBlocks[i].id === 'move-left-copy') {
+      subString2 = 'left'
+    } else if (remainingBlocks[i].id === 'move-right-copy') {
+      subString2 = 'right'
     } else {
-      subString2 = remainingBlocks[i].lastElementChild.innerHTML.slice(9)
+      subString2 = 'no-direction-specified'
     }
 
     const codeBlock = new BlockEntity(
@@ -192,6 +190,7 @@ window.start1 = function start1 () {
   }
   console.log('Connected....')
   const contents = retrieveContents()
+  console.log(contents)
   for (let i = 0; i < contents.length; i++) {
     publishForMovement(contents[i].direction, contents[i].steps)
   }
