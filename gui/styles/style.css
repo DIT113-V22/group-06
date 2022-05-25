@@ -96,6 +96,15 @@
   width: 80%;
 }
 
+.repeat-canvas {
+  padding-top: 2px;
+  background-color: #eeee;
+  border-radius: 5px;
+  height: max-content;
+  padding-bottom: 2px;
+  min-height: 50px;
+}
+
 #move-forward-copy {
   background-color: #14bcf3;
   width: 80%;
