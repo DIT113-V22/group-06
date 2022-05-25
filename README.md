@@ -7,8 +7,8 @@
 
 Our goal was to create a web-based application similar to [Scratch](https://scratch.mit.edu) that teaches children how to code. However, unlike Scratch, MONKEyCAR (the name of our application) will work with the real smart-car, which will perform the actions that the child “programmed” in our app, such as "Move 10 steps forward".
 
-<img width="535" alt="Screenshot 2022-05-25 at 19 36 09" src="https://user-images.githubusercontent.com/78755376/170335429-d73501ee-811c-49df-b4c6-d1490704640a.png" align="left">
-<img width="435" alt="Screenshot 2022-05-25 at 19 39 39 copy" src="https://user-images.githubusercontent.com/78755376/170335858-2728d6b4-0395-4e51-bcf2-ef1171468f89.png">
+<img width="515" alt="Screenshot 2022-05-25 at 19 36 09" src="https://user-images.githubusercontent.com/78755376/170335429-d73501ee-811c-49df-b4c6-d1490704640a.png" align="left">
+<img width="415" alt="Screenshot 2022-05-25 at 19 39 39 copy" src="https://user-images.githubusercontent.com/78755376/170335858-2728d6b4-0395-4e51-bcf2-ef1171468f89.png">
 
 <br />
 
@@ -43,7 +43,22 @@ We will be primarily using **HTML, CSS and JavaScript** in order to develop our 
 
 ### Setup
 - Clone the repository on your device
-- Download and open SMCE
+- Download and open SMCE [here](https://github.com/ItJustWorksTM/smce-gd/releases/tag/v1.3.4)
+
+| <img width="260" alt="Screenshot 2022-05-25 at 19 37 42" src="https://user-images.githubusercontent.com/78755376/170339214-770db480-9e86-4880-ad81-0cfa12e07118.png" align="left"> | <img width="495" alt="Screenshot 2022-05-25 at 19 37 51" src="https://user-images.githubusercontent.com/78755376/170339279-a64f3e8d-f6fb-466f-bd8c-95d429c9efc3.png">| <img width="230" alt="Screenshot 2022-05-25 at 19 38 41" src="https://user-images.githubusercontent.com/78755376/170339286-890b2202-1036-4c31-802f-4c4ad0a3fc91.png"> <img width="230" alt="Screenshot 2022-05-25 at 19 38 48" src="https://user-images.githubusercontent.com/78755376/170339289-ba46789e-d4e2-47a9-9aa4-7210d2a6b93d.png">|
+|:--:| :--:| :--:| 
+| *Press + to add a new arduino sketch* | Add a new sketch | Select the file "smartcar.ino" from the folder "arduino" |
+
+| <img width="254" alt="Screenshot 2022-05-25 at 19 38 58" src="https://user-images.githubusercontent.com/78755376/170339292-300a690d-d225-4fc8-aad0-a44e2c92c4e3.png"> | <img width="240" alt="Screenshot 2022-05-25 at 19 39 06" src="https://user-images.githubusercontent.com/78755376/170339299-f9e22501-1abb-461d-8be4-b628d5ed9ba4.png">| <img width="263" alt="Screenshot 2022-05-25 at 19 39 32" src="https://user-images.githubusercontent.com/78755376/170339307-4410e53c-9e40-493f-9870-15ec00a193f5.png">|
+|:--:| :--:| :--:| 
+| *Press + to add a new arduino sketch* | Add a new sketch | Select the file "smartcar.ino" from the folder "arduino" |
+
+
+
+<img width="278" alt="Screenshot 2022-05-25 at 19 39 39" src="https://user-images.githubusercontent.com/78755376/170339310-7d1dd91b-cd45-4f71-b531-424295432a2f.png">
+
+
+
 - Compile the sketch smartcar.ino in the emulator and press start
 - Open the file index.html in a browser
 
@@ -54,7 +69,7 @@ We will be primarily using **HTML, CSS and JavaScript** in order to develop our 
 - The stop button 
 
 ### The code blocks
-<img width="400" alt="Screenshot 2022-05-25 at 14 53 14" src="https://user-images.githubusercontent.com/78755376/170266551-859a31fb-d5ba-4dd4-9d31-5580133be83e.png" align="left">
+<img width="370" alt="Screenshot 2022-05-25 at 14 53 14" src="https://user-images.githubusercontent.com/78755376/170266551-859a31fb-d5ba-4dd4-9d31-5580133be83e.png" align="left">
 
 **Move x seconds forward** takes as input the number of seconds the car is supposed to drive forward.
 
