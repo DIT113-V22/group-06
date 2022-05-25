@@ -1,5 +1,4 @@
 let message = ''
-// const Paho = {}
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
 // set callback handlers
