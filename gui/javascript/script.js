@@ -38,6 +38,21 @@ function publishForMovement (direction, steps) {
     message.destinationName = 'smartcar/control/steer-right'
     client.send(message)
   }
+  if(direction == "wait") {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/wait'
+    client.send(message)
+  }
+  if(direction == "spin") {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/spin'
+    client.send(message)
+  }
+  if(direction =="turn-around") {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/turn'
+    client.send(message)
+  }
 }
 
 // called when the client loses its connection
@@ -210,37 +225,63 @@ function getRepeatBlock (y) {
 }
 
 /// Function to get the text of all code blocks in the canvas
-function retrieveContents () {
+function retrieveContents (canvas) {
   const jsObjects = []
-  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  
+  const remainingBlocks = document.getElementById(canvas).querySelectorAll('.block')
+  var value = 0;
+  
   for (let i = 0; i < remainingBlocks.length; i++) {
     let subString2 = ''
+    value = 0;
     console.log(remainingBlocks[i].id)
     if (remainingBlocks[i].id === 'move-forward-copy') {
       subString2 = 'forward'
+      value = remainingBlocks[i].children[1].value;
     } else if (remainingBlocks[i].id === 'move-backwards-copy') {
       subString2 = 'backwards'
+      value = remainingBlocks[i].children[1].value;
     } else if (remainingBlocks[i].id === 'move-left-copy') {
       subString2 = 'left'
+      value = remainingBlocks[i].children[1].value;
     } else if (remainingBlocks[i].id === 'move-right-copy') {
       subString2 = 'right'
-    } else {
+      value = remainingBlocks[i].children[1].value;
+    } else if (remainingBlocks[i].id === "turn-around-copy") {
+      subString2 = "turn-around"
+      number = 180
+      value = number.toString();
+    } else if(remainingBlocks[i].id === "spin-copy") {
+      subString2 = "spin"
+      number = 360;
+      value = number.toString();
+    } else if(remainingBlocks[i].id === "wait-copy") {
+      subString2 = "wait"
+      value = remainingBlocks[i].children[1].value;
+    } else if(remainingBlocks[i].id === "repeat-copy") {
+      subString2 = "repeat"
+      value = remainingBlocks[i].children[1].value;
+
+    }
+    else {
       subString2 = 'no-direction-specified'
     }
 
     const codeBlock = new BlockEntity(
       subString2,
-      remainingBlocks[i].children[1].value
+      value
     )
 
     jsObjects[i] = codeBlock
   }
+ 
   return jsObjects
 }
 
+
 // For testing purposes when Play button is clicked
 window.start = function start () {
-  const contents = retrieveContents()
+  const contents = retrieveContents("canvas")
   for (let i = 0; i < contents.length; i++) {
     console.log(contents[i])
   }
@@ -252,9 +293,18 @@ window.start1 = function start1 () {
     console.log('Not connected....')
   }
   console.log('Connected....')
-  const contents = retrieveContents()
+  const contents = retrieveContents("canvas")
   console.log(contents)
   for (let i = 0; i < contents.length; i++) {
-    publishForMovement(contents[i].direction, contents[i].steps)
+    if(contents[i].direction === "repeat") {
+      const contents1 = retrieveContents("repeat-copy");
+      for(let j = 0; j < contents[i].steps; j++) {
+        publishForMovement(contents1[j].direction, contents[j].steps);
+      }
+    }
+    else {
+      publishForMovement(contents[i].direction, contents[i].steps)
+    }
+   
   }
 }

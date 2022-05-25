@@ -82,6 +82,24 @@ void setup() {
         car.setSpeed(0);
         car.setAngle(0);
       }
+      else if(topic == "smartcar/control/turn") {
+
+      }
+      else if(topic == "smartcar/control/spin") {
+
+      }
+      else if(topic == "smartcar/control/wait") {
+        Serial.println(topic);
+        starttime = millis();
+        endtime = starttime;
+        while ((endtime - starttime) <= message.toInt() * 1000) {
+          car.setSpeed(0);
+          car.setAngle(0);
+          endtime = millis();
+        }
+      
+      }
+
 
       else if (topic == "smartcar/control/reverse") {
         Serial.println(topic);
