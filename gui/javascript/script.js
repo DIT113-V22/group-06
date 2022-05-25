@@ -85,7 +85,7 @@ function removeNode (node) {
 
 // This function is to drop an element in the canvas
 window.drop = function drop (ev) {
-  if (ev.target.id !== "repeat-canvas") {
+  if (ev.target.id !== 'repeat-canvas') {
     ev.preventDefault()
     const canvas = document.getElementById('canvas')
     // we get the data we set in the drag() method
@@ -98,12 +98,8 @@ window.drop = function drop (ev) {
     const elementAfter = getElementAfter(ev.clientY, true, null)
 
     if (data === 'repeat') {
-      console.log("here")
-      //nodeCopy.children[3].ondrop = "dropInRepeat(event)"
-      //nodeCopy.children[3].ondragover = "allowDrop(event)"
       nodeCopy.children[3].setAttribute('ondrop', 'dropInRepeat(event)')
       nodeCopy.children[3].setAttribute('ondragover', 'allowDrop(event)')
-      console.log(nodeCopy.children[3])
     }
 
     if (isLeft && ev.target.id !== 'trash-icon') {
@@ -134,7 +130,6 @@ window.dropInRepeat = function dropInRepeat (ev) {
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
   const isLeft = (data === 'move-forward' || data === 'move-backwards' || data === 'move-left' || data === 'move-right' || data === 'turn-around' || data === 'spin' || data === 'wait' || data === 'repeat')
   const nodeCopy = document.getElementsByClassName('dragging').item(0).cloneNode(true)
-  
   // we set the class to dragging so that we can distinguish it from the others
   // we check whether we try to drop it on the canvas (otherwise we can also drop inside the other blocks)
   const elementAfter = getElementAfter(ev.clientY, false, repeatBlock)
@@ -198,6 +193,7 @@ function getRepeatBlock (y) {
   let offset = 1000000
   let blockToReturn = null
   let newOffset = 1000000
+  let box = null
   for (let i = 0; i < blocks.length; i++) {
     if (blocks.item(i).id === 'repeat-copy') {
       box = blocks.item(i).getBoundingClientRect()
