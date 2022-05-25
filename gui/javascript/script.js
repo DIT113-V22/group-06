@@ -237,7 +237,7 @@ function retrieveContents () {
   }
   return jsObjects
 }
-function clear () {
+function clearAll () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   console.log(remainingBlocks)
   for (let i = 0; i < remainingBlocks.length; i++) {
