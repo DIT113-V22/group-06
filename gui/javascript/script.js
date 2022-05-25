@@ -49,14 +49,15 @@ function onConnectionLost (responseObject) {
 }
 
 // called when a message arrives
-function onMessageArrived (message) {
-  console.log('Sent messages: ' + message.payloadString)
-}
-function onMessageReceivedFromCar(topic, message) {
+function onMessageArrived (topic, message) {
   if (topic === 'smartcar/control/stopped') {
-    alert(message)
+    alert (message)
+  } else {
+    console.log('Sent messages: ' + message.payloadString)
   }
+  
 }
+
 
 class BlockEntity {
   constructor (direction, steps) {
@@ -147,7 +148,6 @@ function getElementAfter (y) {
 
 /// Function to get the text of all code blocks in the canvas
 function retrieveContents () {
-  let value = 0
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
@@ -167,7 +167,7 @@ function retrieveContents () {
 
     const codeBlock = new BlockEntity(
       subString2,
-      value
+      remainingBlocks[i].children[1].value
     )
 
     jsObjects[i] = codeBlock
