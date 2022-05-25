@@ -237,6 +237,7 @@ function retrieveContents () {
   }
   return jsObjects
 }
+// Function to delete all code blocks currently in the canvas
 function clearAll () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   console.log(remainingBlocks)
@@ -264,4 +265,19 @@ window.start1 = function start1 () {
   for (let i = 0; i < contents.length; i++) {
     publishForMovement(contents[i].direction, contents[i].steps)
   }
+}
+
+
+
+let popup = document.getElementById("popup");
+
+function displayPopup () {
+  // if (remainingBlocks.length == 0) {
+  //   prompt("m");
+  // }
+  popup.classList.add("display-popup");
+}
+
+function closePopup () {
+  popup.classList.remove("display-popup");
 }
