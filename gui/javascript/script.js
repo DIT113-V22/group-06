@@ -51,7 +51,7 @@ function onConnectionLost (responseObject) {
 // called when a message arrives
 function onMessageArrived (topic, message) {
   if (topic === 'smartcar/control/stopped') {
-    alert (message)
+    alert(message)
   } else {
     console.log('Sent messages: ' + message.payloadString)
   }
