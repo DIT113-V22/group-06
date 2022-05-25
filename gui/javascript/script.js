@@ -237,6 +237,13 @@ function retrieveContents () {
   }
   return jsObjects
 }
+function clear () {
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  console.log(remainingBlocks)
+  for (let i = 0; i < remainingBlocks.length; i++) {
+    removeNode(remainingBlocks[i])
+  }
+}
 
 // For testing purposes when Play button is clicked
 window.start = function start () {
