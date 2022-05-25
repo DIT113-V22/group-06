@@ -1,16 +1,20 @@
-# Group 06 - MONKEyCAR
+# Group 06 - MONKEyCAR <img width="186" alt="Screenshot_2022-04-01_at_11 53 16-removebg-preview" src="https://user-images.githubusercontent.com/78755376/170331539-acdcd870-eb76-4726-8fca-ca9629b43191.png" align="right">
+<br />
+<br />
+
 ## Project Desription
 ### What you are going to make?
 
-Our goal is to make a web-based application similar to Scratch that teaches children how to code. However, unlike Scratch, MONKEyCAR (the name of our application) will work with the real smart-car, which will perform the actions that the child “programmed” in our app, such as "Move 10 steps forward".  
+Our goal was to create a web-based application similar to [Scratch](https://scratch.mit.edu) that teaches children how to code. However, unlike Scratch, MONKEyCAR (the name of our application) will work with the real smart-car, which will perform the actions that the child “programmed” in our app, such as "Move 10 steps forward".
 
-### Why will you make it?
+<img width="535" alt="Screenshot 2022-05-25 at 19 36 09" src="https://user-images.githubusercontent.com/78755376/170335429-d73501ee-811c-49df-b4c6-d1490704640a.png" align="left">
+<img width="435" alt="Screenshot 2022-05-25 at 19 39 39 copy" src="https://user-images.githubusercontent.com/78755376/170335858-2728d6b4-0395-4e51-bcf2-ef1171468f89.png">
 
-Ultimately, our hopes in making this program was to be able to teach, and inspire kids to code in a more fun and interactive way!
+<br />
 
-### What problem does it solve?
+### Why will you make it and what problem does it solve?
 
-Technology is being integrated more and more into our day to day lives, with a larger number of people wanting to learn programming. However, for young children, programming might be a bit intimidating at first, and our goal is to create a user-friendly, supportive platform that will help guide them.
+Ultimately, our hopes in making this program was to be able to **teach and inspire kids to code in a more fun and interactive way!** Technology is being integrated more and more into our day to day lives, with a larger number of people wanting to learn programming. However, for young children, programming might be a bit intimidating at first, and our goal is to create a user-friendly, supportive platform that will help guide them and realise that programming can be a lot of fun.
 
 ### How you are going to make it?
 
@@ -31,8 +35,7 @@ However, this is what we _finally_ envisioned MONKEyCAR to look like:
 ![MonkeyCar Protototype](/gui/assets/MonkeyCar-prototype.png "MonkeyCar Protototype")
 
 
-
-### What kind of technology are we going to use?
+### What kind of technology will we use?
 We will be primarily using **HTML, CSS and JavaScript** in order to develop our website, and then use **C++** for the translated car movements.
 
 
