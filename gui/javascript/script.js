@@ -53,8 +53,8 @@ function onMessageArrived (message) {
   console.log('Sent messages: ' + message.payloadString)
 }
 function onMessageReceivedFromCar(topic, message) {
-  if(topic === "smartcar/control/stopped") {
-    alert(message);
+  if (topic === 'smartcar/control/stopped') {
+    alert(message)
   }
 }
 
@@ -147,7 +147,7 @@ function getElementAfter (y) {
 
 /// Function to get the text of all code blocks in the canvas
 function retrieveContents () {
-  var value = 0;
+  let value = 0
   const jsObjects = []
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   for (let i = 0; i < remainingBlocks.length; i++) {
