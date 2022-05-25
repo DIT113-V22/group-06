@@ -55,10 +55,7 @@ function onMessageArrived (topic, message) {
   } else {
     console.log('Sent messages: ' + message.payloadString)
   }
-  
 }
-
-
 class BlockEntity {
   constructor (direction, steps) {
     this.direction = direction
