@@ -41,10 +41,6 @@
   margin-left: -10px;
 }
 
-.block {
-  cursor: pointer;
-}
-
 #trash-icon {
   margin: 0 0 0 220px;
   width: 40px;
@@ -79,6 +75,7 @@
 
   --background-color: #01b040;
 }
+
 #move-forward-copy {
   background-color: #14bcf3;
   width: 37%;
@@ -114,8 +111,8 @@
 
   --background-color: #01b040;
 
-   text-align: center;
-   margin-bottom: -3px;
+  text-align: center;
+  margin-bottom: -3px;
 }
 
 .btn {
@@ -156,10 +153,7 @@
 
 #my-canvas {
   width: 100%;
-  padding-left: 50px;
-  padding-right: 30px;
-  padding-top: 10%;
-  padding-bottom: 10%;
+  padding: 10%, 30px, 10%, 50px;
   background-color: white;
   border-radius: 30px;
 }
@@ -253,7 +247,8 @@ button {
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
-.block{
+
+.block {
   width: 60%;
   /* background-color:; */
   position: relative;
@@ -262,8 +257,9 @@ button {
   border-radius: .8rem;
   border-width: 10px;
   border-color: transparent;
- 
+  cursor: pointer;
 }
+
 .block:before {
   content: "";
   position: absolute;
@@ -289,7 +285,6 @@ button {
   border-top-color: var(--background-color) ;  
   border-left: 1rem solid transparent;
   border-right: 1rem solid transparent;
-
 }
 
 button:hover {
@@ -300,7 +295,6 @@ button:hover {
 form {
   border-radius: 10px;
   margin: 0 auto 20px;
-  /*margin-bottom: -10px; */
   padding: 5px 0 10px;
   background-color: #ffc15e;
   font-family: "Segoe UI", sans-serif;
