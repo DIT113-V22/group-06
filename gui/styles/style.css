@@ -252,8 +252,8 @@ button {
   width: 60%;
   position: relative;
   padding: 1.5rem 0;
-  border: .5rem 0;
-  border-radius: .8rem 0;
+  border: 0.5rem;
+  border-radius: 0.8rem;
   border-width: 10px;
   border-color: transparent;
   cursor: pointer;
@@ -282,7 +282,6 @@ button {
   height: 0;
   border-top: 1rem solid;
   border-top-color: var(--background-color);
-
   border-left: 1rem solid transparent;
   border-right: 1rem solid transparent;
 }
