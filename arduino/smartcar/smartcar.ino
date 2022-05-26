@@ -94,10 +94,62 @@ void setup() {
         
       }
       else if(topic == "smartcar/control/turn") {
+         int angleValue = 0;
+        double inputAngle = -message.toInt();
 
+        car.setAngle(inputAngle);
+        gyro.update();
+        angleValue = gyro.getHeading();
+        int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
+
+        while (angleValue != finalDegree ){
+          if(detectObstacle("forward") || detectObstacle("reverse")) {
+            break;
+          }
+          if(finalDegree < 45) {
+            fspeed = 20;
+          }
+          car.setSpeed(fspeed);
+          Serial.println(angleValue);
+          gyro.update();
+          angleValue = gyro.getHeading();
+        }
+        if(detectObstacle("forward") || detectObstacle("reverse")) {
+            stopCarForObstacleDetection("left");
+        
+          }
+        stopCar();  
+
+        Serial.println(gyro.getHeading());
       }
       else if(topic == "smartcar/control/spin") {
+         int angleValue = 0;
+        double inputAngle = -message.toInt();
 
+        car.setAngle(inputAngle);
+        gyro.update();
+        angleValue = gyro.getHeading();
+        int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
+
+        while (angleValue != finalDegree ){
+          if(detectObstacle("forward") || detectObstacle("reverse")) {
+            break;
+          }
+          if(finalDegree < 45) {
+            fspeed = 20;
+          }
+          car.setSpeed(fspeed);
+          Serial.println(angleValue);
+          gyro.update();
+          angleValue = gyro.getHeading();
+        }
+        if(detectObstacle("forward") || detectObstacle("reverse")) {
+            stopCarForObstacleDetection("left");
+        
+          }
+        stopCar();  
+
+        Serial.println(gyro.getHeading());
       }
       else if(topic == "smartcar/control/wait") {
         Serial.println(topic);
