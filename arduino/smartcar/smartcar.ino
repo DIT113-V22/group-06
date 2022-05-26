@@ -4,7 +4,7 @@
 #include <OV767X.h>
 #endif
 #include <Smartcar.h>
-#include <cmath>
+
 
 //--------------------VARIABLES DECLARATION----------------------------------//
 
@@ -12,9 +12,14 @@ MQTTClient mqtt;
 WiFiClient net;
 
 int        port     = 1883;
+//Constants
 const char ssid[] = "***";
 const char pass[] = "****";
-
+const char forwardDetection[] = "Obstacle detected infront of the car.";
+const char backwardsDetection[] = "Obstacle detected behind the car.";
+const char leftDetection[] = "Obstacle detected on the left side of the car.";
+const char rightDetection[] = "Obstacle detected on the right side of the car.";
+//Car sensors
 ArduinoRuntime arduinoRuntime;
 BrushedMotor leftMotor(arduinoRuntime, smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(arduinoRuntime, smartcarlib::pins::v2::rightMotorPins);
@@ -30,13 +35,12 @@ const int BACK_PIN          = 3;
 const auto mqttBrokerUrl = "broker.emqx.io";
 
 const unsigned int maxDistance = 300;
-const int fspeed = 50;
+int fspeed = 50;
 const int bspeed = -50;
-int stopSpeed = 0;
+const int stopSpeed = 0;
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
-
 
 
 //--------------------MQTT CONNECTIONS----------------------------------//
@@ -75,25 +79,39 @@ void setup() {
         starttime = millis();
         endtime = starttime;
         while ((endtime - starttime) <= message.toInt() * 1000) {
+          if(detectObstacle("throttle")) {
+            break;
+          }
           car.setSpeed(fspeed);
           car.setAngle(0);
           endtime = millis();
         }
-        car.setSpeed(0);
-        car.setAngle(0);
+        if(detectObstacle("throttle")) {
+          stopCarForObstacleDetection("throttle");
+        }
+        stopCar();
+        
+        
       }
 
-      else if (topic == "smartcar/control/reverse") {
+       if (topic == "smartcar/control/reverse") {
         Serial.println(topic);
         starttime = millis();
         endtime = starttime;
         while ((endtime - starttime) <= message.toInt() * 1000) {
+           if(detectObstacle("reverse")) {
+            break;
+          }
           car.setSpeed(bspeed);
           car.setAngle(0);
           endtime = millis();
         }
-        car.setSpeed(0);
-        car.setAngle(0);
+        if(detectObstacle("reverse")) {
+          stopCarForObstacleDetection("reverse");
+        }
+        stopCar();
+        
+        
       }
 
       if (topic == "smartcar/control/steer-left") {
@@ -106,14 +124,24 @@ void setup() {
         angleValue = gyro.getHeading();
         int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
 
-        while (angleValue != finalDegree){
+        while (angleValue != finalDegree ){
+          if(detectObstacle("forward") || detectObstacle("reverse")) {
+            break;
+          }
+          if(finalDegree < 45) {
+            fspeed = 20;
+          }
           car.setSpeed(fspeed);
           Serial.println(angleValue);
           gyro.update();
           angleValue = gyro.getHeading();
         }
+        if(detectObstacle("forward") || detectObstacle("reverse")) {
+            stopCarForObstacleDetection("left");
+        
+          }
+        stopCar();  
 
-        stopCar();
         Serial.println(gyro.getHeading());
       }
 
@@ -134,13 +162,23 @@ void setup() {
         Serial.println(finalDegree);
         
         while (angleValue != finalDegree){
+          if(detectObstacle("forward") || detectObstacle("reverse")) {
+            break;
+          }
+          if(finalDegree < 45) {
+            fspeed = 20; 
+          }
           car.setSpeed(fspeed);
           
           gyro.update();
           angleValue = gyro.getHeading();
         }
 
-        stopCar();
+         if(detectObstacle("forward") || detectObstacle("reverse")) {
+            stopCarForObstacleDetection("right");
+        
+          }
+        stopCar();  
         Serial.println(gyro.getHeading());
       }
       
@@ -153,15 +191,23 @@ void setup() {
 }
 
 void loop() {
-  detectObstacle();
+  
   if (mqtt.connected()) {
     mqtt.loop();
+    const auto currentTime = millis();
+    static auto previousTransmission = 0UL;
+    if (currentTime - previousTransmission >= 1000) {
+      previousTransmission = currentTime;
+      const auto distance = String(front.getDistance());
     //Probably need to change some stuff here
-    #ifdef SMCE
+   
+  } 
+   #ifdef SMCE
       // Avoid over-using the CPU if we are running in the emulator
       delay(1);
     #endif
-  } 
+    
+  }
   else {
     mqtt.connect("arduino", "public", "public");
     mqtt.subscribe("smartcar/control/#", 1);
@@ -171,27 +217,46 @@ void loop() {
 
 }
 
-void detectObstacle() {
+boolean detectObstacle(String direction) {
   const auto frontDistance = front.getDistance();
   const auto backDistance = back.getDistance();
 
   // When distance is `0` it means there's no obstacle detected
   //When car is within an obstacle range of 0-1.5 meters, it stops
-  if (frontDistance > 0 && frontDistance < 150){
-    car.setSpeed(0); //Speed is set to zero to stop the car
-    mqtt.publish("smartcar/ultrasound/front", String(frontDistance));
+  if (direction == "throttle" && (frontDistance > 0 && frontDistance < 150)){
+    //mqtt.publish("smartcar/ultrasound/front", String(frontDistance));
+    return true;
+    
   }
 
-  else if(backDistance > 0 && backDistance < 150){
-    car.setSpeed(0); //Speed is set to zero to stop the car
-    mqtt.publish("smartcar/infrared/back", String(backDistance));
+  if(direction == "reverse" && (backDistance > 0 && backDistance < 150)){
+    // mqtt.publish("smartcar/infrared/back", String(backDistance));
+    return true;
+  
   }
+  return false;
 }
 
 void stopCar() {
    car.setAngle(0);
    car.setSpeed(stopSpeed);
-   const char message[] = "Obstacle detected";
-   mqtt.publish("smartcar/control/stopped", message);
- } 
+ }
+ void stopCarForObstacleDetection(String direction) {
+   stopCar();
+
+   
+   if(direction == "reverse") {
+      mqtt.publish("smartcar/control/stopped", backwardsDetection);
+   }
+   if(direction == "throttle") {
+      mqtt.publish("smartcar/control/stopped", forwardDetection);
+   }
+   if(direction == "left") {
+      mqtt.publish("smartcar/control/stopped", leftDetection);
+   }
+   if(direction == "right") {
+     mqtt.publish("smartcar/control/stopped", rightDetection);
+   } 
+      
+ }
 
