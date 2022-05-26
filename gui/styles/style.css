@@ -1,5 +1,11 @@
 /* ------------------------ */
 
+/* Fonts */
+@font-face {
+  font-family: 'Melt';
+  src: url('Melt_LV1_Regular.otf');
+}
+
 /* Classes for attributes */
 
 /* ------------------------ */
@@ -21,6 +27,7 @@
 
 .web-container {
   background-color: #f6da47;
+  filter: blur(0px);
 }
 
 .menu {
@@ -166,9 +173,9 @@
 }
 
 .selection-menu-title {
-  font-family: "Varela Round", sans-serif;
+  /* font-family: "Melt"; */
   font-size: 23px;
-  letter-spacing: -0.8px;
+  /* letter-spacing: 2px; */
   padding: 13px 0 0;
 }
 
@@ -307,9 +314,11 @@ label {
   font-size: 18px;
 }
 
+/* Popup design */
+
 .popup {
-  width: 400px;
-  background: #fff;
+  width: 500px;
+  background: #404040;
   border-radius: 6px;
   position: absolute;
   top: 0;
@@ -317,9 +326,25 @@ label {
   transform: translate(-50%, -50%) scale(0.1);
   text-align: center;
   padding: 0 30px 30px;
-  color: #333;
+  color: #fff;
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
+  display: block;
+}
+
+#popup {
+  background: #404040;
+  border: #000;
+  border-width: 2px;
+  border-style: solid;
+  filter: blur(0px);
+}
+
+#popup2 {
+  background: #DC1C13;
+  border: #000;
+  border-width: 2px;
+  border-style: solid;
 }
 
 .display-popup {
@@ -328,24 +353,18 @@ label {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.popup img {
-  width: 100px;
-  margin-top: -50px;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
 .popup p {
-  font-size: 38px;
+  font-size: 35px;
   font-weight: 500;
   margin: 30px 0 10px;
+  font-family: "Melt";
 }
 
 .popup button {
-  width: 100%;
-  margin-top: 50px;
+  width: 30%;
+  height: 40px;
+  margin-top: 30px;
   padding: 10px, 0;
-  background: #01b040;
   color: #fff;
   border: 0;
   outline: none;
@@ -353,4 +372,18 @@ label {
   border-radius: 4px;
   cursor: pointer;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  font-family: "Melt";
+}
+
+#no-btn {
+  background: #DC1C13;
+  margin-right: 40px;
+}
+
+#yes-btn {
+  background: #01b040;
+}
+
+#back-btn {
+  color: #404040;
 }

@@ -20,7 +20,7 @@
     </head>
     
 
-    <body class = "web-container">
+    <body class = "web-container" id="web-container">
         <div class="container">
             
             <div class="row">
@@ -56,10 +56,13 @@
                                     <i class="fa-solid fa-circle-xmark"> Clear</i>
                                 </span></button></li>
                                 <div class="popup" id="popup">
-                                    <!-- <img src="monkey-surprised.png"> -->
                                     <p>Are you sure you want to delete blocks?</p>
                                     <button id="no-btn" onclick="closePopup()">No</button>
-                                    <button id="yes-btn" onclick="clearAll(); closePopup();">Yes</button>
+                                    <button id="yes-btn" onclick="closePopup(); clearAll();">Yes</button>
+                                </div>
+                                <div class="popup" id="popup2">
+                                    <p>There are no blocks to clear :(</p>
+                                    <button id="back-btn" onclick="closePopup()">Go back</button>
                                 </div>
                                 <li>
                                     <img id="trash-icon" ondrop="drop(event)" ondragover="allowDrop(event)" alt="" src="./assets/trashicon.png">

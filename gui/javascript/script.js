@@ -237,14 +237,6 @@ function retrieveContents () {
   }
   return jsObjects
 }
-// Function to delete all code blocks currently in the canvas
-function clearAll () {
-  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
-  console.log(remainingBlocks)
-  for (let i = 0; i < remainingBlocks.length; i++) {
-    removeNode(remainingBlocks[i])
-  }
-}
 
 // For testing purposes when Play button is clicked
 window.start = function start () {
@@ -267,17 +259,40 @@ window.start1 = function start1 () {
   }
 }
 
-
-
-let popup = document.getElementById("popup");
-
-function displayPopup () {
-  // if (remainingBlocks.length == 0) {
-  //   prompt("m");
-  // }
-  popup.classList.add("display-popup");
+// Function to delete all code blocks currently in the canvas
+function clearAll () {
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  console.log(remainingBlocks)
+  for (let i = 0; i < remainingBlocks.length; i++) {
+    removeNode(remainingBlocks[i])
+  }
 }
 
+let popup = document.getElementById("popup");
+let popup2 = document.getElementById("popup2");
+
+// Allows popup to show on screen when clear button is pushed
+function displayPopup () {
+  const backplate = document.getElementById('web-container')
+  backplate.style.filter = "blur(4px)";
+  const popup =document.getElementById('popup')
+  popup.style.filter = "blur(0px)";
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  if (remainingBlocks.length == 0) {
+    popup2.classList.add("display-popup");
+  } else {
+    popup.classList.add("display-popup");
+  }
+}
+
+// Closes popup message
 function closePopup () {
-  popup.classList.remove("display-popup");
+  const backplate = document.getElementById('web-container')
+  backplate.style.filter = "blur(0px)";
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  if (remainingBlocks.length == 0) {
+    popup2.classList.remove("display-popup");
+  } else {
+    popup.classList.remove("display-popup");
+  }
 }
