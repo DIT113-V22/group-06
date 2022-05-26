@@ -63,10 +63,13 @@ function onConnectionLost (responseObject) {
 }
 
 // called when a message arrives
-function onMessageArrived (message) {
-  console.log('Sent messages: ' + message.payloadString)
+function onMessageArrived (topic, message) {
+  if (topic === 'smartcar/control/stopped') {
+    alert(message)
+  } else {
+    console.log('Sent messages: ' + message.payloadString)
+  }
 }
-
 class BlockEntity {
   constructor (direction, steps) {
     this.direction = direction
