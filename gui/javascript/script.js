@@ -1,6 +1,8 @@
 let message = ''
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
+let stopped = false;
+
 // set callback handlers
 client.onConnectionLost = onConnectionLost
 client.onMessageArrived = onMessageArrived
@@ -48,13 +50,10 @@ function onConnectionLost (responseObject) {
 }
 
 // called when a message arrives
-function onMessageArrived (topic, message) {
-  if (topic === 'smartcar/control/stopped') {
-    alert(message)
-  } else {
-    console.log('Sent messages: ' + message.payloadString)
-  }
+function onMessageArrived (message) {
+  console.log('Sent messages: ' + message.payloadString)
 }
+
 class BlockEntity {
   constructor (direction, steps) {
     this.direction = direction
@@ -250,14 +249,36 @@ window.start = function start () {
 }
 // This will be tested later for the MQTT
 window.start1 = function start1 () {
+  
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
+    client.connect({ onSuccess: onConnect })
   }
   console.log('Connected....')
   const contents = retrieveContents()
+  stopped = false;
   console.log(contents)
+  
   for (let i = 0; i < contents.length; i++) {
+    if(stopped){
+      break;
+    }
     publishForMovement(contents[i].direction, contents[i].steps)
   }
+}
+
+window.stop = function stop () {
+  
+  if (!client.isConnected) {
+    // Try to connect
+    console.log('Not connected....')
+    client.connect({ onSuccess: onConnect })
+  }
+  
+  console.log('Connected....')
+  stopped = true;
+  message = new Paho.MQTT.Message(JSON.stringify({"steps": 0}))
+  message.destinationName = 'smartcar/control/stop'
+  client.send(message)
 }
