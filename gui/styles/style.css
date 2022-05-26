@@ -41,7 +41,7 @@
   margin-left: -10px;
 }
 
-.block{
+.block {
   cursor: pointer;
 }
 
@@ -52,55 +52,58 @@
   animation-name: bounce;
 }
 
-#move-forward{
+#move-forward {
   background-color: #14bcf3;
   width: 68%;
+
   --background-color: #14bcf3;
 }
 
 #move-backwards {
   background-color: #ff9800;
   width: 68%;
-  
+
   --background-color: #ff9800;
 }
 
 #move-left {
   background-color: #f30fa2;
   width: 68%;
-  
+
   --background-color: #f30fa2;
 }
 
 #move-right {
   background-color: #01b040;
   width: 68%;
- 
+
   --background-color: #01b040;
 }
-
 #move-forward-copy {
   background-color: #14bcf3;
   width: 37%;
   text-align: center;
+
   --background-color: #14bcf3;
-  margin-bottom:-3px;
-  
+
+  margin-bottom: -3px;
 }
 
 #move-backwards-copy {
   background-color: #ff9800;
   width: 37%;
+
   --background-color: #ff9800;
+
   text-align: center;
-  margin-bottom:-3px;
+  margin-bottom: -3px;
 }
 
 #move-left-copy {
   background-color: #f30fa2;
   width: 37%;
   text-align: center;
-  margin-bottom:-3px;
+  margin-bottom: -3px;
 
   --background-color: #f30fa2;
 }
@@ -108,7 +111,9 @@
 #move-right-copy {
   background-color: #01b040;
   width: 37%;
+
   --background-color: #01b040;
+
    text-align: center;
    margin-bottom: -3px;
 }
@@ -162,7 +167,9 @@
 .canvas-container {
   padding-top: 35px;
   background-color: #eeee;
+
   --background-color: #eeee;
+
   border-radius: 30px;
   height: max-content;
   padding-bottom: 30px;
