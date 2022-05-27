@@ -40,22 +40,6 @@ We will be primarily using **HTML, CSS and JavaScript** in order to develop our 
 
 <br />
 
-## Structure
-
-If you want to learn a little more about how the system works, how our code is structured and how the different components work and communicate with each other this is the section for you. :point_down:
-
-### How does the system work?
-
-Add a diagram
-
-### Components
-
-The main components of our system are the GUI (and the logic for that), the MQTT broker and the arduino board running on the physical car or in the emulator. 
-
-### Folder structure
-
-<br />
-
 ## Get started
 
 ### Setup the emulator
@@ -102,9 +86,35 @@ This is how your screen look now.
 
 **Repeat x times** is a special block that is resembling the programming concept of for loops, instead of just executing everything sequencially. The code block has a field where all the other code blocks may be dragged into. Those code blocks are then executed x times. It is not possible to drag this code block into another "repeat x times" block.
 
-
+<br />
 
 ## Demo video
+
+Here is a link to our demo video:
+
+<br />
+
+## Structure
+
+If you want to learn a little more about how the system works, how our code is structured and how the different components work and communicate with each other this is the section for you. :point_down:
+
+
+### Components
+
+The main components of our system are the GUI (and the logic for that), the MQTT broker and the arduino board running on the physical car or in the emulator. This diagram shows the basic components and how they interact with each other.
+
+![Untitled Diagram-2](https://user-images.githubusercontent.com/78755376/170674607-39d607f2-020f-4fd4-9105-dd95bd39ab86.png)
+
+
+if you want to go into a little more detail we recommend looking at the following diagram. It further describes how our compontents interact with each other. As you can see we also added sub-components, like the sensors for the car or the relevant GUI components. Don't get confused why we have two car components. This is just supposed to showcase, that we can either work with the physical car or with the car in the emulator.
+
+![Untitled Diagram](https://user-images.githubusercontent.com/78755376/170675070-4954cdb9-7f5c-4001-a46f-bf7f591274ad.png)
+
+
+### Folder structure
+
+The components described above can also be recognized in our folder structure. The main two folders are "gui" and "arduino" which represent the components MONKEyCar Website and SmartCar. 
+
 
 
 Please provide a link to your group's repository.
