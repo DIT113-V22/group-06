@@ -38,35 +38,50 @@ However, this is what we _finally_ envisioned MONKEyCAR to look like:
 ### What kind of technology will we use?
 We will be primarily using **HTML, CSS and JavaScript** in order to develop our website, and then use **C++** for the translated car movements.
 
+<br />
+
+## Structure
+
+If you want to learn a little more about how the system works, how our code is structured and how the different components work and communicate with each other this is the section for you. :point_down:
+
+### How does the system work?
+
+Add a diagram
+
+### Components
+
+The main components of our system are the GUI (and the logic for that), the MQTT broker and the arduino board running on the physical car or in the emulator. 
+
+### Folder structure
+
+<br />
 
 ## Get started
 
-### Setup
+### Setup the emulator
+
 - Clone the repository on your device
 - Download and open SMCE [here](https://github.com/ItJustWorksTM/smce-gd/releases/tag/v1.3.4)
 
 | <img width="260" alt="Screenshot 2022-05-25 at 19 37 42" src="https://user-images.githubusercontent.com/78755376/170339214-770db480-9e86-4880-ad81-0cfa12e07118.png" align="left"> | <img width="495" alt="Screenshot 2022-05-25 at 19 37 51" src="https://user-images.githubusercontent.com/78755376/170339279-a64f3e8d-f6fb-466f-bd8c-95d429c9efc3.png">| <img width="230" alt="Screenshot 2022-05-25 at 19 38 41" src="https://user-images.githubusercontent.com/78755376/170339286-890b2202-1036-4c31-802f-4c4ad0a3fc91.png"> <img width="230" alt="Screenshot 2022-05-25 at 19 38 48" src="https://user-images.githubusercontent.com/78755376/170339289-ba46789e-d4e2-47a9-9aa4-7210d2a6b93d.png">|
 |:--:| :--:| :--:| 
-| *Press + to add a new arduino sketch* | Add a new sketch | Select the file "smartcar.ino" from the folder "arduino" |
-
-| <img width="254" alt="Screenshot 2022-05-25 at 19 38 58" src="https://user-images.githubusercontent.com/78755376/170339292-300a690d-d225-4fc8-aad0-a44e2c92c4e3.png"> | <img width="240" alt="Screenshot 2022-05-25 at 19 39 06" src="https://user-images.githubusercontent.com/78755376/170339299-f9e22501-1abb-461d-8be4-b628d5ed9ba4.png">| <img width="263" alt="Screenshot 2022-05-25 at 19 39 32" src="https://user-images.githubusercontent.com/78755376/170339307-4410e53c-9e40-493f-9870-15ec00a193f5.png">|
-|:--:| :--:| :--:| 
-| *Press + to add a new arduino sketch* | Add a new sketch | Select the file "smartcar.ino" from the folder "arduino" |
+| *Press + to add a new arduino sketch* | *Add a new sketch* | *Select the file "smartcar.ino" from the folder "arduino"* |
+| <img width="440" alt="Screenshot 2022-05-25 at 19 38 58" src="https://user-images.githubusercontent.com/78755376/170339292-300a690d-d225-4fc8-aad0-a44e2c92c4e3.png"> | <img width="440" alt="Screenshot 2022-05-25 at 19 39 06" src="https://user-images.githubusercontent.com/78755376/170339299-f9e22501-1abb-461d-8be4-b628d5ed9ba4.png">| <img width="440" alt="Screenshot 2022-05-25 at 19 39 32" src="https://user-images.githubusercontent.com/78755376/170339307-4410e53c-9e40-493f-9870-15ec00a193f5.png">|
+| *Select the added sketch* | *Compile the sketch* | *Press start to run the sketch* |
 
 
 
-<img width="278" alt="Screenshot 2022-05-25 at 19 39 39" src="https://user-images.githubusercontent.com/78755376/170339310-7d1dd91b-cd45-4f71-b531-424295432a2f.png">
-
-
-
-- Compile the sketch smartcar.ino in the emulator and press start
-- Open the file index.html in a browser
+<img width="578" alt="Screenshot 2022-05-25 at 19 39 39" src="https://user-images.githubusercontent.com/78755376/170339310-7d1dd91b-cd45-4f71-b531-424295432a2f.png">
+This is how your screen look now.
 
 ### Using the app
+<img width="550" alt="Screenshot 2022-05-27 at 10 03 00" src="https://user-images.githubusercontent.com/78755376/170657836-ae65c6f1-b22b-4a4f-bade-9a783847e593.png" align="right">
+
+- Open the file "index.html" located in the folder "gui" in a browser of your choice
 - The code blocks in the selection menu on the left all represent a different action that the car can perform
 - They can be dragged into the canvas on the right, where they together form a code sequence that can be executed by the car
 - When the play button on top of the page is pressed the code blocks within the canvas are translated into commands that are sent either to the physical car or the emulator
-- The stop button 
+- The clear button clears out all the blocks in the canvas. Before that is done it asks the user for permission.
 
 ### The code blocks
 <img width="370" alt="Screenshot 2022-05-25 at 14 53 14" src="https://user-images.githubusercontent.com/78755376/170266551-859a31fb-d5ba-4dd4-9d31-5580133be83e.png" align="left">
