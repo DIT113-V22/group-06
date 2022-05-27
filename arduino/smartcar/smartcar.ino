@@ -40,7 +40,6 @@ int fspeed = 50;
 const int bspeed = -50;
 const int stopSpeed = 0;
 
-bool stop = 0;
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
@@ -78,29 +77,23 @@ void setup() {
 
     Serial.println(topic + " " + message);
       
-      if(topic == "smartcar/control/stop"){
-        Serial.println("Hola");
-        stop = 1;
-        stopCar();
-      }
-      
       if (topic ==  "smartcar/control/throttle") {
         Serial.println(topic);
         starttime = millis();
         endtime = starttime;
         while (((endtime - starttime) <= message.toInt() * 1000)) {
-          if(detectObstacle("throttle") || stop == 1) {
+          if(detectObstacle("throttle")) {
             break;
           }
           car.setSpeed(fspeed);
           car.setAngle(0);
           endtime = millis();
-          Serial.println(stop);
+          
         }
         if(detectObstacle("throttle")) {
           stopCarForObstacleDetection("throttle");
         }
-        Serial.println(stop);
+        
         stopCar();
       }
 
@@ -109,7 +102,7 @@ void setup() {
         starttime = millis();
         endtime = starttime;
         while (((endtime - starttime) <= message.toInt() * 1000)) {
-           if(detectObstacle("reverse")||stop == true) {
+           if(detectObstacle("reverse")) {
             break;
           }
           car.setSpeed(bspeed);
@@ -135,7 +128,7 @@ void setup() {
         int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
 
         while ((angleValue != finalDegree)){
-          if(detectObstacle("forward") || detectObstacle("reverse") || stop == true) {
+          if(detectObstacle("forward") || detectObstacle("reverse")) {
             break;
           }
           if(finalDegree < 45) {
@@ -167,7 +160,7 @@ void setup() {
         Serial.println(finalDegree);
 
         while ((finalDegree - 3 <= angleValue && finalDegree + 3 >= angleValue + 6)|| (angleValue != finalDegree)){
-          if(detectObstacle("forward") || detectObstacle("reverse") || stop == true) {
+          if(detectObstacle("forward") || detectObstacle("reverse")){
             break;
           }
         

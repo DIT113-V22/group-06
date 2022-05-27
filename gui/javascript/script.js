@@ -2,6 +2,7 @@ let message = ''
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
 let stopped = false;
+let timeOutFunctionIds = []
 
 // set callback handlers
 client.onConnectionLost = onConnectionLost
@@ -257,14 +258,18 @@ window.start1 = function start1 () {
   }
   console.log('Connected....')
   const contents = retrieveContents()
-  stopped = false;
   console.log(contents)
   
-  for (let i = 0; i < contents.length; i++) {
-    if(stopped){
-      break;
-    }
-    publishForMovement(contents[i].direction, contents[i].steps)
+  publishForMovement(contents[0].direction, contents[0].steps)
+  let executionSeconds = contents[0].steps * 1000
+
+  for (let i = 1; i < contents.length; i++) {
+    let timeOutId = setTimeout(function(){
+      publishForMovement(contents[i].direction, contents[i].steps)
+    }, executionSeconds - 100)
+    console.log("Start: " + timeOutId)
+    timeOutFunctionIds.push(timeOutId)
+    executionSeconds += (contents[i].steps * 1000)
   }
 }
 
@@ -275,10 +280,10 @@ window.stop = function stop () {
     console.log('Not connected....')
     client.connect({ onSuccess: onConnect })
   }
-  
   console.log('Connected....')
-  stopped = true;
-  message = new Paho.MQTT.Message(JSON.stringify({"steps": 0}))
-  message.destinationName = 'smartcar/control/stop'
-  client.send(message)
+  timeOutFunctionIds.forEach(timeOutId => {
+    console.log("Stop: " + timeOutId)
+    clearTimeout(timeOutId)
+  });
+  timeOutFunctionIds = []
 }
