@@ -1,6 +1,9 @@
 let message = ''
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
+let stopped = false;
+let timeOutFunctionIds = []
+
 // set callback handlers
 client.onConnectionLost = onConnectionLost
 client.onMessageArrived = onMessageArrived
@@ -64,13 +67,18 @@ function onConnectionLost (responseObject) {
 
 // called when a message arrives
 function onMessageArrived (message) {
-    console.log('Sent messages: ' + message.payloadString)
-}
-function onMessageReceived(topic, message) {
-  if(topic == "smartcar/control/stopped") {
-    alert(message)
+  if(message.substring(0, 8) == "Obstacle") {
+    window.alert(message);
   }
+  else {
+    console.log('Sent messages: ' + message.payloadString)
+  }
+  
 }
+function displayMessage(message) {
+  window.alert(message)
+}
+
 class BlockEntity {
   constructor (direction, steps) {
     this.direction = direction
@@ -292,23 +300,40 @@ window.start = function start () {
 }
 // This will be tested later for the MQTT
 window.start1 = function start1 () {
+  
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
+    client.connect({ onSuccess: onConnect })
   }
   console.log('Connected....')
   const contents = retrieveContents("canvas")
   console.log(contents)
-  for (let i = 0; i < contents.length; i++) {
-    if(contents[i].direction === "repeat") {
-      const contents1 = retrieveContents("repeat-copy");
-      for(let j = 0; j < contents[i].steps; j++) {
-        publishForMovement(contents1[j].direction, contents[j].steps);
-      }
-    }
-    else {
+  
+  publishForMovement(contents[0].direction, contents[0].steps)
+  let executionSeconds = contents[0].steps * 1000
+
+  for (let i = 1; i < contents.length; i++) {
+    let timeOutId = setTimeout(function(){
       publishForMovement(contents[i].direction, contents[i].steps)
-    }
-   
+    }, executionSeconds - 100)
+    console.log("Start: " + timeOutId)
+    timeOutFunctionIds.push(timeOutId)
+    executionSeconds += (contents[i].steps * 1000)
   }
+}
+
+window.stop = function stop () {
+  
+  if (!client.isConnected) {
+    // Try to connect
+    console.log('Not connected....')
+    client.connect({ onSuccess: onConnect })
+  }
+  console.log('Connected....')
+  timeOutFunctionIds.forEach(timeOutId => {
+    console.log("Stop: " + timeOutId)
+    clearTimeout(timeOutId)
+  });
+  timeOutFunctionIds = []
 }
