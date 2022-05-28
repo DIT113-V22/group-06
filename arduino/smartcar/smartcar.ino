@@ -4,7 +4,6 @@
 #include <OV767X.h>
 #endif
 #include <Smartcar.h>
-#include <cmath>
 
 
 //--------------------VARIABLES DECLARATION----------------------------------//
