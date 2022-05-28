@@ -1,9 +1,10 @@
-# Group 06 - MONKEyCAR <img width="186" alt="Screenshot_2022-04-01_at_11 53 16-removebg-preview" src="https://user-images.githubusercontent.com/78755376/170331539-acdcd870-eb76-4726-8fca-ca9629b43191.png" align="right">
+# Group 06 - MONKEyCAR <img width="250" alt="Screenshot_2022-04-01_at_11 53 16-removebg-preview" src="https://user-images.githubusercontent.com/78755376/170821569-f95d97af-0c9d-4e4b-817e-6c92abe7243c.png" align="right">
+
 <br />
 <br />
 
 ## Project Desription
-### What you are going to make?
+### :bulb: What did we make?
 
 Our goal was to create a web-based application similar to [Scratch](https://scratch.mit.edu) that teaches children how to code. However, unlike Scratch, MONKEyCAR (the name of our application) will work with the real smart-car, which will perform the actions that the child “programmed” in our app, such as "Move 10 steps forward".
 
@@ -12,40 +13,46 @@ Our goal was to create a web-based application similar to [Scratch](https://scra
 
 <br />
 
-### Why will you make it and what problem does it solve?
+### :yellow_heart: Our purpose
 
 Ultimately, our hopes in making this program was to be able to **teach and inspire kids to code in a more fun and interactive way!** Technology is being integrated more and more into our day to day lives, with a larger number of people wanting to learn programming. However, for young children, programming might be a bit intimidating at first, and our goal is to create a user-friendly, supportive platform that will help guide them and realise that programming can be a lot of fun.
 
-### How you are going to make it?
+### :question: How did we plan to do it?
 
-We had a lot of different options on how to implement this idea, such as:
-- Code blocks that you can put together and can be executed at the same time
+We had a lot of different ideas on how to implement this idea, however we soon realised that some of them were too ambitious for the context of this project. We still want to highlight some of the other ideas we had:
+
 - Different game modes depending on difficulty
-- Buttons that are written like code that you can just press
+- Buttons that are written like code that you can just press (like in Scratch)
 - Storing different profiles (maybe with completion points, command history, favourite programmes, ..)
 - Providing some challenges (like specific actions to do with code, code with blank spaces, change code to do something different, etc)
 - Leaderboards for the challenges to encourage more coding
-- Using the emulator within the web page to test the code or to use the app even if the car is not available
 - Adding some sounds so that the car could make cars depending on certain conditions
-- Using the sensors by making sure no obstacles are hit
-\
-\
-However, this is what we _finally_ envisioned MONKEyCAR to look like:  
-\
-![MonkeyCar Protototype](/gui/assets/MonkeyCar-prototype.png "MonkeyCar Protototype")
 
+\
+<img width="450" alt="Screenshot_2022-04-01_at_11 53 16-removebg-preview" src="https://user-images.githubusercontent.com/78755376/170821716-870581e7-bb0a-4142-9b57-3b478ebdd7b5.png" align="right">
+**:sparkles: However, this is what we _finally_ envisioned MONKEyCAR to look like:**
 
-### What kind of technology will we use?
-We will be primarily using **HTML, CSS and JavaScript** in order to develop our website, and then use **C++** for the translated car movements.
+- Code blocks that you can put together like puzzle pieces and can be executed at the same time
+- Include basic movements like forward, backwards, left, right
+- Teach one important programming concept like for loops or if statements
+- Have some kind of canvas where the code blocks can be dragged into
+- Have a play button that sends the commands to the car and a stop button that stops the execution
+- Using the sensors to make sure no obstacles are hit and send a message asking the user to place the car somewhere else
 
 <br />
 
-## Get started
+### :computer: What kind of technology did we use?
+We were primarily using **HTML, CSS and JavaScript** in order to develop our website and **C++** for the execution of the commands by the car.
 
-### Setup the emulator
+<br />
 
-- Clone the repository on your device
-- Download and open SMCE [here](https://github.com/ItJustWorksTM/smce-gd/releases/tag/v1.3.4)
+## :airplane: Get started
+
+If you are not working with the physical car you will need to download and setup the emulator SMCE. Below you can find specific instructions where to download it and how to start working with it. Before you do that you should clone this repository on your own device. Below you will find some information on the included files and folders and which ones are relevant for you. You will also find an explanation on what the different code blocks can do.
+
+### Setup SMCE
+
+Download and open SMCE [here](https://github.com/ItJustWorksTM/smce-gd/releases/tag/v1.3.4) and follow the steps below:
 
 | <img width="260" alt="Screenshot 2022-05-25 at 19 37 42" src="https://user-images.githubusercontent.com/78755376/170339214-770db480-9e86-4880-ad81-0cfa12e07118.png" align="left"> | <img width="495" alt="Screenshot 2022-05-25 at 19 37 51" src="https://user-images.githubusercontent.com/78755376/170339279-a64f3e8d-f6fb-466f-bd8c-95d429c9efc3.png">| <img width="230" alt="Screenshot 2022-05-25 at 19 38 41" src="https://user-images.githubusercontent.com/78755376/170339286-890b2202-1036-4c31-802f-4c4ad0a3fc91.png"> <img width="230" alt="Screenshot 2022-05-25 at 19 38 48" src="https://user-images.githubusercontent.com/78755376/170339289-ba46789e-d4e2-47a9-9aa4-7210d2a6b93d.png">|
 |:--:| :--:| :--:| 
@@ -56,7 +63,9 @@ We will be primarily using **HTML, CSS and JavaScript** in order to develop our 
 
 
 <img width="578" alt="Screenshot 2022-05-25 at 19 39 39" src="https://user-images.githubusercontent.com/78755376/170339310-7d1dd91b-cd45-4f71-b531-424295432a2f.png">
-This is how your screen look now.
+This is how your screen look now. You can start setting up the webpage now.
+
+
 
 ### Using the app
 <img width="550" alt="Screenshot 2022-05-27 at 10 03 00" src="https://user-images.githubusercontent.com/78755376/170657836-ae65c6f1-b22b-4a4f-bade-9a783847e593.png" align="right">
@@ -68,7 +77,8 @@ This is how your screen look now.
 - The clear button clears out all the blocks in the canvas. Before that is done it asks the user for permission.
 
 ### The code blocks
-<img width="370" alt="Screenshot 2022-05-25 at 14 53 14" src="https://user-images.githubusercontent.com/78755376/170266551-859a31fb-d5ba-4dd4-9d31-5580133be83e.png" align="left">
+<img width="230" alt="Screenshot 2022-05-25 at 14 53 14" src="https://user-images.githubusercontent.com/78755376/170822858-3f0bd3f4-d775-458a-927a-dae876076622.png" align="left">
+
 
 **Move x seconds forward** takes as input the number of seconds the car is supposed to drive forward.
 
@@ -88,13 +98,27 @@ This is how your screen look now.
 
 <br />
 
-## Demo video
+### The buttons
+
+Play button:
+When the play button is pressed all the elements that are inside the canvas are read and translated into commands for the car. Those are then sequentially send to the car with MQTT. When the car receives a message it executes the action specified in that message.
+
+Stop button:
+The stup button sends another message to the car to stop the execution of the code sequence. However, it only stops the execution of the sequence, not the execution of an action. That means that if an action like "move 10 steps forward" is not stopped until those 10 steps are finished. It simply does not execute the messaged following that action. In case you need to stop the car during one action you can make use of our obstacle avoidance and place an obstacle to the front/back of the car depending on the direction it is going in. That will stop the movement of the car immediatly. 
+
+Clear button:
+The clear button is used to clear all code blocks from the canvas. Before doing that however the user is asked for confirmation.
+
+
+<br />
+
+## :movie_camera: Demo video
 
 Here is a link to our demo video:
 
 <br />
 
-## Structure
+## :open_file_folder: Structure
 
 If you want to learn a little more about how the system works, how our code is structured and how the different components work and communicate with each other this is the section for you. :point_down:
 
