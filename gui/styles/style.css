@@ -2,8 +2,8 @@
 
 /* Fonts */
 @font-face {
-  font-family: 'Melt';
-  src: url('Melt_LV1_Regular.otf');
+  font-family: "Melt";
+  src: url("Melt_LV1_Regular.otf");
 }
 
 /* Classes for attributes */
@@ -27,7 +27,6 @@
 
 .web-container {
   background-color: #f6da47;
-  filter: blur(0px);
 }
 
 .menu {
@@ -62,28 +61,24 @@
 #move-forward {
   background-color: #14bcf3;
   width: 68%;
-
   --background-color: #14bcf3;
 }
 
 #move-backwards {
   background-color: #ff9800;
   width: 68%;
-
   --background-color: #ff9800;
 }
 
 #move-left {
   background-color: #f30fa2;
   width: 68%;
-
   --background-color: #f30fa2;
 }
 
 #move-right {
   background-color: #01b040;
   width: 68%;
-
   --background-color: #01b040;
 }
 
@@ -118,49 +113,34 @@
 
 #move-forward-copy {
   background-color: #14bcf3;
-
   width: 37%;
   text-align: center;
-
   --background-color: #14bcf3;
-
   margin-bottom: -3px;
-
 }
 
 #move-backwards-copy {
   background-color: #ff9800;
-
   width: 37%;
-
   --background-color: #ff9800;
-
   text-align: center;
   margin-bottom: -3px;
-
 }
 
 #move-left-copy {
   background-color: #f30fa2;
-
   width: 37%;
   text-align: center;
   margin-bottom: -3px;
-
   --background-color: #f30fa2;
-
 }
 
 #move-right-copy {
   background-color: #01b040;
-
   width: 37%;
-
   --background-color: #01b040;
-
   text-align: center;
   margin-bottom: -3px;
-
 }
 
 #turn-around-copy {
@@ -185,7 +165,6 @@
   background-color: #ca6702;
   width: 80%;
   text-align: center;
-
 }
 
 .btn {
@@ -201,9 +180,7 @@
 }
 
 .selection-menu-title {
-  /* font-family: "Melt"; */
   font-size: 23px;
-  /* letter-spacing: 2px; */
   padding: 13px 0 0;
 }
 
@@ -234,9 +211,7 @@
 .canvas-container {
   padding-top: 35px;
   background-color: #eeee;
-
   --background-color: #eeee;
-
   border-radius: 30px;
   height: max-content;
   padding-bottom: 30px;
@@ -397,8 +372,7 @@ label {
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
   display: block;
-  /* filter: blur(5px); */
-  box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+  box-shadow: 0 5px 30px rgba(0 0 0 / 30%);
 }
 
 #popup {
@@ -411,13 +385,13 @@ label {
 }
 
 #popup2 {
-  background: #DC1C13;
+  background: #dc1c13;
   border: white;
   border-width: 1.5px;
   border-style: solid;
   width: 450px;
   height: 250px;
-  padding: 5px 20px 20px 20px;
+  padding: 5px 20px 20px;
   border-radius: 50px;
 }
 
@@ -425,14 +399,13 @@ label {
   visibility: visible;
   top: 50%;
   transform: translate(-50%, -50%) scale(1);
-  filter: blur(0px);
 }
 
 .popup p {
   font-size: 35px;
   font-weight: 500;
   margin: 30px 0 10px;
-  font-family: "Melt";
+  font-family: Melt;
 }
 
 .popup button {
@@ -446,12 +419,12 @@ label {
   font-size: 18px;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-  font-family: "Melt";
+  box-shadow: 0 5px 5px rgba(0 0 0 20%);
+  font-family: Melt;
 }
 
 #no-btn {
-  background: #DC1C13;
+  background: #dc1c13;
   margin-right: 40px;
 }
 
@@ -462,7 +435,7 @@ label {
 #back-btn {
   color: #404040;
   margin-top: 20px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .container#blur.active {
@@ -471,7 +444,7 @@ label {
   user-select: none;
 }
 
-#popup.active, #popup2.active {
+#popup.active #popup2.active {
   pointer-events: all;
   filter: none;
 }
