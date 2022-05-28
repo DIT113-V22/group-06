@@ -1,7 +1,7 @@
 let message = ''
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
-let stopped = false;
+const stopped = false;
 let timeOutFunctionIds = []
 
 // set callback handlers
@@ -67,13 +67,12 @@ function onConnectionLost (responseObject) {
 
 // called when a message arrives
 function onMessageArrived (message) {
-  if(message.payloadString.substring(0, 8) == "Obstacle") {
-    displayMessage(message);
+  if (message.payloadString.substring(0, 8) === 'Obstacle') {
+    displayMessage(message)
   }
   else {
     console.log('Sent messages: ' + message.payloadString)
   }
-  
 }
 function displayMessage(message) {
   window.alert(message)
@@ -237,12 +236,12 @@ function getRepeatBlock (y) {
 function retrieveContents (canvas) {
   let jsObjects = []
   const remainingBlocks = document.getElementById(canvas).querySelectorAll('.block')
-  
+
   for (let i = 0; i < remainingBlocks.length; i++) {
-    if (remainingBlocks[i].id === "repeat-copy") {
+    if (remainingBlocks[i].id === 'repeat-copy') {
       jsObjects = getValuesInRepeat(remainingBlocks[i], jsObjects)
     } else {
-      let codeBlock = getBlock(remainingBlocks[i])
+      const codeBlock = getBlock(remainingBlocks[i])
       jsObjects.push(codeBlock)
     }
   }
@@ -250,8 +249,8 @@ function retrieveContents (canvas) {
 }
 
 function getValuesInRepeat (repeatBlock, jsObjects) {
-  let remainingBlocks = repeatBlock.children[3].querySelectorAll('.block')
-  for (let j = 0; j < repeatBlock.children[1].value-1; j++) {
+  const remainingBlocks = repeatBlock.children[3].querySelectorAll('.block')
+  for (let j = 0; j < repeatBlock.children[1].value - 1; j++) {
     for (let i = 0; i < remainingBlocks.length; i++) {
       const codeBlock = getBlock(remainingBlocks[i])
       jsObjects.push(codeBlock)
@@ -262,7 +261,7 @@ function getValuesInRepeat (repeatBlock, jsObjects) {
 
 function getBlock (remainingBlock) {
   let subString2 = ''
-  let value = 0;
+  let value = 0
   if (remainingBlock.id === 'move-forward-copy') {
     subString2 = 'forward'
     value = remainingBlock.children[1].value
@@ -275,13 +274,13 @@ function getBlock (remainingBlock) {
   } else if (remainingBlock.id === 'move-right-copy') {
     subString2 = 'right'
     value = remainingBlock.children[1].value
-  } else if (remainingBlock.id === "turn-around-copy") {
+  } else if (remainingBlock.id === 'turn-around-copy') {
     subString2 = 'turn-around'
-    number = 180
+    let number = 180
     value = number.toString()
   } else if (remainingBlock.id === 'spin-copy') {
     subString2 = 'spin'
-    number = 360;
+    let number = 360
     value = number.toString()
   } else if (remainingBlock.id === 'wait-copy') {
     subString2 = 'wait'
@@ -307,48 +306,48 @@ window.start = function start () {
 }
 // This will be tested later for the MQTT
 window.start1 = function start1 () {
-  
+
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
     client.connect({ onSuccess: onConnect })
   }
   console.log('Connected....')
-  const contents = retrieveContents("canvas")
+  const contents = retrieveContents('canvas')
   console.log(contents)
-  
+
   publishForMovement(contents[0].direction, contents[0].steps)
   let executionSeconds = 0
 
-  if(contents[0].direction == "left" || contents[0].direction == "right" || contents[0].direction == "spin" || contents[0].direction == "turn-around"){
+  if (contents[0].direction === 'left' || contents[0].direction === 'right' || contents[0].direction === 'spin' || contents[0].direction === 'turn-around') {
     executionSeconds = (contents[0].steps * 130)
   }
 
-  else{
+  else {
     executionSeconds = (contents[0].steps * 1000)
   }
 
 
   for (let i = 1; i < contents.length; i++) {
-    let timeOutId = setTimeout(function(){
+    const timeOutId = setTimeout(function(){
       publishForMovement(contents[i].direction, contents[i].steps)
     }, executionSeconds - 100)
-    console.log("Start: " + timeOutId)
+    console.log('Start: ' + timeOutId)
     timeOutFunctionIds.push(timeOutId)
-    
-    if(contents[i].direction == "left" || contents[i].direction == "right" || contents[i].direction == "spin" || contents[i].direction == "turn-around"){
+
+    if (contents[i].direction === 'left' || contents[i].direction === 'right' || contents[i].direction === 'spin' || contents[i].direction === 'turn-around') {
       executionSeconds += (contents[i].steps * 130)
     }
 
-    else{
+    else {
       executionSeconds += (contents[i].steps * 1000)
     }
-    
+
   }
 }
 
 // Function to delete all code blocks currently in the canvas
-function clearAll () {
+window.clearAll = function clearAll () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   console.log(remainingBlocks)
   for (let i = 0; i < remainingBlocks.length; i++) {
@@ -356,41 +355,41 @@ function clearAll () {
   }
 }
 
-let popup = document.getElementById("popup");
-let popup2 = document.getElementById("popup2");
+const popup = document.getElementById('popup')
+const popup2 = document.getElementById('popup2')
 
 // Allows popup to show on screen when clear button is pressed
-function displayPopup () {
+window.displayPopup = function displayPopup () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
-  if (remainingBlocks.length == 0) {
-    popup2.classList.add("display-popup");
+  if (remainingBlocks.length === 0) {
+    popup2.classList.add('display-popup')
   } else {
-    popup.classList.add("display-popup");
+    popup.classList.add('display-popup')
   }
 }
 
 // Closes popup message
 function closePopup () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
-  if (remainingBlocks.length == 0) {
-    popup2.classList.remove("display-popup");
+  if (remainingBlocks.length === 0) {
+    popup2.classList.remove('display-popup')
   } else {
-    popup.classList.remove("display-popup");
+    popup.classList.remove('display-popup')
   }
 }
 
 //Allows background to blur when popup is shown
 function toggle() {
-  var blur = document.getElementById('blur');
-  blur.classList.toggle("active");
-  var popup = document.getElementById('popup');
-  popup.classList.toggle("active");
-  var popup2 = document.getElementById('popup2');
-  popup2.classList.toggle("active");
+  var blur = document.getElementById('blur')
+  blur.classList.toggle('active')
+  var popup = document.getElementById('popup')
+  popup.classList.toggle('active')
+  var popup2 = document.getElementById('popup2')
+  popup2.classList.toggle('active')
 }
 
-  window.stop = function stop () {
-  
+window.stop = function stop () {
+
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
@@ -398,8 +397,8 @@ function toggle() {
   }
   console.log('Connected....')
   timeOutFunctionIds.forEach(timeOutId => {
-    console.log("Stop: " + timeOutId)
+    console.log('Stop: ' + timeOutId)
     clearTimeout(timeOutId)
-  });
+  })
   timeOutFunctionIds = []
 }
