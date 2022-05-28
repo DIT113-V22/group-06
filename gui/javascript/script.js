@@ -1,6 +1,9 @@
 let message = ''
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
+let stopped = false;
+let timeOutFunctionIds = []
+
 // set callback handlers
 client.onConnectionLost = onConnectionLost
 client.onMessageArrived = onMessageArrived
@@ -247,15 +250,26 @@ window.start = function start () {
 }
 // This will be tested later for the MQTT
 window.start1 = function start1 () {
+  
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
+    client.connect({ onSuccess: onConnect })
   }
   console.log('Connected....')
   const contents = retrieveContents()
   console.log(contents)
-  for (let i = 0; i < contents.length; i++) {
-    publishForMovement(contents[i].direction, contents[i].steps)
+  
+  publishForMovement(contents[0].direction, contents[0].steps)
+  let executionSeconds = contents[0].steps * 1000
+
+  for (let i = 1; i < contents.length; i++) {
+    let timeOutId = setTimeout(function(){
+      publishForMovement(contents[i].direction, contents[i].steps)
+    }, executionSeconds - 100)
+    console.log("Start: " + timeOutId)
+    timeOutFunctionIds.push(timeOutId)
+    executionSeconds += (contents[i].steps * 1000)
   }
 }
 
@@ -299,4 +313,19 @@ function toggle() {
   popup.classList.toggle("active");
   var popup2 = document.getElementById('popup2');
   popup2.classList.toggle("active");
+}
+
+  window.stop = function stop () {
+  
+  if (!client.isConnected) {
+    // Try to connect
+    console.log('Not connected....')
+    client.connect({ onSuccess: onConnect })
+  }
+  console.log('Connected....')
+  timeOutFunctionIds.forEach(timeOutId => {
+    console.log("Stop: " + timeOutId)
+    clearTimeout(timeOutId)
+  });
+  timeOutFunctionIds = []
 }
