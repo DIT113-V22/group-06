@@ -96,22 +96,26 @@ void setup() {
         stopCar();
       }
       else if(topic == "smartcar/control/turn") {
-         int angleValue = 0;
+        int angleValue = 0;
         double inputAngle = -message.toInt();
 
         car.setAngle(inputAngle);
         gyro.update();
         angleValue = gyro.getHeading();
-        int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
+        int finalDegree = gyro.getHeading() > 180 ? (gyro.getHeading() - 180) : (gyro.getHeading() + 180);
+        if(finalDegree == 360){
+          finalDegree = 359;
+        }
+        Serial.println(finalDegree);
 
         while (angleValue != finalDegree ){
           if(detectObstacle("forward") || detectObstacle("reverse")) {
             break;
           }
-          if(finalDegree < 45) {
+          if(gyro.getHeading() < 45) {
             fspeed = 20;
           }
-          car.setSpeed(fspeed);
+          car.setSpeed(15);
           Serial.println(angleValue);
           gyro.update();
           angleValue = gyro.getHeading();
@@ -125,13 +129,14 @@ void setup() {
         Serial.println(gyro.getHeading());
       }
       else if(topic == "smartcar/control/spin") {
-         int angleValue = 0;
+        int angleValue = 0;
         double inputAngle = -message.toInt();
 
         car.setAngle(inputAngle);
         gyro.update();
         angleValue = gyro.getHeading();
-        int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
+        int finalDegree = (gyro.getHeading() - 1); //Otherwise the car stops as its already at its final angle
+        Serial.println(finalDegree);
 
         while (angleValue != finalDegree ){
           if(detectObstacle("forward") || detectObstacle("reverse")) {
@@ -140,7 +145,7 @@ void setup() {
           if(finalDegree < 45) {
             fspeed = 20;
           }
-          car.setSpeed(fspeed);
+          car.setSpeed(15);
           Serial.println(angleValue);
           gyro.update();
           angleValue = gyro.getHeading();
@@ -162,9 +167,7 @@ void setup() {
           car.setAngle(0);
           endtime = millis();
         }
-      
       }
-
 
        if (topic == "smartcar/control/reverse") {
         Serial.println(topic);
@@ -182,10 +185,7 @@ void setup() {
           stopCarForObstacleDetection("reverse");
         }
         stopCar();
-        
-        
       }
-
       if (topic == "smartcar/control/steer-left") {
         
         int angleValue = 0;
@@ -200,10 +200,7 @@ void setup() {
           if(detectObstacle("forward") || detectObstacle("reverse")) {
             break;
           }
-          if(finalDegree < 45) {
-            fspeed = 20;
-          }
-          car.setSpeed(fspeed);
+          car.setSpeed(15);
           Serial.println(angleValue);
           gyro.update();
           angleValue = gyro.getHeading();
@@ -228,28 +225,22 @@ void setup() {
         int finalDegree = (gyro.getHeading() - inputAngle) < 0 ?  360 + (gyro.getHeading() - inputAngle) : (gyro.getHeading() - inputAngle);
         Serial.println(finalDegree);
 
-        while ((finalDegree - 3 <= angleValue && finalDegree + 3 >= angleValue + 6)|| (angleValue != finalDegree)){
+        while ((angleValue != finalDegree)){
           if(detectObstacle("forward") || detectObstacle("reverse")){
             break;
           }
-        
-          car.setSpeed(fspeed);
+          car.setSpeed(15);
           Serial.println(angleValue);
           gyro.update();
           angleValue = gyro.getHeading();
         }
-
         if(detectObstacle("forward") || detectObstacle("reverse")) {
             stopCarForObstacleDetection("right");
         
           }
-
-        stopCar();  
-
+        stopCar(); 
         Serial.println(gyro.getHeading());
       }
-      
-
       else {
         Serial.println(topic + " " + message);
       }

@@ -318,7 +318,16 @@ window.start1 = function start1 () {
   console.log(contents)
   
   publishForMovement(contents[0].direction, contents[0].steps)
-  let executionSeconds = contents[0].steps * 1000
+  let executionSeconds = 0
+
+  if(contents[0].direction == "left" || contents[0].direction == "right" || contents[0].direction == "spin" || contents[0].direction == "turn-around"){
+    executionSeconds = (contents[0].steps * 130)
+  }
+
+  else{
+    executionSeconds = (contents[0].steps * 1000)
+  }
+
 
   for (let i = 1; i < contents.length; i++) {
     let timeOutId = setTimeout(function(){
@@ -326,7 +335,15 @@ window.start1 = function start1 () {
     }, executionSeconds - 100)
     console.log("Start: " + timeOutId)
     timeOutFunctionIds.push(timeOutId)
-    executionSeconds += (contents[i].steps * 1000)
+    
+    if(contents[i].direction == "left" || contents[i].direction == "right" || contents[i].direction == "spin" || contents[i].direction == "turn-around"){
+      executionSeconds += (contents[i].steps * 130)
+    }
+
+    else{
+      executionSeconds += (contents[i].steps * 1000)
+    }
+    
   }
 }
 
