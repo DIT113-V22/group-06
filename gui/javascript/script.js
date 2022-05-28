@@ -38,17 +38,17 @@ function publishForMovement (direction, steps) {
     message.destinationName = 'smartcar/control/steer-right'
     client.send(message)
   }
-  if(direction == "wait") {
+  if (direction === 'wait') {
     message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/wait'
     client.send(message)
   }
-  if(direction == "spin") {
+  if (direction === 'spin') {
     message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/spin'
     client.send(message)
   }
-  if(direction =="turn-around") {
+  if (direction === 'turn-around') {
     message = new Paho.MQTT.Message(steps)
     message.destinationName = 'smartcar/control/turn'
     client.send(message)
@@ -64,10 +64,11 @@ function onConnectionLost (responseObject) {
 
 // called when a message arrives
 function onMessageArrived (message) {
-    console.log('Sent messages: ' + message.payloadString)
+  console.log('Sent messages: ' + message.payloadString)
 }
-function onMessageReceived(topic, message) {
-  if(topic == "smartcar/control/stopped") {
+
+function onMessageReceived (topic, message) {
+  if (topic === 'smartcar/control/stopped') {
     alert(message)
   }
 }
@@ -231,7 +232,7 @@ function retrieveContents (canvas) {
   const remainingBlocks = document.getElementById(canvas).querySelectorAll('.block')
   
   for (let i = 0; i < remainingBlocks.length; i++) {
-    if(remainingBlocks[i].id === "repeat-copy") {
+    if (remainingBlocks[i].id === "repeat-copy") {
       jsObjects = getValuesInRepeat(remainingBlocks[i], jsObjects)
     } else {
       let codeBlock = getBlock(remainingBlocks[i])
@@ -243,9 +244,9 @@ function retrieveContents (canvas) {
 
 function getValuesInRepeat (repeatBlock, jsObjects) {
   let remainingBlocks = repeatBlock.children[3].querySelectorAll('.block')
-  for (let j = 0; j<repeatBlock.children[1].value-1; j++) {
-    for (let i = 0; i<remainingBlocks.length; i++) {
-      let codeBlock = getBlock(remainingBlocks[i])
+  for (let j = 0; j < repeatBlock.children[1].value-1; j++) {
+    for (let i = 0; i < remainingBlocks.length; i++) {
+      const codeBlock = getBlock(remainingBlocks[i])
       jsObjects.push(codeBlock)
     }
   }
@@ -254,32 +255,31 @@ function getValuesInRepeat (repeatBlock, jsObjects) {
 
 function getBlock (remainingBlock) {
   let subString2 = ''
-  value = 0;
+  let value = 0;
   if (remainingBlock.id === 'move-forward-copy') {
     subString2 = 'forward'
-    value = remainingBlock.children[1].value;
+    value = remainingBlock.children[1].value
   } else if (remainingBlock.id === 'move-backwards-copy') {
     subString2 = 'backwards'
-    value = remainingBlock.children[1].value;
+    value = remainingBlock.children[1].value
   } else if (remainingBlock.id === 'move-left-copy') {
     subString2 = 'left'
-    value = remainingBlock.children[1].value;
+    value = remainingBlock.children[1].value
   } else if (remainingBlock.id === 'move-right-copy') {
     subString2 = 'right'
-    value = remainingBlock.children[1].value;
+    value = remainingBlock.children[1].value
   } else if (remainingBlock.id === "turn-around-copy") {
-    subString2 = "turn-around"
+    subString2 = 'turn-around'
     number = 180
-    value = number.toString();
-  } else if(remainingBlock.id === "spin-copy") {
-    subString2 = "spin"
+    value = number.toString()
+  } else if (remainingBlock.id === 'spin-copy') {
+    subString2 = 'spin'
     number = 360;
-    value = number.toString();
-  } else if(remainingBlock.id === "wait-copy") {
-    subString2 = "wait"
-    value = remainingBlock.children[1].value;
-  } 
-  else {
+    value = number.toString()
+  } else if (remainingBlock.id === 'wait-copy') {
+    subString2 = 'wait'
+    value = remainingBlock.children[1].value
+  } else {
     subString2 = 'no-direction-specified'
   }
 
@@ -291,10 +291,9 @@ function getBlock (remainingBlock) {
   return codeBlock
 }
 
-
 // For testing purposes when Play button is clicked
 window.start = function start () {
-  const contents = retrieveContents("canvas")
+  const contents = retrieveContents('canvas')
   for (let i = 0; i < contents.length; i++) {
     console.log(contents[i])
   }
@@ -309,6 +308,6 @@ window.start1 = function start1 () {
   const contents = retrieveContents("canvas")
   console.log(contents)
   for (let i = 0; i < contents.length; i++) {
-      publishForMovement(contents[i].direction, contents[i].steps)
+    publishForMovement(contents[i].direction, contents[i].steps)
   }
 }
