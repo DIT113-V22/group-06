@@ -69,8 +69,7 @@ function onConnectionLost (responseObject) {
 function onMessageArrived (message) {
   if (message.payloadString.substring(0, 8) === 'Obstacle') {
     displayMessage(message)
-  }
-  else {
+  } else {
     console.log('Sent messages: ' + message.payloadString)
   }
 }
@@ -320,22 +319,20 @@ window.start1 = function start1 () {
 
   if (contents[0].direction === 'left' || contents[0].direction === 'right' || contents[0].direction === 'spin' || contents[0].direction === 'turn-around') {
     executionSeconds = (contents[0].steps * 130)
-  }
-  else {
+  } else {
     executionSeconds = (contents[0].steps * 1000)
   }
 
   for (let i = 1; i < contents.length; i++) {
-    const timeOutId = setTimeout(function(){
-      publishForMovement (contents[i].direction, contents[i].steps)
+    const timeOutId = setTimeout(function () {
+      publishForMovement(contents[i].direction, contents[i].steps)
     }, executionSeconds - 100)
     console.log('Start: ' + timeOutId)
     timeOutFunctionIds.push(timeOutId)
 
     if (contents[i].direction === 'left' || contents[i].direction === 'right' || contents[i].direction === 'spin' || contents[i].direction === 'turn-around') {
       executionSeconds += (contents[i].steps * 130)
-    }
-    else {
+    } else {
       executionSeconds += (contents[i].steps * 1000)
     }
   }
@@ -374,17 +371,16 @@ window.closePopup = function closePopup () {
 }
 
 // Allows background to blur when popup is shown
-window.toggle = function toggle() {
-  let blur = document.getElementById('blur')
+window.toggle = function toggle () {
+  const blur = document.getElementById('blur')
   blur.classList.toggle('active')
-  let popup = document.getElementById('popup')
+  const popup = document.getElementById('popup')
   popup.classList.toggle('active')
-  let popup2 = document.getElementById('popup2')
+  const popup2 = document.getElementById('popup2')
   popup2.classList.toggle('active')
 }
 
 window.stop = function stop () {
-
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
