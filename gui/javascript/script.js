@@ -141,8 +141,6 @@ window.dropInRepeat = function dropInRepeat (ev) {
   ev.preventDefault()
   // const selectedBlock =  getRepeatBlock(ev.clientY)
   const repeatBlock = getRepeatBlock(ev.clientY).children[3]
-
-  console.log(repeatBlock)
   // we get the data we set in the drag() method
   const data = ev.dataTransfer.getData('text')
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
@@ -192,7 +190,6 @@ function getElementAfter (y, canvas, repeatBlock) {
   } else {
     remainingBlocks = [...repeatBlock.querySelectorAll('.block:not(.dragging)')]
   }
-  console.log(remainingBlocks)
   // check which element is closest after(-> offset below 0) the current position and return it
   return remainingBlocks.reduce((closest, child) => {
     const box = child.getBoundingClientRect()
@@ -230,56 +227,68 @@ function getRepeatBlock (y) {
 
 /// Function to get the text of all code blocks in the canvas
 function retrieveContents (canvas) {
-  const jsObjects = []
-  
+  let jsObjects = []
   const remainingBlocks = document.getElementById(canvas).querySelectorAll('.block')
-  var value = 0;
   
   for (let i = 0; i < remainingBlocks.length; i++) {
-    let subString2 = ''
-    value = 0;
-    console.log(remainingBlocks[i].id)
-    if (remainingBlocks[i].id === 'move-forward-copy') {
-      subString2 = 'forward'
-      value = remainingBlocks[i].children[1].value;
-    } else if (remainingBlocks[i].id === 'move-backwards-copy') {
-      subString2 = 'backwards'
-      value = remainingBlocks[i].children[1].value;
-    } else if (remainingBlocks[i].id === 'move-left-copy') {
-      subString2 = 'left'
-      value = remainingBlocks[i].children[1].value;
-    } else if (remainingBlocks[i].id === 'move-right-copy') {
-      subString2 = 'right'
-      value = remainingBlocks[i].children[1].value;
-    } else if (remainingBlocks[i].id === "turn-around-copy") {
-      subString2 = "turn-around"
-      number = 180
-      value = number.toString();
-    } else if(remainingBlocks[i].id === "spin-copy") {
-      subString2 = "spin"
-      number = 360;
-      value = number.toString();
-    } else if(remainingBlocks[i].id === "wait-copy") {
-      subString2 = "wait"
-      value = remainingBlocks[i].children[1].value;
-    } else if(remainingBlocks[i].id === "repeat-copy") {
-      subString2 = "repeat"
-      value = remainingBlocks[i].children[1].value;
-
+    if(remainingBlocks[i].id === "repeat-copy") {
+      jsObjects = getValuesInRepeat(remainingBlocks[i], jsObjects)
+    } else {
+      let codeBlock = getBlock(remainingBlocks[i])
+      jsObjects.push(codeBlock)
     }
-    else {
-      subString2 = 'no-direction-specified'
-    }
-
-    const codeBlock = new BlockEntity(
-      subString2,
-      value
-    )
-
-    jsObjects[i] = codeBlock
   }
- 
   return jsObjects
+}
+
+function getValuesInRepeat (repeatBlock, jsObjects) {
+  let remainingBlocks = repeatBlock.children[3].querySelectorAll('.block')
+  for (let j = 0; j<repeatBlock.children[1].value-1; j++) {
+    for (let i = 0; i<remainingBlocks.length; i++) {
+      let codeBlock = getBlock(remainingBlocks[i])
+      jsObjects.push(codeBlock)
+    }
+  }
+  return jsObjects
+}
+
+function getBlock (remainingBlock) {
+  let subString2 = ''
+  value = 0;
+  if (remainingBlock.id === 'move-forward-copy') {
+    subString2 = 'forward'
+    value = remainingBlock.children[1].value;
+  } else if (remainingBlock.id === 'move-backwards-copy') {
+    subString2 = 'backwards'
+    value = remainingBlock.children[1].value;
+  } else if (remainingBlock.id === 'move-left-copy') {
+    subString2 = 'left'
+    value = remainingBlock.children[1].value;
+  } else if (remainingBlock.id === 'move-right-copy') {
+    subString2 = 'right'
+    value = remainingBlock.children[1].value;
+  } else if (remainingBlock.id === "turn-around-copy") {
+    subString2 = "turn-around"
+    number = 180
+    value = number.toString();
+  } else if(remainingBlock.id === "spin-copy") {
+    subString2 = "spin"
+    number = 360;
+    value = number.toString();
+  } else if(remainingBlock.id === "wait-copy") {
+    subString2 = "wait"
+    value = remainingBlock.children[1].value;
+  } 
+  else {
+    subString2 = 'no-direction-specified'
+  }
+
+  const codeBlock = new BlockEntity(
+    subString2,
+    value
+  )
+
+  return codeBlock
 }
 
 
@@ -300,15 +309,6 @@ window.start1 = function start1 () {
   const contents = retrieveContents("canvas")
   console.log(contents)
   for (let i = 0; i < contents.length; i++) {
-    if(contents[i].direction === "repeat") {
-      const contents1 = retrieveContents("repeat-copy");
-      for(let j = 0; j < contents[i].steps; j++) {
-        publishForMovement(contents1[j].direction, contents[j].steps);
-      }
-    }
-    else {
       publishForMovement(contents[i].direction, contents[i].steps)
-    }
-   
   }
 }
