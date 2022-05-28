@@ -4,6 +4,7 @@
 #include <OV767X.h>
 #endif
 #include <Smartcar.h>
+#include <cmath>
 
 
 //--------------------VARIABLES DECLARATION----------------------------------//
@@ -38,6 +39,7 @@ const unsigned int maxDistance = 300;
 int fspeed = 50;
 const int bspeed = -50;
 const int stopSpeed = 0;
+
 
 SR04 front{arduinoRuntime, triggerPin, echoPin, maxDistance};
 GP2Y0A21 back(arduinoRuntime, BACK_PIN);
@@ -74,24 +76,25 @@ void setup() {
     static auto endtime = 0;
 
     Serial.println(topic + " " + message);
+      
       if (topic ==  "smartcar/control/throttle") {
         Serial.println(topic);
         starttime = millis();
         endtime = starttime;
-        while ((endtime - starttime) <= message.toInt() * 1000) {
+        while (((endtime - starttime) <= message.toInt() * 1000)) {
           if(detectObstacle("throttle")) {
             break;
           }
           car.setSpeed(fspeed);
           car.setAngle(0);
           endtime = millis();
+          
         }
         if(detectObstacle("throttle")) {
           stopCarForObstacleDetection("throttle");
         }
+        
         stopCar();
-        
-        
       }
       else if(topic == "smartcar/control/turn") {
          int angleValue = 0;
@@ -168,7 +171,7 @@ void setup() {
         Serial.println(topic);
         starttime = millis();
         endtime = starttime;
-        while ((endtime - starttime) <= message.toInt() * 1000) {
+        while (((endtime - starttime) <= message.toInt() * 1000)) {
            if(detectObstacle("reverse")) {
             break;
           }
@@ -194,7 +197,7 @@ void setup() {
         angleValue = gyro.getHeading();
         int finalDegree = (gyro.getHeading() + -inputAngle) > 360 ? (gyro.getHeading() + -inputAngle) -360 : (gyro.getHeading() + -inputAngle);
 
-        while (angleValue != finalDegree ){
+        while ((angleValue != finalDegree)){
           if(detectObstacle("forward") || detectObstacle("reverse")) {
             break;
           }
@@ -223,32 +226,27 @@ void setup() {
         car.setAngle(inputAngle);
         gyro.update();
         angleValue = gyro.getHeading();
-        /*int finalDegree = (gyro.getHeading() + inputAngle) < 0 ? (360 + (gyro.getHeading() + inputAngle)) : (gyro.getHeading() + -inputAngle);
-        */
-        int finalDegree = gyro.getHeading() + -inputAngle;
-        if (finalDegree < 0){
-          finalDegree = 360 + finalDegree;
-        }
+        int finalDegree = (gyro.getHeading() - inputAngle) < 0 ?  360 + (gyro.getHeading() - inputAngle) : (gyro.getHeading() - inputAngle);
         Serial.println(finalDegree);
-        
-        while (angleValue != finalDegree){
-          if(detectObstacle("forward") || detectObstacle("reverse")) {
+
+        while ((finalDegree - 3 <= angleValue && finalDegree + 3 >= angleValue + 6)|| (angleValue != finalDegree)){
+          if(detectObstacle("forward") || detectObstacle("reverse")){
             break;
           }
-          if(finalDegree < 45) {
-            fspeed = 20; 
-          }
+        
           car.setSpeed(fspeed);
-          
+          Serial.println(angleValue);
           gyro.update();
           angleValue = gyro.getHeading();
         }
 
-         if(detectObstacle("forward") || detectObstacle("reverse")) {
+        if(detectObstacle("forward") || detectObstacle("reverse")) {
             stopCarForObstacleDetection("right");
         
           }
+
         stopCar();  
+
         Serial.println(gyro.getHeading());
       }
       
@@ -310,6 +308,7 @@ boolean detectObstacle(String direction) {
 void stopCar() {
    car.setAngle(0);
    car.setSpeed(stopSpeed);
+   Serial.println("El coche se para");
  }
  void stopCarForObstacleDetection(String direction) {
    stopCar();
