@@ -1,3 +1,11 @@
+/* ------------------------ */
+
+/* Fonts */
+@font-face {
+  font-family: "Melt";
+  src: url("Melt_LV1_Regular.otf");
+}
+
 /* Classes for attributes */
 
 /* ------------------------ */
@@ -145,10 +153,9 @@
   background-color: #f30fa2;
   width: 50%;
   text-align: center;
+  margin-bottom: 15px;
 
   --background-color: #f30fa2;
-
-  margin-bottom: 15px;
 }
 
 #move-right-copy {
@@ -216,9 +223,7 @@
 }
 
 .selection-menu-title {
-  font-family: "Varela Round", sans-serif;
   font-size: 23px;
-  letter-spacing: -0.8px;
   padding: 13px 0 0;
 }
 
@@ -397,4 +402,96 @@ label {
   font-size: 18px;
   padding-left: 0.5px;
   padding-right: 0.5px;
+}
+
+/* Popup design */
+
+.popup {
+  background: #404040;
+  border-radius: 6px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #fff;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+  display: block;
+  box-shadow: 0 5px 30px rgba(0 0 0 / 30%);
+}
+
+#popup {
+  background: #404040;
+  border: #000;
+  border-width: 2px;
+  border-style: solid;
+  width: 500px;
+  border-radius: 30px;
+}
+
+#popup2 {
+  background: #dc1c13;
+  border: white;
+  border-width: 1.5px;
+  border-style: solid;
+  width: 450px;
+  height: 250px;
+  padding: 5px 20px 20px;
+  border-radius: 50px;
+}
+
+.display-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.popup p {
+  font-size: 35px;
+  font-weight: 500;
+  margin: 30px 0 10px;
+  font-family: Melt;
+}
+
+.popup button {
+  width: 30%;
+  height: 40px;
+  margin-top: 30px;
+  padding: 10px, 0;
+  color: #fff;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 5px 5px rgba(0 0 0 20%);
+  font-family: Melt;
+}
+
+#no-btn {
+  background: #dc1c13;
+  margin-right: 40px;
+}
+
+#yes-btn {
+  background: #01b040;
+}
+
+#back-btn {
+  color: #404040;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.container#blur.active {
+  filter: blur(10px);
+  pointer-events: none;
+  user-select: none;
+}
+
+#popup.active #popup2.active {
+  pointer-events: all;
+  filter: none;
 }
