@@ -21,7 +21,7 @@
     
 
     <body class = "web-container">
-        <div class="container">
+        <div class="container" id="blur">
             
             <div class="row">
                 
@@ -50,10 +50,10 @@
                                     <i class="fas fa-stop fa-l"> Stop</i>
                                 </span></button></li>
                                 <li><button class="btn"><span style="color: black;">
-                                    <i class="fas fa-rotate-left fa-l"> Undo</i>
+                                    <i class="fa-solid fa-pause"> Pause</i>
                                 </span></button></li>
-                                <li><button class="btn"><span style="color: black;">
-                                    <i class="fas fa-rotate-right fa-l"> Redo</i>
+                                <li><button id="clear-button" class="btn" onclick="toggle(); displayPopup();"><span style="color: black;">
+                                    <i class="fa-solid fa-circle-xmark"> Clear</i>
                                 </span></button></li>
                                 <li>
                                     <img id="trash-icon" ondrop="drop(event)" ondragover="allowDrop(event)" alt="" src="./assets/trashicon.png">
@@ -169,6 +169,16 @@
 
             </div>
         
+        </div>
+        <!-- Content popoup -->
+        <div class="popup" id="popup">
+            <p>Are you sure you want to delete blocks?</p>
+            <button id="no-btn" onclick="toggle(); closePopup()">No</button>
+            <button id="yes-btn" onclick="toggle(); closePopup(); clearAll();">Yes</button>
+        </div>
+        <div class="popup" id="popup2">
+            <p>There are no blocks to clear :(</p>
+            <button id="back-btn" onclick="toggle(); closePopup()">Go back</button>
         </div>
 
         <!-- JavaScript Bundle with Popper -->

@@ -330,7 +330,49 @@ window.start1 = function start1 () {
   }
 }
 
-window.stop = function stop () {
+// Function to delete all code blocks currently in the canvas
+function clearAll () {
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  console.log(remainingBlocks)
+  for (let i = 0; i < remainingBlocks.length; i++) {
+    removeNode(remainingBlocks[i])
+  }
+}
+
+let popup = document.getElementById("popup");
+let popup2 = document.getElementById("popup2");
+
+// Allows popup to show on screen when clear button is pressed
+function displayPopup () {
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  if (remainingBlocks.length == 0) {
+    popup2.classList.add("display-popup");
+  } else {
+    popup.classList.add("display-popup");
+  }
+}
+
+// Closes popup message
+function closePopup () {
+  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+  if (remainingBlocks.length == 0) {
+    popup2.classList.remove("display-popup");
+  } else {
+    popup.classList.remove("display-popup");
+  }
+}
+
+//Allows background to blur when popup is shown
+function toggle() {
+  var blur = document.getElementById('blur');
+  blur.classList.toggle("active");
+  var popup = document.getElementById('popup');
+  popup.classList.toggle("active");
+  var popup2 = document.getElementById('popup2');
+  popup2.classList.toggle("active");
+}
+
+  window.stop = function stop () {
   
   if (!client.isConnected) {
     // Try to connect
