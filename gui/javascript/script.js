@@ -1,7 +1,7 @@
 let message = ''
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
-const stopped = false;
+const stopped = false
 let timeOutFunctionIds = []
 
 // set callback handlers
@@ -74,7 +74,7 @@ function onMessageArrived (message) {
     console.log('Sent messages: ' + message.payloadString)
   }
 }
-function displayMessage(message) {
+function displayMessage (message) {
   window.alert(message)
 }
 
@@ -276,11 +276,11 @@ function getBlock (remainingBlock) {
     value = remainingBlock.children[1].value
   } else if (remainingBlock.id === 'turn-around-copy') {
     subString2 = 'turn-around'
-    let number = 180
+    const number = 180
     value = number.toString()
   } else if (remainingBlock.id === 'spin-copy') {
     subString2 = 'spin'
-    let number = 360
+    const number = 360
     value = number.toString()
   } else if (remainingBlock.id === 'wait-copy') {
     subString2 = 'wait'
@@ -306,7 +306,6 @@ window.start = function start () {
 }
 // This will be tested later for the MQTT
 window.start1 = function start1 () {
-
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
@@ -322,15 +321,13 @@ window.start1 = function start1 () {
   if (contents[0].direction === 'left' || contents[0].direction === 'right' || contents[0].direction === 'spin' || contents[0].direction === 'turn-around') {
     executionSeconds = (contents[0].steps * 130)
   }
-
   else {
     executionSeconds = (contents[0].steps * 1000)
   }
 
-
   for (let i = 1; i < contents.length; i++) {
     const timeOutId = setTimeout(function(){
-      publishForMovement(contents[i].direction, contents[i].steps)
+      publishForMovement (contents[i].direction, contents[i].steps)
     }, executionSeconds - 100)
     console.log('Start: ' + timeOutId)
     timeOutFunctionIds.push(timeOutId)
@@ -338,11 +335,9 @@ window.start1 = function start1 () {
     if (contents[i].direction === 'left' || contents[i].direction === 'right' || contents[i].direction === 'spin' || contents[i].direction === 'turn-around') {
       executionSeconds += (contents[i].steps * 130)
     }
-
     else {
       executionSeconds += (contents[i].steps * 1000)
     }
-
   }
 }
 
@@ -369,7 +364,7 @@ window.displayPopup = function displayPopup () {
 }
 
 // Closes popup message
-function closePopup () {
+window.closePopup = function closePopup () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   if (remainingBlocks.length === 0) {
     popup2.classList.remove('display-popup')
@@ -378,13 +373,13 @@ function closePopup () {
   }
 }
 
-//Allows background to blur when popup is shown
-function toggle() {
-  var blur = document.getElementById('blur')
+// Allows background to blur when popup is shown
+window.toggle = function toggle() {
+  let blur = document.getElementById('blur')
   blur.classList.toggle('active')
-  var popup = document.getElementById('popup')
+  let popup = document.getElementById('popup')
   popup.classList.toggle('active')
-  var popup2 = document.getElementById('popup2')
+  let popup2 = document.getElementById('popup2')
   popup2.classList.toggle('active')
 }
 
