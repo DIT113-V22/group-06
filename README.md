@@ -106,15 +106,20 @@ This is how your screen look now. You can start setting up the webpage now.
 
 ### The buttons
 
-Play button:
+<img width="592" alt="Screenshot 2022-05-29 at 15 11 05" src="https://user-images.githubusercontent.com/78755376/170870554-941d8711-5531-4cfc-b549-fc5c45545a10.png">
+
+
+**Play button:**
 When the play button is pressed all the elements that are inside the canvas are read and translated into commands for the car. Those are then sequentially send to the car with MQTT. When the car receives a message it executes the action specified in that message.
 
-Stop button:
+**Stop button:**
 The stup button sends another message to the car to stop the execution of the code sequence. However, it only stops the execution of the sequence, not the execution of an action. That means that if an action like "move 10 steps forward" is not stopped until those 10 steps are finished. It simply does not execute the messaged following that action. In case you need to stop the car during one action you can make use of our obstacle avoidance and place an obstacle to the front/back of the car depending on the direction it is going in. That will stop the movement of the car immediatly. 
 
-Clear button:
-The clear button is used to clear all code blocks from the canvas. Before doing that however the user is asked for confirmation.
+**Clear button:**
+The clear button is used to clear all code blocks from the canvas. Before doing that however, the user is asked for confirmation.
 
+**Trash can:**
+The trash can on the right is to delete single code blocks from the canvas. The user can drag the code blocks into the trash to delete them. If a repeat block is dragged into the trash can all the blocks inside are deleted as well.
 
 <br />
 <br />
