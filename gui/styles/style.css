@@ -3,7 +3,7 @@
 /* Fonts */
 @font-face {
   font-family: "Melt";
-  src: url("Melt_LV1_Regular.otf");
+  src: url("Melt_LV1_Regular.ttf");
 }
 
 /* Classes for attributes */
@@ -47,27 +47,40 @@
   padding-bottom: 20px;
   justify-content: center;
   margin-left: -10px;
-  min-height: 600px;
   margin-bottom: 30px;
+  min-height: 980px;
+  height: 980px;
 }
 
 #trash-icon {
-  margin: 0 0 0 220px;
+  margin: 0 0 0 350px;
   width: 40px;
   cursor: pointer;
   animation-name: bounce;
 }
 
+#label {
+  font-size: 19px;
+}
+
+.input {
+  width: 50px;
+  padding-right: 0px;
+  font-size: 20px;
+}
+
 #move-forward {
   background-color: #14bcf3;
-  width: 75%;
+  color: #074256;
+  width: 80%;
 
   --background-color: #14bcf3;
 }
 
 #move-backwards {
   background-color: #ff9800;
-  width: 75%;
+  color: #6b4101;
+  width: 80%;
   border-color: transparent;
 
   --background-color: #ff9800;
@@ -75,7 +88,8 @@
 
 #move-left {
   background-color: #f30fa2;
-  width: 75%;
+  color: #58053b;
+  width: 80%;
   border-color: transparent;
 
   --background-color: #f30fa2;
@@ -83,7 +97,8 @@
 
 #move-right {
   background-color: #01b040;
-  width: 75%;
+  color: #01451a;
+  width: 80%;
   border-width: 3px;
   border-color: #000;
 
@@ -92,29 +107,33 @@
 
 #turn-around {
   background-color: #e41919;
-  width: 75%;
+  color: #430808;
+  width: 80%;
   border-color: transparent;
 
   --background-color: #e41919;
 }
 
 #spin {
-  background-color: #c122bb;
-  width: 75%;
+  background-color: #ca23c4;
+  color: #4b0e49;
+  width: 80%;
 
-  --background-color: #c122bb;
+  --background-color: #ca23c4;
 }
 
 #wait {
   background-color: #1de5a3;
-  width: 75%;
+  color: #0a4833;
+  width: 80%;
 
   --background-color: #1de5a3;
 }
 
 #repeat {
   background-color: #ca6702;
-  width: 75%;
+  color: #472400;
+  width: 80%;
 
   --background-color: #ca6702;
 }
@@ -131,6 +150,7 @@
 
 #move-forward-copy {
   background-color: #14bcf3;
+  color: #074256;
   width: 50%;
   text-align: center;
 
@@ -141,6 +161,7 @@
 
 #move-backwards-copy {
   background-color: #ff9800;
+  color: #6b4101;
   width: 50%;
 
   --background-color: #ff9800;
@@ -151,6 +172,7 @@
 
 #move-left-copy {
   background-color: #f30fa2;
+  color: #58053b;
   width: 50%;
   text-align: center;
   margin-bottom: 15px;
@@ -160,6 +182,7 @@
 
 #move-right-copy {
   background-color: #01b040;
+  color: #01451a;
   border-width: 3px;
   border-color: #000;
   width: 50%;
@@ -172,6 +195,7 @@
 
 #turn-around-copy {
   background-color: #e41919;
+  color: #430808;
   width: 50%;
   text-align: center;
 
@@ -181,17 +205,19 @@
 }
 
 #spin-copy {
-  background-color: #c122bb;
+  background-color: #ca23c4;
+  color: #4b0e49;
   width: 50%;
   text-align: center;
 
-  --background-color: #c122bb;
+  --background-color: #ca23c4;
 
   margin-bottom: 15px;
 }
 
 #wait-copy {
   background-color: #1de5a3;
+  color: #0a4833;
   width: 50%;
   text-align: center;
 
@@ -202,6 +228,7 @@
 
 #repeat-copy {
   background-color: #ca6702;
+  color: #472400;
   width: 50%;
   text-align: center;
 
@@ -216,19 +243,22 @@
 }
 
 .col-8 {
-  font-family: "Varela Round", sans-serif;
+  font-family: Melt;
   font-size: 20px;
   letter-spacing: -0.8px;
   color: #000;
 }
 
 .selection-menu-title {
-  font-size: 23px;
-  padding: 13px 0 0;
+  font-size: 20px;
+  padding: 30px 0 10px;
+  font-family: Melt;
+  letter-spacing: 1.5px;
+  color: #404040;
 }
 
 .selection-menu-type {
-  font-family: "Varela Round", sans-serif;
+  font-family: Melt;
   font-size: 25px;
   letter-spacing: -0.8px;
   padding: 0 0 10px;
@@ -253,14 +283,14 @@
 
 .canvas-container {
   padding-top: 35px;
-  background-color: #eeee;
+  background-color: #ededed;
 
   --background-color: #eeee;
 
   border-radius: 30px;
   height: max-content;
   padding-bottom: 30px;
-  min-height: 925px;
+  min-height: 980px;
 }
 
 .canvas-menu {
@@ -271,7 +301,7 @@
   width: 100%;
   background-color: #eeee;
   border-radius: 20px;
-  height: max-content;
+  height: min-content;
   padding-bottom: 10px;
   margin-top: 45px;
 }
@@ -360,7 +390,7 @@ button {
   width: 2rem;
   height: 0;
   border-top: 1rem solid;
-  border-top-color: #eee;
+  border-top-color: #ededed;
   opacity: 1;
   border-left: 1rem solid transparent;
   border-right: 1rem solid transparent;
@@ -389,7 +419,7 @@ form {
   margin: 0 auto 20px;
   padding: 5px 0 10px;
   background-color: #ffc15e;
-  font-family: "Segoe UI", sans-serif;
+  font-family: Melt;
 }
 
 input {
@@ -417,25 +447,19 @@ label {
   padding: 0 30px 30px;
   color: #fff;
   visibility: hidden;
-  transition: transform 0.4s, top 0.4s;
+  transition: transform 0.6s, top 0.6s;
   display: block;
   box-shadow: 0 5px 30px rgba(0 0 0 / 30%);
 }
 
 #popup {
   background: #404040;
-  border: #000;
-  border-width: 2px;
-  border-style: solid;
   width: 500px;
   border-radius: 30px;
 }
 
 #popup2 {
   background: #dc1c13;
-  border: white;
-  border-width: 1.5px;
-  border-style: solid;
   width: 450px;
   height: 250px;
   padding: 5px 20px 20px;
@@ -480,7 +504,7 @@ label {
 }
 
 #back-btn {
-  color: #404040;
+  color: #6d100b;
   margin-top: 20px;
   margin-bottom: 0;
 }
