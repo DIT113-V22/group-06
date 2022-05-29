@@ -68,7 +68,7 @@ function onConnectionLost (responseObject) {
 // called when a message arrives
 function onMessageArrived (message) {
   if (message.payloadString.substring(0, 8) === 'Obstacle') {
-    displayMessage(message.payloadString)
+    displayMessage(message)
   } else {
     console.log('Sent messages: ' + message.payloadString)
   }
