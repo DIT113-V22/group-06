@@ -19,7 +19,7 @@ Ultimately, our hopes in making this program was to be able to **teach and inspi
 
 <br />
 
-<img width="575" alt="Screenshot 2022-05-25 at 19 36 09" src="https://user-images.githubusercontent.com/78755376/170877841-d3ff9aeb-be12-4ba1-87d8-0b90d6c80383.JPG" align="right">
+<img width="540" alt="Screenshot 2022-05-25 at 19 36 09" src="https://user-images.githubusercontent.com/78755376/170877841-d3ff9aeb-be12-4ba1-87d8-0b90d6c80383.JPG" align="right">
 
 ### :monkey: Who are we?
 
@@ -153,7 +153,7 @@ The trash can on the right is to delete single code blocks from the canvas. The 
 
 ## :movie_camera: Demo video
 
-Here is a link to our demo video:
+Here is a link to our demo video: https://youtu.be/aWcq6sd0ovw
 
 <br />
 <br />
@@ -194,6 +194,3 @@ if you want to go into a little more detail we recommend looking at the followin
 ![Untitled Diagram](https://user-images.githubusercontent.com/78755376/170675070-4954cdb9-7f5c-4001-a46f-bf7f591274ad.png)
 
 
-
-Please provide a link to your group's repository.
-<https://github.com/DIT113-V22/group-06.git>
