@@ -19,6 +19,26 @@ Ultimately, our hopes in making this program was to be able to **teach and inspi
 
 <br />
 
+<img width="575" alt="Screenshot 2022-05-25 at 19 36 09" src="https://user-images.githubusercontent.com/78755376/170877841-d3ff9aeb-be12-4ba1-87d8-0b90d6c80383.JPG" align="right">
+
+### :monkey: Who are we?
+
+**M** ichael Larsson: [BrakeLightBoy](github.com/BrakeLightBoy)
+
+**O** scar Reína Gustavson: [gusreinaos](github.com/gusreinaos)
+
+**N** ia Georgieva: [gusniage02](github.com/gusniage02)
+
+**K** wabena Asare Boström: [TheRealKwabena](github.com/TheRealKwabena)
+
+**E** lisa Ahlbäck Norris: [elisaahlback](github.com/elisaahlback)
+
+**y**
+
+**CAR** lotta Hillger: [carlottahillger](github.com/carlottahillger)
+
+<br />
+
 ### :question: How did we plan to do it?
 
 We had a lot of different ideas on how to implement this idea, however we soon realised that some of them were too ambitious for the context of this project. We still want to highlight some of the other ideas we had:
