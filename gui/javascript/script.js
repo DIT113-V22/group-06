@@ -1,7 +1,7 @@
 let message = ''
 const client = new Paho.MQTT.Client('broker.emqx.io', 8083, 'group-06-monkeycar')
 
-let stopped = false;
+const stopped = false
 let timeOutFunctionIds = []
 
 // set callback handlers
@@ -41,6 +41,21 @@ function publishForMovement (direction, steps) {
     message.destinationName = 'smartcar/control/steer-right'
     client.send(message)
   }
+  if (direction === 'wait') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/wait'
+    client.send(message)
+  }
+  if (direction === 'spin') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/spin'
+    client.send(message)
+  }
+  if (direction === 'turn-around') {
+    message = new Paho.MQTT.Message(steps)
+    message.destinationName = 'smartcar/control/turn'
+    client.send(message)
+  }
 }
 
 // called when the client loses its connection
@@ -52,7 +67,14 @@ function onConnectionLost (responseObject) {
 
 // called when a message arrives
 function onMessageArrived (message) {
-  console.log('Sent messages: ' + message.payloadString)
+  if (message.payloadString.substring(0, 8) === 'Obstacle') {
+    displayMessage(message)
+  } else {
+    console.log('Sent messages: ' + message.payloadString)
+  }
+}
+function displayMessage (message) {
+  window.alert(message)
 }
 
 class BlockEntity {
@@ -125,8 +147,6 @@ window.dropInRepeat = function dropInRepeat (ev) {
   ev.preventDefault()
   // const selectedBlock =  getRepeatBlock(ev.clientY)
   const repeatBlock = getRepeatBlock(ev.clientY).children[3]
-
-  console.log(repeatBlock)
   // we get the data we set in the drag() method
   const data = ev.dataTransfer.getData('text')
   // we check whether the selected block is inside the selection menu or in the canvas and make a copy of it
@@ -176,7 +196,6 @@ function getElementAfter (y, canvas, repeatBlock) {
   } else {
     remainingBlocks = [...repeatBlock.querySelectorAll('.block:not(.dragging)')]
   }
-  console.log(remainingBlocks)
   // check which element is closest after(-> offset below 0) the current position and return it
   return remainingBlocks.reduce((closest, child) => {
     const box = child.getBoundingClientRect()
@@ -213,68 +232,114 @@ function getRepeatBlock (y) {
 }
 
 /// Function to get the text of all code blocks in the canvas
-function retrieveContents () {
-  const jsObjects = []
-  const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
+function retrieveContents (canvas) {
+  let jsObjects = []
+  const remainingBlocks = document.getElementById(canvas).querySelectorAll('.block')
+
   for (let i = 0; i < remainingBlocks.length; i++) {
-    let subString2 = ''
-    console.log(remainingBlocks[i].id)
-    if (remainingBlocks[i].id === 'move-forward-copy') {
-      subString2 = 'forward'
-    } else if (remainingBlocks[i].id === 'move-backwards-copy') {
-      subString2 = 'backwards'
-    } else if (remainingBlocks[i].id === 'move-left-copy') {
-      subString2 = 'left'
-    } else if (remainingBlocks[i].id === 'move-right-copy') {
-      subString2 = 'right'
+    if (remainingBlocks[i].id === 'repeat-copy') {
+      jsObjects = getValuesInRepeat(remainingBlocks[i], jsObjects)
     } else {
-      subString2 = 'no-direction-specified'
+      const codeBlock = getBlock(remainingBlocks[i])
+      jsObjects.push(codeBlock)
     }
-
-    const codeBlock = new BlockEntity(
-      subString2,
-      remainingBlocks[i].children[1].value
-    )
-
-    jsObjects[i] = codeBlock
   }
   return jsObjects
 }
 
+function getValuesInRepeat (repeatBlock, jsObjects) {
+  const remainingBlocks = repeatBlock.children[3].querySelectorAll('.block')
+  for (let j = 0; j < repeatBlock.children[1].value - 1; j++) {
+    for (let i = 0; i < remainingBlocks.length; i++) {
+      const codeBlock = getBlock(remainingBlocks[i])
+      jsObjects.push(codeBlock)
+    }
+  }
+  return jsObjects
+}
+
+function getBlock (remainingBlock) {
+  let subString2 = ''
+  let value = 0
+  if (remainingBlock.id === 'move-forward-copy') {
+    subString2 = 'forward'
+    value = remainingBlock.children[1].value
+  } else if (remainingBlock.id === 'move-backwards-copy') {
+    subString2 = 'backwards'
+    value = remainingBlock.children[1].value
+  } else if (remainingBlock.id === 'move-left-copy') {
+    subString2 = 'left'
+    value = remainingBlock.children[1].value
+  } else if (remainingBlock.id === 'move-right-copy') {
+    subString2 = 'right'
+    value = remainingBlock.children[1].value
+  } else if (remainingBlock.id === 'turn-around-copy') {
+    subString2 = 'turn-around'
+    const number = 180
+    value = number.toString()
+  } else if (remainingBlock.id === 'spin-copy') {
+    subString2 = 'spin'
+    const number = 360
+    value = number.toString()
+  } else if (remainingBlock.id === 'wait-copy') {
+    subString2 = 'wait'
+    value = remainingBlock.children[1].value
+  } else {
+    subString2 = 'no-direction-specified'
+  }
+
+  const codeBlock = new BlockEntity(
+    subString2,
+    value
+  )
+
+  return codeBlock
+}
+
 // For testing purposes when Play button is clicked
 window.start = function start () {
-  const contents = retrieveContents()
+  const contents = retrieveContents('canvas')
   for (let i = 0; i < contents.length; i++) {
     console.log(contents[i])
   }
 }
 // This will be tested later for the MQTT
 window.start1 = function start1 () {
-  
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
     client.connect({ onSuccess: onConnect })
   }
   console.log('Connected....')
-  const contents = retrieveContents()
+  const contents = retrieveContents('canvas')
   console.log(contents)
-  
+
   publishForMovement(contents[0].direction, contents[0].steps)
-  let executionSeconds = contents[0].steps * 1000
+  let executionSeconds = 0
+
+  if (contents[0].direction === 'left' || contents[0].direction === 'right' || contents[0].direction === 'spin' || contents[0].direction === 'turn-around') {
+    executionSeconds = (contents[0].steps * 130)
+  } else {
+    executionSeconds = (contents[0].steps * 1000)
+  }
 
   for (let i = 1; i < contents.length; i++) {
-    let timeOutId = setTimeout(function(){
+    const timeOutId = setTimeout(function () {
       publishForMovement(contents[i].direction, contents[i].steps)
     }, executionSeconds - 100)
-    console.log("Start: " + timeOutId)
+    console.log('Start: ' + timeOutId)
     timeOutFunctionIds.push(timeOutId)
-    executionSeconds += (contents[i].steps * 1000)
+
+    if (contents[i].direction === 'left' || contents[i].direction === 'right' || contents[i].direction === 'spin' || contents[i].direction === 'turn-around') {
+      executionSeconds += (contents[i].steps * 130)
+    } else {
+      executionSeconds += (contents[i].steps * 1000)
+    }
   }
 }
 
 // Function to delete all code blocks currently in the canvas
-function clearAll () {
+window.clearAll = function clearAll () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
   console.log(remainingBlocks)
   for (let i = 0; i < remainingBlocks.length; i++) {
@@ -282,41 +347,40 @@ function clearAll () {
   }
 }
 
-let popup = document.getElementById("popup");
-let popup2 = document.getElementById("popup2");
+const popup = document.getElementById('popup')
+const popup2 = document.getElementById('popup2')
 
 // Allows popup to show on screen when clear button is pressed
-function displayPopup () {
+window.displayPopup = function displayPopup () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
-  if (remainingBlocks.length == 0) {
-    popup2.classList.add("display-popup");
+  if (remainingBlocks.length === 0) {
+    popup2.classList.add('display-popup')
   } else {
-    popup.classList.add("display-popup");
+    popup.classList.add('display-popup')
   }
 }
 
 // Closes popup message
-function closePopup () {
+window.closePopup = function closePopup () {
   const remainingBlocks = document.getElementById('canvas').querySelectorAll('.block')
-  if (remainingBlocks.length == 0) {
-    popup2.classList.remove("display-popup");
+  if (remainingBlocks.length === 0) {
+    popup2.classList.remove('display-popup')
   } else {
-    popup.classList.remove("display-popup");
+    popup.classList.remove('display-popup')
   }
 }
 
-//Allows background to blur when popup is shown
-function toggle() {
-  var blur = document.getElementById('blur');
-  blur.classList.toggle("active");
-  var popup = document.getElementById('popup');
-  popup.classList.toggle("active");
-  var popup2 = document.getElementById('popup2');
-  popup2.classList.toggle("active");
+// Allows background to blur when popup is shown
+window.toggle = function toggle () {
+  const blur = document.getElementById('blur')
+  blur.classList.toggle('active')
+  const popup = document.getElementById('popup')
+  popup.classList.toggle('active')
+  const popup2 = document.getElementById('popup2')
+  popup2.classList.toggle('active')
 }
 
-  window.stop = function stop () {
-  
+window.stop = function stop () {
   if (!client.isConnected) {
     // Try to connect
     console.log('Not connected....')
@@ -324,8 +388,8 @@ function toggle() {
   }
   console.log('Connected....')
   timeOutFunctionIds.forEach(timeOutId => {
-    console.log("Stop: " + timeOutId)
+    console.log('Stop: ' + timeOutId)
     clearTimeout(timeOutId)
-  });
+  })
   timeOutFunctionIds = []
 }
